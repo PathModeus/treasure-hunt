@@ -1,0 +1,14 @@
+.score 
+{   
+    display: flex;
+    width: 50%;
+    border: 1px solid-black;
+    justify-content: space-between;
+}
+nav
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: blue;
+}
