@@ -1,5 +1,5 @@
-.score 
-{   
+.score
+{
     display: flex;
     width: 50%;
     border: 1px solid-black;
@@ -10,5 +10,13 @@ nav
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: blue;
+    background-color: darkblue;
+}
+a
+{
+    color: black;
+}
+a:hover
+{
+    background-color: gray;
 }
