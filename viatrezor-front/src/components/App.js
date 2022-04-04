@@ -1,9 +1,12 @@
 import Banner from './Banner'
-import Navbar from './Navbar'
+import Navbarvt from './Navbar'
 
-function App() {
+function App() { 
   return (
-  <Banner /> 
+  <div>
+    <Banner />
+    <Navbarvt />
+  </div>
   )
 }
 
