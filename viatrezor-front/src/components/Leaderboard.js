@@ -9,7 +9,9 @@ function Leaderboard(props) {
           <h1 className='leaderboard-head-text'>Leaderboard</h1>
         </div>
       </div>
-      <div classname='leaderboard-body'>{listTeams}</div>
+      <div className='leaderboard-body-wrap'>
+        <div className='leaderboard-body'>{listTeams}</div>
+      </div>
     </div>
   )
 }
