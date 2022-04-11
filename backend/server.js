@@ -11,6 +11,7 @@ app.get("/api/clients", (req, res) => {
 
     res.json(customers);
 });
+
 app.listen(port, () => {
     console.log(`listen on port ${port}`);
 });
