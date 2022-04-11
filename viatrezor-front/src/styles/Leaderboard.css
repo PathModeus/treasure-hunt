@@ -1,0 +1,37 @@
+.leaderboard-head {
+    display: flex;
+    justify-content: space-around;
+}
+
+.leaderboard-head-text {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.team-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.team-line-name {
+    width: 15%;
+    text-align: center;
+}
+
+.team-line-time {
+    width: 15%;
+    text-align: center;
+}
+
+.team-line-score {
+    width: 10%;
+    text-align: center;
+}
+
+.team-line-pause {
+    width: 15%;
+    text-align: center;
+}
