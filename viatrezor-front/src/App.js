@@ -32,7 +32,7 @@ function App() {
           <Route index element = { <Home /> } />
           <Route path='leaderboard' element={ <Leaderboard teamsList = {teamList} /> } />
           <Route path='contact' element={ <Contact />} />
-          <Route path='create' element={ <CreateTeam />} />
+          <Route path='create-team' element={ <CreateTeam />} />
           <Route path='enigma' element = { <Enigma />} />
           <Route path='*' element = { <NotFound/>}/>
         </Route>

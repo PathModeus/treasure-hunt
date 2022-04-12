@@ -28,7 +28,7 @@ function Navbarvt() {
                 <Nav.Link as={Link} to="/enigma">Enigme finale</Nav.Link>              
                 <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>              
                 <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-                <Nav.Link as={Link} to="/create">Créer une équipe</Nav.Link>
+                <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
                 
               </Nav>
             </Offcanvas.Body>
