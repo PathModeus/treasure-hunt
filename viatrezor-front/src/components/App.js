@@ -1,6 +1,7 @@
 import Banner from './Banner'
 import Navbarvt from './Navbar'
 import Leaderboard from './Leaderboard'
+import CreateTeam from './CreateTeam'
 
 const team1 = {
   name:'les BG du 97',
@@ -19,7 +20,8 @@ function App() {
   <div>
     <Banner />
     <Navbarvt />
-    <Leaderboard teamsList = {teamList}/>
+    {/* <Leaderboard teamsList = {teamList}/> */}
+    <CreateTeam/>
   </div>
   )
 }
