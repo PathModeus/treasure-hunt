@@ -8739,10 +8739,17 @@
   "resolved" "https://registry.npmjs.org/webpack-sources/-/webpack-sources-3.2.3.tgz"
   "version" "3.2.3"
 
+<<<<<<< HEAD
 "webpack@^4.0.0 || ^5.0.0", "webpack@^4.37.0 || ^5.0.0", "webpack@^4.4.0 || ^5.9.0", "webpack@^4.44.2 || ^5.47.0", "webpack@^5.0.0", "webpack@^5.1.0", "webpack@^5.20.0", "webpack@^5.64.4", "webpack@^5.72.0", "webpack@>= 4", "webpack@>=2", "webpack@>=4.43.0 <6.0.0":
   "integrity" "sha512-qmSmbspI0Qo5ld49htys8GY9XhS9CGqFoHTsOVAnjBdg0Zn79y135R+k4IR4rKK6+eKaabMhJwiVB7xw0SJu5w=="
   "resolved" "https://registry.npmjs.org/webpack/-/webpack-5.72.0.tgz"
   "version" "5.72.0"
+=======
+"webpack@^4.0.0 || ^5.0.0", "webpack@^4.37.0 || ^5.0.0", "webpack@^4.4.0 || ^5.9.0", "webpack@^4.44.2 || ^5.47.0", "webpack@^5.0.0", "webpack@^5.1.0", "webpack@^5.20.0", "webpack@^5.64.4", "webpack@>= 4", "webpack@>=2", "webpack@>=4.43.0 <6.0.0":
+  "integrity" "sha512-g4dFT7CFG8LY0iU5G8nBL6VlkT21Z7dcYDpJAEJV5Q1WLb9UwnFbrem1k7K52ILqEmomN7pnzWFxxE6SlDY56A=="
+  "resolved" "https://registry.npmjs.org/webpack/-/webpack-5.71.0.tgz"
+  "version" "5.71.0"
+>>>>>>> 5ab8361b7fa17e407d1fdc4d12e10972e1d8a7aa
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"

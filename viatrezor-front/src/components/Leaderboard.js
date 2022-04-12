@@ -28,9 +28,9 @@ function convertTime(time) {
 function TeamLine(props) {
     return (
         <div className='team-line'>
-          <div className='team-line-name'>{props.team.name}</div>
-          <div className='team-line-time'>{convertTime(props.team.time)}</div>
-          <div className='team-line-score'>{props.team.score}pts</div> 
+          <div className='team-line-name team-line-element'>{props.team.name}</div>
+          <div className='team-line-time team-line-element'>{convertTime(props.team.time)}</div>
+          <div className='team-line-score team-line-element'>{props.team.score}pts</div> 
           <StopButton name={props.team}/>
         </div>
       )
@@ -38,7 +38,7 @@ function TeamLine(props) {
 
 function StopButton(props) {
     return (
-        <button class="team-line-pause">Pause</button>
+        <button class="team-line-pause team-line-element">Pause</button>
       )
 }
 

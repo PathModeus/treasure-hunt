@@ -4,7 +4,7 @@ import Leaderboard from './components/Leaderboard'
 import CreateTeam from './components/CreateTeam'
 import Home from './components/Home'
 import Contact from './components/Contact'
-import Enigm from './components/Enigm'
+import Enigma from './components/Enigma'
 import Auth from './components/Auth'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
@@ -31,8 +31,8 @@ function App() {
           <Route index element = { <Home /> } />
           <Route path='leaderboard' element={ <Leaderboard teamsList = {teamList} /> } />
           <Route path='contact' element={ <Contact />} />
-          <Route path='auth' element={ <Auth />} />
-          <Route path='enigm' element = { <Enigm />} />
+          <Route path='create' element={ <CreateTeam />} />
+          <Route path='enigma' element = { <Enigma />} />
         </Route>
       </Routes>
     </BrowserRouter>

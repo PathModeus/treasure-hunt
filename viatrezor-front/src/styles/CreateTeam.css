@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .create-team-title {
@@ -16,4 +17,8 @@
 
 .create-team-members-input {
     height: 100px;
+}
+
+.shrek {
+    max-width: 100%;
 }

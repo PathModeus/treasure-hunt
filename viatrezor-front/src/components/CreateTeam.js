@@ -10,7 +10,7 @@ function CreateTeam() {
                 <TeamMembers/>
                 <SubmitButton/>
             </div>
-            <img src={shrek} alt='shreksophone'/>
+            <img className='shrek' src={shrek} alt='shreksophone'/>
         </div>
 
     )

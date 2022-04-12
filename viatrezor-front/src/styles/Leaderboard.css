@@ -31,22 +31,8 @@
     border-radius: 13px;
 }
 
-.team-line-name {
+.team-line-element {
     width: 10%;
     text-align: center;
-}
-
-.team-line-time {
-    width: 10%;
-    text-align: center;
-}
-
-.team-line-score {
-    width: 10%;
-    text-align: center;
-}
-
-.team-line-pause {
-    width: 10%;
-    text-align: center;
+    min-width: 100px;
 }

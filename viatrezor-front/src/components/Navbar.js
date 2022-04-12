@@ -25,10 +25,10 @@ function Navbarvt() {
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 
                 <Nav.Link as={Link} to="/">Accueil</Nav.Link>  
-                <Nav.Link as={Link} to="/enigm">Enigme finale</Nav.Link>              
+                <Nav.Link as={Link} to="/enigma">Enigme finale</Nav.Link>              
                 <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>              
                 <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-                <Nav.Link as={Link} to="/auth">Se connecter</Nav.Link>
+                <Nav.Link as={Link} to="/create">Créer une équipe</Nav.Link>
                 
               </Nav>
             </Offcanvas.Body>
