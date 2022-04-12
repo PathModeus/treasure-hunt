@@ -2,15 +2,16 @@ import Navbar from "react-bootstrap/Navbar"
 import Offcanvas from "react-bootstrap/Offcanvas"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
+import { Outlet, Link } from "react-router-dom"
 import { LinkContainer } from "react-router-bootstrap"
 
 
 function Navbarvt() {
   return (
     <div className = 'Navbarvt'>
-      <Navbar bg="dark" variant="dark" expand={false}>
+      <Navbar className ="NavBG" bg="dark" variant="dark" expand={false}>
         <Container fluid>
-          <Navbar.Brand href="#">Menu</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
           <Navbar.Toggle aria-controls="Menu" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -22,26 +23,23 @@ function Navbarvt() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <LinkContainer to="/home">
-                  <Nav.Link>Accueil</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/enigm">
-                  <Nav.Link>Enigme finale</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/leaderboard">
-                  <Nav.Link>Classement</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/contact">
-                  <Nav.Link>Contact</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/auth">
-                  <Nav.Link>Se connecter</Nav.Link>
-                </LinkContainer>
+                
+                <Nav.Link as={Link} to="/">Accueil</Nav.Link>  
+                <Nav.Link as={Link} to="/enigm">Enigme finale</Nav.Link>              
+                <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>              
+                <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+                <Nav.Link as={Link} to="/auth">Se connecter</Nav.Link>
+                
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+
+      <section>
+        <Outlet></Outlet>
+      </section>
+
     </div>
   )
 }
