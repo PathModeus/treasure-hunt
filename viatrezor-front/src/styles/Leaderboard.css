@@ -1,0 +1,38 @@
+.leaderboard-head {
+    display: flex;
+    justify-content: space-around;
+}
+
+.leaderboard-head-text {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.leaderboard-body-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.leaderboard-body {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.team-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: chartreuse;
+    border-radius: 13px;
+}
+
+.team-line-element {
+    width: 10%;
+    text-align: center;
+    min-width: 100px;
+}
