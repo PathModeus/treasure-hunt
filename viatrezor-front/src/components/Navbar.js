@@ -2,9 +2,8 @@ import Navbar from "react-bootstrap/Navbar"
 import Offcanvas from "react-bootstrap/Offcanvas"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
-import Button from "react-bootstrap/Button"
-import NavDropdown from "react-bootstrap/NavDropdown"
-import FormControl from "react-bootstrap/FormControl"
+import { LinkContainer } from "react-router-bootstrap"
+
 
 function Navbarvt() {
   return (
@@ -23,11 +22,21 @@ function Navbarvt() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Accueil</Nav.Link>
-                <Nav.Link href="#action2">Enigme finale</Nav.Link>
-                <Nav.Link href="#action3">Classement</Nav.Link>
-                <Nav.Link href="#action4">Contact</Nav.Link>
-                <Nav.Link href="#authenticate">Se connecter</Nav.Link>
+                <LinkContainer to="/home">
+                  <Nav.Link>Accueil</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/enigm">
+                  <Nav.Link>Enigme finale</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/leaderboard">
+                  <Nav.Link>Classement</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/contact">
+                  <Nav.Link>Contact</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/auth">
+                  <Nav.Link>Se connecter</Nav.Link>
+                </LinkContainer>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
