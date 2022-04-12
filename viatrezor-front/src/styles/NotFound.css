@@ -1,0 +1,42 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+}
+
+.not-found-img {
+    max-width: 100%;
+    width: 500px;
+}
+
+.not-found-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.not-found-text {
+    text-align: center;
+    font-size: x-large;
+}
+
+.not-found-button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    border-radius: 15px;
+    width: 200px;
+    min-width: 100px
+}
+
+.not-found-button-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

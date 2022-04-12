@@ -6,6 +6,7 @@ import Home from './components/Home'
 import Contact from './components/Contact'
 import Enigma from './components/Enigma'
 import Auth from './components/Auth'
+import NotFound from './components/NotFound'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 
@@ -33,6 +34,7 @@ function App() {
           <Route path='contact' element={ <Contact />} />
           <Route path='create' element={ <CreateTeam />} />
           <Route path='enigma' element = { <Enigma />} />
+          <Route path='*' element = { <NotFound/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
