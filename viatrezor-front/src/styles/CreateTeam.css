@@ -1,0 +1,19 @@
+.create-team-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.create-team-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.create-team-title {
+    text-align: left;
+}
+
+.create-team-members-input {
+    height: 100px;
+}
