@@ -2,6 +2,12 @@ import Banner from './Banner'
 import Navbarvt from './Navbar'
 import Leaderboard from './Leaderboard'
 import CreateTeam from './CreateTeam'
+import Home from './Home'
+import Contact from './Contact'
+import Enigm from './Enigm'
+import Auth from './Auth'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+
 
 const team1 = {
   name:'les BG du 97',
@@ -19,9 +25,17 @@ function App() {
   return (
   <div>
     <Banner />
-    <Navbarvt />
-    {/* <Leaderboard teamsList = {teamList}/> */}
-    <CreateTeam/>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element = { <Navbarvt /> }>
+          <Route index element = { <Home /> } />
+          <Route path='leaderboard' element={ <Leaderboard teamsList = {teamList} /> } />
+          <Route path='contact' element={ <Contact />} />
+          <Route path='auth' element={ <Auth />} />
+          <Route path='enigm' element = { <Enigm />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </div>
   )
 }

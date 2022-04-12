@@ -2,16 +2,16 @@ import Navbar from "react-bootstrap/Navbar"
 import Offcanvas from "react-bootstrap/Offcanvas"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
-import Button from "react-bootstrap/Button"
-import NavDropdown from "react-bootstrap/NavDropdown"
-import FormControl from "react-bootstrap/FormControl"
+import { Outlet, Link } from "react-router-dom"
+import { LinkContainer } from "react-router-bootstrap"
+
 
 function Navbarvt() {
   return (
     <div className = 'Navbarvt'>
-      <Navbar bg="dark" variant="dark" expand={false}>
+      <Navbar className ="NavBG" bg="dark" variant="dark" expand={false}>
         <Container fluid>
-          <Navbar.Brand href="#">Menu</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
           <Navbar.Toggle aria-controls="Menu" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -23,16 +23,23 @@ function Navbarvt() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Accueil</Nav.Link>
-                <Nav.Link href="#action2">Enigme finale</Nav.Link>
-                <Nav.Link href="#action3">Classement</Nav.Link>
-                <Nav.Link href="#action4">Contact</Nav.Link>
-                <Nav.Link href="#authenticate">Se connecter</Nav.Link>
+                
+                <Nav.Link as={Link} to="/">Accueil</Nav.Link>  
+                <Nav.Link as={Link} to="/enigm">Enigme finale</Nav.Link>              
+                <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>              
+                <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+                <Nav.Link as={Link} to="/auth">Se connecter</Nav.Link>
+                
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+
+      <section>
+        <Outlet></Outlet>
+      </section>
+
     </div>
   )
 }
