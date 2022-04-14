@@ -13,12 +13,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 const team1 = {
   name:'les BG du 97',
   score: 1900,
-  time: 1215
+  time: 1215,
+  step: 4
 }
 const team2 = {
   name: 'shreksophuckers',
   score: 2500,
-  time: 1784
+  time: 1784,
+  step: 1
 }
 const teamList = [team1,team2];
 
@@ -29,7 +31,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element = { <Navbarvt /> }>
-          <Route index element = { <Home /> } />
+          <Route index element = { <Home team={team1}/> } />
           <Route path='leaderboard' element={ <Leaderboard teamsList = {teamList} /> } />
           <Route path='contact' element={ <Contact />} />
           <Route path='create-team' element={ <CreateTeam />} />
