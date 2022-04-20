@@ -1,3 +1,48 @@
 .circle {
     font-size: 40px;
 }
+
+@keyframes blink {   
+    from{       
+        opacity: 0%;
+    }
+    to{        
+        opacity: 100%;
+    }
+}
+
+.type-writer::after{    
+    content: "|";
+    animation: blink 1s infinite;
+}
+
+.type-writer {
+    align-self: center;
+    width: 50%;
+    border-width: 10px;
+    background-color: black;
+    border-color: grey;
+    height: 280px;
+    word-wrap: break-word;
+    color: white;
+    border-style: solid;
+    padding: 6px;
+    font-family: 'Ubuntu';
+    overflow:scroll;
+}
+
+
+.accueil-flex-hor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.accueil-flex-ver {
+    display: flex;
+    flex-direction:column;
+    width: 60%;
+}
+
+.advancement-bar {
+    align-self: center;
+}
