@@ -5,6 +5,7 @@ import CreateTeam from './components/CreateTeam'
 import Home from './components/Home'
 import Contact from './components/Contact'
 import Enigma from './components/Enigma'
+import Footer from './components/Footer'
 import Auth from './components/Auth'
 import NotFound from './components/NotFound'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
@@ -38,6 +39,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    <Footer />
   </div>
   )
 }
