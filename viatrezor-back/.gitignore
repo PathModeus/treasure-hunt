@@ -1,1 +1,3 @@
-nodmodules/
+*/node_modules/
+config.json
+viatrezor-back/node_modules
