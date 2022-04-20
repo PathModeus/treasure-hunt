@@ -1,0 +1,33 @@
+.asso {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    flex-wrap: wrap;
+}
+
+.asso-logo {
+    max-width: 100%;
+    height: 250px;
+}
+
+.asso-texte {
+    max-width: 100%;
+    width: 800px;
+    text-align: justify;
+    padding-top: 20px;
+}
+
+.wrap {
+    width: 1400px;
+    max-width: 100%;
+    padding-left: 20px;
+    padding-top: 70px;
+    gap: 50px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
+
+.impaire {
+    flex-direction: row-reverse;
+}
