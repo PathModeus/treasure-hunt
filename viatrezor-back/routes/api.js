@@ -22,8 +22,15 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-    console.log(req.params)
+    if (req.params.id === '15') console.log('Trop stylé')
+
+    else console.log('beep boop')
+
 });
+
+router.get('/:id', (req, res, next) => {
+    console.log('test')
+})
 
 router.put('/:id', (req, res, next) => {
 });
