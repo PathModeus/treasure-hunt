@@ -18,11 +18,12 @@
 
 .type-writer {
     align-self: center;
+    min-width:300px; 
     width: 50%;
     border-width: 10px;
     background-color: black;
     border-color: grey;
-    height: 280px;
+    height: 300px;
     word-wrap: break-word;
     color: white;
     border-style: solid;
@@ -45,4 +46,5 @@
 
 .advancement-bar {
     align-self: center;
+    text-align: center;
 }
