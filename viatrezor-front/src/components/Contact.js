@@ -32,7 +32,7 @@ function ViaRezo () {
     </a>
     <div className="asso-texte">
       <p>
-        Sans rigoler. Je pratique la MMA depuis maintenant 6 ans, de la boxe en parallèle depuis 7 ans, je pourrai. Ainsi que la musculation depuis 4 ans, 1m87 pour 86 kg. J'ai une vitesse de fou, et des réflexes identiques à ma vitesse. J'ai juste à l'attendre qu'il me charge, l'esquiver et lui donner des bonnes patates dans la tête. Je le lâcherai pas à la moindre erreur, le gorille est fini. T'auras toujours des puceaux d'ici pour penser que c'est impossible. Rien n'est impossible avec de la volonté déjà les amis, et de 2) c'est pas avec votre corps de lâche que vous allez faire quoi que ce soit. N'importe quel homme un minimum entraîné peut vaincre un gorille avec un couteau déjà. À main nue c'est pas forcément plus compliqué ça demande juste de la technique.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </div>
@@ -47,7 +47,7 @@ function LinkCS () {
     </a>
     <div className="asso-texte">
       <p>
-        Sans rigoler. Je pratique la MMA depuis maintenant 6 ans, de la boxe en parallèle depuis 7 ans, je pourrai. Ainsi que la musculation depuis 4 ans, 1m87 pour 86 kg. J'ai une vitesse de fou, et des réflexes identiques à ma vitesse. J'ai juste à l'attendre qu'il me charge, l'esquiver et lui donner des bonnes patates dans la tête. Je le lâcherai pas à la moindre erreur, le gorille est fini. T'auras toujours des puceaux d'ici pour penser que c'est impossible. Rien n'est impossible avec de la volonté déjà les amis, et de 2) c'est pas avec votre corps de lâche que vous allez faire quoi que ce soit. N'importe quel homme un minimum entraîné peut vaincre un gorille avec un couteau déjà. À main nue c'est pas forcément plus compliqué ça demande juste de la technique.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </div>
@@ -62,7 +62,7 @@ function AlgorithmiCS () {
     </a>
     <div className="asso-texte">
       <p>
-        Sans rigoler. Je pratique la MMA depuis maintenant 6 ans, de la boxe en parallèle depuis 7 ans, je pourrai. Ainsi que la musculation depuis 4 ans, 1m87 pour 86 kg. J'ai une vitesse de fou, et des réflexes identiques à ma vitesse. J'ai juste à l'attendre qu'il me charge, l'esquiver et lui donner des bonnes patates dans la tête. Je le lâcherai pas à la moindre erreur, le gorille est fini. T'auras toujours des puceaux d'ici pour penser que c'est impossible. Rien n'est impossible avec de la volonté déjà les amis, et de 2) c'est pas avec votre corps de lâche que vous allez faire quoi que ce soit. N'importe quel homme un minimum entraîné peut vaincre un gorille avec un couteau déjà. À main nue c'est pas forcément plus compliqué ça demande juste de la technique.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </div>
@@ -77,7 +77,7 @@ function CSDesign () {
     </a>
     <div className="asso-texte">
       <p>
-        Sans rigoler. Je pratique la MMA depuis maintenant 6 ans, de la boxe en parallèle depuis 7 ans, je pourrai. Ainsi que la musculation depuis 4 ans, 1m87 pour 86 kg. J'ai une vitesse de fou, et des réflexes identiques à ma vitesse. J'ai juste à l'attendre qu'il me charge, l'esquiver et lui donner des bonnes patates dans la tête. Je le lâcherai pas à la moindre erreur, le gorille est fini. T'auras toujours des puceaux d'ici pour penser que c'est impossible. Rien n'est impossible avec de la volonté déjà les amis, et de 2) c'est pas avec votre corps de lâche que vous allez faire quoi que ce soit. N'importe quel homme un minimum entraîné peut vaincre un gorille avec un couteau déjà. À main nue c'est pas forcément plus compliqué ça demande juste de la technique.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </div>
@@ -92,7 +92,7 @@ function CStudio () {
     </a>
     <div className="asso-texte">
       <p>
-        Sans rigoler. Je pratique la MMA depuis maintenant 6 ans, de la boxe en parallèle depuis 7 ans, je pourrai. Ainsi que la musculation depuis 4 ans, 1m87 pour 86 kg. J'ai une vitesse de fou, et des réflexes identiques à ma vitesse. J'ai juste à l'attendre qu'il me charge, l'esquiver et lui donner des bonnes patates dans la tête. Je le lâcherai pas à la moindre erreur, le gorille est fini. T'auras toujours des puceaux d'ici pour penser que c'est impossible. Rien n'est impossible avec de la volonté déjà les amis, et de 2) c'est pas avec votre corps de lâche que vous allez faire quoi que ce soit. N'importe quel homme un minimum entraîné peut vaincre un gorille avec un couteau déjà. À main nue c'est pas forcément plus compliqué ça demande juste de la technique.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </div>
@@ -107,7 +107,7 @@ function ClubTech () {
     </a>
     <div className="asso-texte">
       <p>
-        Sans rigoler. Je pratique la MMA depuis maintenant 6 ans, de la boxe en parallèle depuis 7 ans, je pourrai. Ainsi que la musculation depuis 4 ans, 1m87 pour 86 kg. J'ai une vitesse de fou, et des réflexes identiques à ma vitesse. J'ai juste à l'attendre qu'il me charge, l'esquiver et lui donner des bonnes patates dans la tête. Je le lâcherai pas à la moindre erreur, le gorille est fini. T'auras toujours des puceaux d'ici pour penser que c'est impossible. Rien n'est impossible avec de la volonté déjà les amis, et de 2) c'est pas avec votre corps de lâche que vous allez faire quoi que ce soit. N'importe quel homme un minimum entraîné peut vaincre un gorille avec un couteau déjà. À main nue c'est pas forcément plus compliqué ça demande juste de la technique.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </div>
