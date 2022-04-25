@@ -11,10 +11,28 @@ app.use((req, res, next) => {
     next();
 });
 
-const api = require('./routes/api');
-const auth = require('./src/oauth_impl')
+const bodyParser = require('body-parser');
+const config = require('./config.json');
+const auth = require("viarezo-auth");
+const session = require('express-session');
 
-app.use(oauth_impl.validate)
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'yourSecretIsThatYouKnowAllAboutFunkoPops',
+    resave: false,
+    proxy: true, // Especially if unsing nginx/apache
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
+app.use(auth.OAuthMiddleware(config));
+app.get('/auth', (req, res) => auth.AuthCallback(req, res));
+
+const api = require('./routes/api');
+
 app.use('/api/', api)
+
 
 module.exports = app;
