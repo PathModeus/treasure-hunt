@@ -28,8 +28,8 @@ router.get('/:id', (req, res, next) => {
 
 });
 
-router.get('/:id', (req, res, next) => {
-    console.log('test')
+router.get('/infos', (req, res, next) => {
+    console.log(req.session.user)
 })
 
 router.put('/:id', (req, res, next) => {
