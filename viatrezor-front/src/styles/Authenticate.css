@@ -1,0 +1,37 @@
+.authenticate {
+    display: flex;
+    flex-direction: column;
+}
+
+.authenticate-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.authenticate-text {
+    text-align: center;
+    font-size: x-large;
+}
+
+.authenticate-button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    border-radius: 15px;
+    width: 200px;
+    min-width: 100px
+}
+
+.authenticate-button-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
