@@ -2,6 +2,14 @@ import '../styles/Authenticate.css'
 
 function Authenticate () {
     return (
+        <div>
+            <AuthPage/>
+        </div>
+    )
+}
+
+function AuthPage () {
+    return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
