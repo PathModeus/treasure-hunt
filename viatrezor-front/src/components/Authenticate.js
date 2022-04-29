@@ -1,14 +1,25 @@
 import '../styles/Authenticate.css'
 
-function Authenticate () {
-    return (
-        <div>
-            <AuthPage/>
-        </div>
-    )
+function Authenticate() {
+    console.log("Baise ta mère vraiment très fort");
+    fetch('http://localhost:3001/api/infos')
+        .then(function (res) {
+            console.log('Réponse reçue !')
+        }
+        )
+        .then(function (value) {
+            console.log("Baise ta mère bien fort")
+            return (
+                <div>
+                    <h1>Bonjour {value}</h1>
+                </div>
+            )
+        });
+    console.log('passé')
+
 }
 
-function AuthPage () {
+function AuthPage() {
     return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
@@ -16,7 +27,7 @@ function AuthPage () {
                 <div className='authenticate-button-wrap'>
                     <form method="get" action="http://localhost:3001">
                         <button className='authenticate-button' type="submit">Se connecter</button>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
