@@ -6,7 +6,7 @@ import Home from './components/Home'
 import Contact from './components/Contact'
 import Enigma from './components/Enigma'
 import Footer from './components/Footer'
-import Authenticate from './components/Authenticate'
+import AuthPage from './components/Authenticate'
 import NotFound from './components/NotFound'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
@@ -37,7 +37,7 @@ function App() {
             <Route path='contact' element={<Contact />} />
             <Route path='create-team' element={<CreateTeam />} />
             <Route path='enigma' element={<Enigma />} />
-            <Route path='auth' element={<Authenticate />} />
+            <Route path='auth' element={<AuthPage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

@@ -1,14 +1,14 @@
 import '../styles/Authenticate.css'
 
 function Authenticate() {
-    console.log("Baise ta mère vraiment très fort");
+    console.log("passage 1");
     fetch('http://localhost:3001/api/infos')
         .then(function (res) {
             console.log('Réponse reçue !')
         }
         )
         .then(function (value) {
-            console.log("Baise ta mère bien fort")
+            console.log("infos reçues")
             return (
                 <div>
                     <h1>Bonjour {value}</h1>
@@ -34,4 +34,4 @@ function AuthPage() {
     )
 }
 
-export default Authenticate
+export default AuthPage
