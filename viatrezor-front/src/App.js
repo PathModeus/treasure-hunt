@@ -37,7 +37,7 @@ function App() {
             <Route path='contact' element={<Contact />} />
             <Route path='create-team' element={<CreateTeam />} />
             <Route path='enigma' element={<Enigma />} />
-            <Route path='auth' element={<AuthPage />} />
+            <Route path='login' element={<AuthPage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
