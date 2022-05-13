@@ -32,13 +32,13 @@ function Advancement (props) {
 
 function ToDoStep () {
   return (
-    <span className = 'red-circle circle'>&#128308;</span>
+    <span className = 'red-circle circle'>&#128308; </span>
   )
 }
 
 function DoneStep () {
   return (
-    <span className='green-circle circle'>&#128994;</span>
+    <span className='green-circle circle'>&#128994; </span>
   )
 }
 
