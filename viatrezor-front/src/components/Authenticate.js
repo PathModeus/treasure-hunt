@@ -3,7 +3,7 @@ import '../styles/Authenticate.css'
 
 function Authenticate(setstate) {
     console.log("passage 1");
-    fetch('http://localhost:3001/api/15', {
+    fetch('http://localhost:3001/auth/', {
         method: 'GET',
         headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization', },
         mode: 'cors',
@@ -11,6 +11,7 @@ function Authenticate(setstate) {
     })
         .then(function (res) {
             console.log(res)
+            console.log('ici')
             setstate(true)
             return (
                 <div>
