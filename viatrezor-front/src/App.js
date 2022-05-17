@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import Auth from './components/Auth'
 import NotFound from './components/NotFound'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import './App.css'
 
 
 const team1 = {
@@ -27,7 +28,7 @@ const teamList = [team1,team2];
 
 function App() { 
   return (
-  <div>
+  <div className = 'background' >
     <Banner />
     <BrowserRouter>
       <Routes>

@@ -7,7 +7,7 @@ function Home(props) {
         <h1 >Accueil</h1>
         <div className='accueil-flex-hor'>
         <div className='accueil-flex-ver'>
-          <TypeWriter content={sample_content} speed={35}/>
+          <TypeWriter content={sample_content} speed={30}/>
           <Advancement team={props.team}/>
         </div>
         </div>    
