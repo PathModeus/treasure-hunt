@@ -13,9 +13,9 @@ router.get('/infos', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-    if (req.params.id === '15') console.log('Trop stylé')
-
-    else console.log('beep boop')
+    console.log('requête reçue !')
+    res.send('Omaewamu Shin Deiru')
+    console.log('Réponse envoyée')
 
 });
 
