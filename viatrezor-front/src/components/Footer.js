@@ -2,7 +2,7 @@ import React from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 
-  
+
 const Footer = () => {
   return (
     <MDBFooter color="black" className="font-small pt-4 mt-4">
@@ -12,22 +12,22 @@ const Footer = () => {
             <h5 className="title">ViaRézo</h5>
             <div className='column'>
               <ul>
-              <li className="list-unstyled">
-                <a href="#!">Présentation</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Contacts</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="https://viarezo.fr/">Notre Site</a>
-              </li>
-            </ul>
+                <li className="list-unstyled">
+                  <a href="#!">Présentation</a>
+                </li>
+                <li className="list-unstyled">
+                  <a href="#!">Contacts</a>
+                </li>
+                <li className="list-unstyled">
+                  <a href="https://viarezo.fr/">Notre Site</a>
+                </li>
+              </ul>
             </div>
             <h5>Je suis bloqué par une énigme</h5>
           </MDBCol>
           <MDBCol md="6">
             <h5 className="title">Links</h5>
-            
+
           </MDBCol>
         </MDBRow>
       </MDBContainer>
@@ -39,5 +39,5 @@ const Footer = () => {
     </MDBFooter>
   );
 }
-  
+
 export default Footer

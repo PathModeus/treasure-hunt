@@ -6,11 +6,11 @@ function CreateTeam() {
         <div className='create-team-wrap'>
             <div className='create-team-container'>
                 <h1 className='create-team-title'>Créer une équipe</h1>
-                <TeamName/>
-                <TeamMembers/>
-                <SubmitButton/>
+                <TeamName />
+                <TeamMembers />
+                <SubmitButton />
             </div>
-            <img className='shrek' src={shrek} alt='shreksophone'/>
+            <img className='shrek' src={shrek} alt='shreksophone' />
         </div>
 
     )
@@ -25,7 +25,7 @@ function TeamName() {
     )
 }
 
-function TeamMembers () {
+function TeamMembers() {
     return (
         <div className="create-team-members create-team-container">
             <label className="create-team-members-label" for='team-members'>
@@ -36,7 +36,7 @@ function TeamMembers () {
     )
 }
 
-function SubmitButton () {
+function SubmitButton() {
     return (
         <button className="create-team-validate">Créer l'équipe</button>
     )

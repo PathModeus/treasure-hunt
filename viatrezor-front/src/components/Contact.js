@@ -12,105 +12,105 @@ function Contact() {
     <div>
       <h1 >Qui sommes nous?</h1>
       <div className="wrap">
-        <ViaRezo/>
-        <CSDesign/>
-        <LinkCS/>
-        <AlgorithmiCS/>
-        <CStudio/>
-        <ClubTech/>
+        <ViaRezo />
+        <CSDesign />
+        <LinkCS />
+        <AlgorithmiCS />
+        <CStudio />
+        <ClubTech />
       </div>
 
     </div>
   )
 }
 
-function ViaRezo () {
+function ViaRezo() {
   return (
-  <div className="asso">
-    <a href='https://viarezo.fr'>
-    <img className="asso-logo" src={viarezo} alt= "logo de ViaRézo"></img>
-    </a>
-    <div className="asso-texte">
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+    <div className="asso">
+      <a href='https://viarezo.fr'>
+        <img className="asso-logo" src={viarezo} alt="logo de ViaRézo"></img>
+      </a>
+      <div className="asso-texte">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
-  </div>
   )
 }
 
-function LinkCS () {
+function LinkCS() {
   return (
-  <div className="asso">
-    <a href='https://linkcs.fr'>
-      <img className="asso-logo" src={linkcs} alt ='logo de LinkCS'></img>
-    </a>
-    <div className="asso-texte">
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+    <div className="asso">
+      <a href='https://linkcs.fr'>
+        <img className="asso-logo" src={linkcs} alt='logo de LinkCS'></img>
+      </a>
+      <div className="asso-texte">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
-  </div>
   )
 }
 
-function AlgorithmiCS () {
+function AlgorithmiCS() {
   return (
-  <div className="asso impaire">
-    <a href='https://linkcs.fr/association/competitive-programming-association-430'>
-      <img className="asso-logo" src={algorithmics} alt="Logo d'AlgorithmiCS"></img>
-    </a>
-    <div className="asso-texte">
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+    <div className="asso impaire">
+      <a href='https://linkcs.fr/association/competitive-programming-association-430'>
+        <img className="asso-logo" src={algorithmics} alt="Logo d'AlgorithmiCS"></img>
+      </a>
+      <div className="asso-texte">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
-  </div>
   )
 }
 
-function CSDesign () {
+function CSDesign() {
   return (
-  <div className="asso impaire">
-    <a href='https://csdesign.cs-campus.fr/'>
-      <img className="asso-logo" src={design} alt="Logo de CSDesign"></img>
-    </a>
-    <div className="asso-texte">
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+    <div className="asso impaire">
+      <a href='https://csdesign.cs-campus.fr/'>
+        <img className="asso-logo" src={design} alt="Logo de CSDesign"></img>
+      </a>
+      <div className="asso-texte">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
-  </div>
   )
 }
 
-function CStudio () {
+function CStudio() {
   return (
-  <div className="asso">
-    <a href='https://cstudio.cs-campus.fr/'>
-      <img className="asso-logo" src={cstudio} alt="Logo de CStudio"></img>
-    </a>
-    <div className="asso-texte">
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+    <div className="asso">
+      <a href='https://cstudio.cs-campus.fr/'>
+        <img className="asso-logo" src={cstudio} alt="Logo de CStudio"></img>
+      </a>
+      <div className="asso-texte">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
-  </div>
   )
 }
 
-function ClubTech () {
+function ClubTech() {
   return (
-  <div className="asso impaire">
-    <a href='https://linkcs.fr/association/club-tech-50'>
-      <img className="asso-logo" src={clubtech} alt="Logo du Club Tech"></img>
-    </a>
-    <div className="asso-texte">
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+    <div className="asso impaire">
+      <a href='https://linkcs.fr/association/club-tech-50'>
+        <img className="asso-logo" src={clubtech} alt="Logo du Club Tech"></img>
+      </a>
+      <div className="asso-texte">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
-  </div>
   )
 }
 export default Contact;
