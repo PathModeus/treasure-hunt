@@ -8,6 +8,7 @@ import Enigma from './components/Enigma'
 import Footer from './components/Footer'
 import AuthPage from './components/Authenticate'
 import NotFound from './components/NotFound'
+import Test from './components/Test'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 
@@ -39,6 +40,7 @@ function App() {
             <Route path='enigma' element={<Enigma />} />
             <Route path='login' element={<AuthPage />} />
             <Route path='*' element={<NotFound />} />
+            <Route path='test' element={<Test />} />
           </Route>
         </Routes>
       </BrowserRouter>

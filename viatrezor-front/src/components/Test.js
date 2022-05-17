@@ -1,41 +1,42 @@
 import { useState } from 'react';
 import '../styles/Authenticate.css'
 
-function Authenticate(setstate) {
+function TestRequest(setState, setResult) {
     console.log("passage 1");
-    fetch('http://localhost:3001/auth/', {
+    fetch('http://localhost:3001/api/15', {
         method: 'GET',
+        headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization', },
         mode: 'cors',
-        cache: 'default',
-        credentials: 'true'
+        cache: 'default'
     })
         .then(function (res) {
             console.log(res)
             console.log('ici')
-            setstate(true)
-            return (
+            setResult(
                 <div>
-                    <h1>Bonjour {res.session.user}</h1>
+                    <h1>{res.body}</h1>
                 </div>
             )
         }
-        );
-    console.log('passé ici')
+        )
+        .then(function () {
+            console.log('passé')
+            setState(true)
+        })
+
 
 }
 
-function AuthPage() {
-    const { state, setstate } = useState(false)
-    const result = Authenticate(setstate)
-
+function Test() {
+    const [state, setState] = useState(false)
+    const [result, setResult] = useState(<div></div>)
     return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
                 <div className='authenticate-button-wrap'>
-                    {state ? result
-                        :
-                        <form method="get" action="http://localhost:3001">
+                    {state ? result :
+                        <form method="get" onClick={TestRequest(setState, setResult)}>
                             <button className='authenticate-button' type="submit">Se connecter</button>
                         </form>
                     }
@@ -46,4 +47,4 @@ function AuthPage() {
     )
 }
 
-export default AuthPage
+export default Test

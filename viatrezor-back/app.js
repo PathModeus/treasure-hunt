@@ -26,8 +26,8 @@ app.use(session({
     cookie: { secure: true }
 }));
 
-app.use('/', auth.OAuthMiddleware(config));
-app.get('/auth/', (req, res) => auth.AuthCallback(req, res));
+//app.use('/', auth.OAuthMiddleware(config));
+//app.get('/auth/', (req, res) => auth.AuthCallback(req, res));
 
 app.use('/api', api)
 
