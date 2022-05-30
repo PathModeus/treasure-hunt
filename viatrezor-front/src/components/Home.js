@@ -16,8 +16,8 @@ function Home(props) {
   }
 
 function Advancement (props) {
-  const redNumber = 7 - props.team.step
-  const greenNumber = props.team.step
+  const remainingTasks = props.nbEquipe - props.team.step
+  const completedTasks = props.team.step
   const advancementBar = []
   for (let i=0; i<greenNumber;i++) {
     advancementBar.push(<DoneStep/>)
@@ -53,7 +53,7 @@ const TypeWriter = ({ content = "", speed = 1000 }) => {
       setIndex((index) => {
         /*This setState function will set the index
         to index+1 if there is more content otherwise
-        it will destory this animation*/
+        it will destroy this animation*/
       
         if (index >= content.length - 1) {
           clearInterval(animKey);
