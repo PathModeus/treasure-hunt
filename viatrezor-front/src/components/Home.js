@@ -19,10 +19,10 @@ function Advancement(props) {
   const remainingTasks = props.nbEquipe - props.team.step
   const completedTasks = props.team.step
   const advancementBar = []
-  for (let i = 0; i < greenNumber; i++) {
+  for (let i = 0; i < completedTasks; i++) {
     advancementBar.push(<DoneStep />)
   }
-  for (let i = 0; i < redNumber; i++) {
+  for (let i = 0; i < remainingTasks; i++) {
     advancementBar.push(<ToDoStep />)
   }
   return (
