@@ -16,8 +16,8 @@ function Home(props) {
 }
 
 function Advancement(props) {
-  const redNumber = 7 - props.team.step
-  const greenNumber = props.team.step
+  const remainingTasks = props.nbEquipe - props.team.step
+  const completedTasks = props.team.step
   const advancementBar = []
   for (let i = 0; i < greenNumber; i++) {
     advancementBar.push(<DoneStep />)
