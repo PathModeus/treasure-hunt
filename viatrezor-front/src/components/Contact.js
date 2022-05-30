@@ -1,5 +1,5 @@
 import React from "react";
-import viarezo from '../assets/viarezo.jpg';
+import viarezo from '../assets/logo.png';
 import linkcs from '../assets/linkcs.png';
 import algorithmics from '../assets/AlgorithmiCS.png';
 import clubtech from '../assets/ClubTech.png';
@@ -10,7 +10,7 @@ import '../styles/Contact.css'
 function Contact() {
   return (
     <div>
-      <h1 >Qui sommes nous?</h1>
+      <h1 className="title">Qui sommes nous?</h1>
       <div className="wrap">
         <ViaRezo/>
         <CSDesign/>

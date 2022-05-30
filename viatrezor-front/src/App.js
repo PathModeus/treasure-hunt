@@ -16,7 +16,7 @@ const team1 = {
   name:'les BG du 97',
   score: 1900,
   time: 1215,
-  step: 4
+  step: 1
 }
 const team2 = {
   name: 'shreksophuckers',
