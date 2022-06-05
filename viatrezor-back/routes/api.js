@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const next_chall = require('../src/diverse/algo').next_chall
+const bdd = require('../src/diverse/bdd')
+
+bdd.connect()
+
+//connection.end()
 
 // Exemples de routes
 // Commencer par router.

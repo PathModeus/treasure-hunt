@@ -4,12 +4,6 @@ app.use(express.json());
 const cors = require('cors')
 
 app.use(cors())
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-//     next();
-// });
 
 const bodyParser = require('body-parser');
 const config = require('./config.json');
@@ -29,6 +23,7 @@ app.use(session({
 
 //app.use('/', auth.OAuthMiddleware(config));
 //app.get('/auth/', (req, res) => auth.AuthCallback(req, res));
+
 
 app.use('/api', api)
 
