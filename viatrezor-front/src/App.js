@@ -10,6 +10,7 @@ import AuthPage from './components/Authenticate'
 import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import './App.css'
 
 
 const team1 = {
