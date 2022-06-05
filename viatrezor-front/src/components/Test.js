@@ -2,7 +2,6 @@ import { useState } from 'react';
 import '../styles/Authenticate.css'
 
 function TestRequest(setState, setResult) {
-    console.log("passage 1");
     fetch('http://localhost:3001/api/15', {
         method: 'GET',
         mode: 'cors',
@@ -18,10 +17,6 @@ function TestRequest(setState, setResult) {
             setResult(body)
         }
         )
-        .then(() => {
-            console.log('passé');
-            setState(true);
-        })
 }
 
 function Test() {
