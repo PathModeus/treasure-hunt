@@ -40,8 +40,8 @@ function App() {
             <Route path='create-team' element={<CreateTeam />} />
             <Route path='enigma' element={<Enigma />} />
             <Route path='login' element={<AuthPage />} />
-            <Route path='*' element={<NotFound />} />
             <Route path='test' element={<Test />} />
+            <Route element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
