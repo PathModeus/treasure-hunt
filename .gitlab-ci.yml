@@ -1,19 +1,29 @@
-build:
+.build:
   stage: build
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH
-      when: manual
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
-    - TAG="dev"
+    - if [ $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH ]; then
+        TAG="latest";
+      else
+        TAG="dev";
+      fi;
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"${REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "robot\$${REGISTRY_USERNAME}" "${REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
     - >-
       /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "${REGISTRY}/chasseautresor:${TAG}"
+      --context ${CI_PROJECT_DIR}/viatrezor-${IMAGE}
+      --dockerfile Dockerfile
+      --destination ${REGISTRY}/${IMAGE}:${TAG}
       --cache
+
+build_front:
+  extends: .build
+  variables:
+    IMAGE: front
+
+build_back:
+  extends: .build
+  variables:
+    IMAGE: back
