@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../styles/Authenticate.css'
 
 function TestRequest(setState, setResult) {
-    fetch('http://localhost:3001/api/next', {
+    fetch('http://localhost:3001/api/infos', {
         method: 'GET',
         mode: 'cors',
         headers: {

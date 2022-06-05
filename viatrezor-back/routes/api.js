@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const next_chall = require('../src/diverse/algo').next_chall
 const bdd = require('../src/diverse/bdd')
-
-bdd.connect()
+const mysql = require('mysql')
 
 //connection.end()
 
@@ -17,8 +16,14 @@ bdd.connect()
 // La syntaxe /:var fait que n'importe quoi après / est stocker comme un argument nommé var
 // Il faut donc le mettre comme une solution par défaut et les autres avant !!!
 
+
+
 router.get('/infos', (req, res, next) => {
-    res.json(res.session.user)
+    bdd.query('SELECT * FROM individuals', (err, rows, fields) => {
+        if (err) throw err
+        console.log(rows)
+    })
+    res.json("Test de BDD")
 });
 
 router.get('/next', (req, res, next) => {
