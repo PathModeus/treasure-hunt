@@ -3,7 +3,7 @@ import '../styles/Authenticate.css'
 
 function TestRequest(setState, setResult) {
     console.log("passage 1");
-    fetch('http://localhost:3001/api/15', {
+    fetch('http://chasseautresor.cs-campus.fr/api/15', {
         method: 'GET',
         mode: 'cors',
         headers: {
