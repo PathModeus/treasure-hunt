@@ -2,34 +2,22 @@ const express = require('express');
 const router = express.Router();
 
 
+router.get('/connect', (req, res, next) => {
+    console.log('goiheroigspr')
+    res.redirect('http://localhost:3000')
+})
 
-router.post('/', (req, res, next) => {
-    const thing = "Hello"
-
-        .then(
-            () => {
-                res.status(201).json({
-                    message: 'Post saved successfully!'
-                });
-            }
-        ).catch(
-            (error) => {
-                res.status(400).json({
-                    error: error
-                });
-            }
-        );
+router.get('/infos', (req, res, next) => {
+    console.log('arrivé')
+    res.send(res.session.user)
 });
 
 router.get('/:id', (req, res, next) => {
-    if (req.params.id === '15') console.log('Trop stylé')
-
-    else console.log('beep boop')
-
+    res.json('Hello world')
 });
 
-router.get('/:id', (req, res, next) => {
-    console.log('test')
+router.get('/', (req, res, next) => {
+    console.log(req.session.user)
 })
 
 router.put('/:id', (req, res, next) => {

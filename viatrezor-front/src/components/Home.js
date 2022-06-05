@@ -1,44 +1,44 @@
 import '../styles/Home.css'
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 function Home(props) {
-    return (
-      <div>
-        <h1 >Accueil</h1>
-        <div className='accueil-flex-hor'>
+  return (
+    <div>
+      <h1 >Accueil</h1>
+      <div className='accueil-flex-hor'>
         <div className='accueil-flex-ver'>
-          <TypeWriter content={sample_content} speed={30}/>
-          <Advancement team={props.team}/>
+          <TypeWriter content={sample_content} speed={35} />
+          <Advancement team={props.team} />
         </div>
-        </div>    
       </div>
-    )
-  }
+    </div>
+  )
+}
 
-function Advancement (props) {
+function Advancement(props) {
   const redNumber = 7 - props.team.step
   const greenNumber = props.team.step
   const advancementBar = []
-  for (let i=0; i<greenNumber;i++) {
-    advancementBar.push(<DoneStep/>)
+  for (let i = 0; i < greenNumber; i++) {
+    advancementBar.push(<DoneStep />)
   }
-  for (let i=0; i<redNumber;i++) {
-    advancementBar.push(<ToDoStep/>)
+  for (let i = 0; i < redNumber; i++) {
+    advancementBar.push(<ToDoStep />)
   }
   return (
     <div className='advancement-bar'>{advancementBar}</div>
   )
 }
 
-function ToDoStep () {
+function ToDoStep() {
   return (
-    <span className = 'red-circle circle'>&#128308;</span>
+    <span className='red-circle circle'>&#128308; </span>
   )
 }
 
-function DoneStep () {
+function DoneStep() {
   return (
-    <span className='green-circle circle'>&#128994;</span>
+    <span className='green-circle circle'>&#128994; </span>
   )
 }
 
@@ -54,7 +54,7 @@ const TypeWriter = ({ content = "", speed = 1000 }) => {
         /*This setState function will set the index
         to index+1 if there is more content otherwise
         it will destory this animation*/
-      
+
         if (index >= content.length - 1) {
           clearInterval(animKey);
           return index;
@@ -65,7 +65,7 @@ const TypeWriter = ({ content = "", speed = 1000 }) => {
   }, []);
 
   useEffect(() => {
-    setDisplayedContent((displayedContent)=>displayedContent + content[index]) 
+    setDisplayedContent((displayedContent) => displayedContent + content[index])
   }, [index])
 
   return (
