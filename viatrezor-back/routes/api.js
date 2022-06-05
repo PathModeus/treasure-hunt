@@ -13,12 +13,7 @@ router.get('/infos', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-    console.log('requête reçue !')
-    res.params = 'Trouvé'
-    console.log(res.params)
     res.json('Hello world')
-    console.log('Réponse envoyée')
-
 });
 
 router.get('/', (req, res, next) => {

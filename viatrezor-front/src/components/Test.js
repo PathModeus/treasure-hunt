@@ -14,8 +14,6 @@ function TestRequest(setState, setResult) {
             res.json()
         )
         .then((body) => {
-            console.log('ici');
-            console.log(body);
             setState(true);
             setResult(body)
         }
@@ -29,7 +27,6 @@ function TestRequest(setState, setResult) {
 function Test() {
     const [state, setState] = useState(false)
     const [result, setResult] = useState(null)
-    console.log('beep')
     return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
@@ -38,7 +35,6 @@ function Test() {
                     {state ? <div><h1>{result}</h1></div> :
                         <form onSubmit={(event) => {
                             event.preventDefault();
-                            console.log("lancement de TestRequest");
                             TestRequest(setState, setResult)
                         }}>
                             <button className='authenticate-button' type="submit">
