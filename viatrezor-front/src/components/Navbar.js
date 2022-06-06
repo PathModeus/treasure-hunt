@@ -8,10 +8,11 @@ import { LinkContainer } from "react-router-bootstrap"
 
 function Navbarvt() {
   return (
-    <div className = 'Navbarvt'>
-      <Navbar className ="NavBG" bg="dark" variant="dark" expand={false}>
+    <div className='Navbarvt'>
+      <Navbar style={{ minHeight: '70px' }} className="NavBG" bg="dark" variant="dark" expand={false}>
         <Container fluid>
           <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
+          <span style={{ color: 'white', fontSize: '20px', fontWeight: '400' }}>Chasse au Rézo</span>
           <Navbar.Toggle aria-controls="Menu" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -23,13 +24,13 @@ function Navbarvt() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                
-                <Nav.Link as={Link} to="/">Accueil</Nav.Link>  
-                <Nav.Link as={Link} to="/enigma">Enigme finale</Nav.Link>              
-                <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>              
+
+                <Nav.Link as={Link} to="/">Accueil</Nav.Link>
+                <Nav.Link as={Link} to="/enigma">Enigme finale</Nav.Link>
+                <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
                 <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
                 <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
-                
+
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

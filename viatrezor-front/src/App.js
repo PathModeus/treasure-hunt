@@ -13,7 +13,7 @@ import './App.css'
 
 
 const team1 = {
-  name:'les BG du 97',
+  name: 'les BG du 97',
   score: 1900,
   time: 1215,
   step: 1
@@ -24,26 +24,25 @@ const team2 = {
   time: 1784,
   step: 1
 }
-const teamList = [team1,team2];
+const teamList = [team1, team2];
 
-function App() { 
+function App() {
   return (
-  <div className = 'background' >
-    <Banner />
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element = { <Navbarvt /> }>
-          <Route index element = { <Home team={team1}/> } />
-          <Route path='leaderboard' element={ <Leaderboard teamsList = {teamList} /> } />
-          <Route path='contact' element={ <Contact />} />
-          <Route path='create-team' element={ <CreateTeam />} />
-          <Route path='enigma' element = { <Enigma />} />
-          <Route path='*' element = { <NotFound/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    <Footer />
-  </div>
+    <div className='background' >
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Navbarvt />}>
+            <Route index element={<Home team={team1} />} />
+            <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />
+            <Route path='contact' element={<Contact />} />
+            <Route path='create-team' element={<CreateTeam />} />
+            <Route path='enigma' element={<Enigma />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+    </div>
   )
 }
 

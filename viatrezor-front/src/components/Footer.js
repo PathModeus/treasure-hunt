@@ -2,42 +2,47 @@ import React from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 
-  
-const Footer = () => {
+//rgb(5,91,165)
+
+function Footer() {
+
   return (
-    <MDBFooter color="black" className="font-small pt-4 mt-4">
-      <MDBContainer fluid className="text-center text-md-left">
-        <MDBRow>
-          <MDBCol md="6">
-            <h5 className="title">ViaRézo</h5>
-            <div className='column'>
-              <ul>
-              <li className="list-unstyled">
-                <a href="#!">Présentation</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Contacts</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="https://viarezo.fr/">Notre Site</a>
-              </li>
+    <footer className="footer">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4 col-sm-4" style={{ textAlign: "center" }}>
+            <h4 className="h4" style={{ color: "white" }}>ViaRézo</h4>
+            <ul className="list-unstyled" style={{}}>
+              <li><a style={{ color: "white" }} href="#!">Présentation</a></li>
+              <li><a style={{ color: "white" }} href="#!">Contacts</a></li>
+              <li><a style={{ color: "white" }} href="https://viarezo.fr/">Notre Site</a></li>
             </ul>
-            </div>
-            <h5>Je suis bloqué par une énigme</h5>
-          </MDBCol>
-          <MDBCol md="6">
-            <h5 className="title">Links</h5>
-            
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://viarezo.fr/"> ViaRézo </a>
-        </MDBContainer>
+          </div>
+
+          <div className="col-md-4 col-sm-4" style={{ textAlign: "center" }}>
+            <h6 className="h6">Je suis bloqué.e par une énigme</h6>
+          </div>
+
+          <div className="col-md-4 col-sm-4" style={{ textAlign: "center" }}>
+            <h4 className="h4" style={{ color: "white" }}>Links</h4>
+            <ul className="list-unstyled" style={{}}>
+              <li><a style={{ color: "white" }} href="#!">Présentation</a></li>
+              <li><a style={{ color: "white" }} href="#!">Contacts</a></li>
+              <li><a style={{ color: "white" }} href="https://viarezo.fr/">Notre Site</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </MDBFooter>
-  );
+      <div className="footer-bottom" style={{ color: "white" }}>
+        <p className="text-xs-center">
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://viarezo.fr/"> ViaRézo </a>
+        </p>
+      </div>
+    </footer>
+  )
 }
-  
-export default Footer
+
+//&copy; {new Date().getFullYear()} Copyright: <a href="https://viarezo.fr/"> ViaRézo </a>
+
+
+export default Footer;
