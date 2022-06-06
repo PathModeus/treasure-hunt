@@ -9,9 +9,10 @@ import { LinkContainer } from "react-router-bootstrap"
 function Navbarvt() {
   return (
     <div className='Navbarvt'>
-      <Navbar className="NavBG" bg="dark" variant="dark" expand={false}>
+      <Navbar style={{ minHeight: '70px' }} className="NavBG" bg="dark" variant="dark" expand={false}>
         <Container fluid>
           <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
+          <span style={{ color: 'white', fontSize: '20px', fontWeight: '400' }}>Chasse au Rézo</span>
           <Navbar.Toggle aria-controls="Menu" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -29,7 +30,6 @@ function Navbarvt() {
                 <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
                 <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
                 <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
-                <Nav.Link as={Link} to="/auth">S'authentifier</Nav.Link>
 
               </Nav>
             </Offcanvas.Body>

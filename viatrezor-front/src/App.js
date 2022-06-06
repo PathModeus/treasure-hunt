@@ -29,8 +29,7 @@ const teamList = [team1, team2];
 
 function App() {
   return (
-    <div>
-      <Banner />
+    <div className='background' >
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Navbarvt />}>

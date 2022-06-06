@@ -1,7 +1,7 @@
 .asso {
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .title {
-    color:aliceblue;
+    color: aliceblue;
     text-align: left;
     padding-left: 5%;
 }
@@ -38,4 +38,3 @@
 .impaire {
     flex-direction: row-reverse;
 }
-
