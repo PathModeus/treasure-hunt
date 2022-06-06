@@ -14,7 +14,7 @@ const api = require('./routes/api');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'yourSecretIsThatYouKnowAllAboutFunkoPops',
+    secret: 'ShhhhThisIsARealSecretThatNoOneShouldEverKnow',
     resave: false,
     proxy: true, // Especially if unsing nginx/apache
     saveUninitialized: true,

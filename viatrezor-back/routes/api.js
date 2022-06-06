@@ -4,8 +4,6 @@ const next_chall = require('../src/diverse/algo').next_chall
 const bdd = require('../src/diverse/bdd')
 const mysql = require('mysql')
 
-//connection.end()
-
 // Exemples de routes
 // Commencer par router.
 // puis ajouter le type de requête à intercepter (get, post, delete, etc.)
@@ -18,6 +16,16 @@ const mysql = require('mysql')
 
 
 
+// Fonctionnalités liées à la gestion d'équipe
+
+router.get('/team/create',)
+
+
+
+
+
+// Tests
+
 router.get('/infos', (req, res, next) => {
     bdd.query('SELECT * FROM individuals', (err, rows, fields) => {
         if (err) throw err
@@ -28,7 +36,6 @@ router.get('/infos', (req, res, next) => {
 });
 
 router.get('/next', (req, res, next) => {
-    var num_epreuve_suivante = 1 + Math.floor(7 * Math.random())
     res.json('Dirigez-vous maintenant vers l\'épreuve numéro ' + next_chall())
 })
 
