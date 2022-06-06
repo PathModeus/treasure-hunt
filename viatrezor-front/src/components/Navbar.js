@@ -3,8 +3,6 @@ import Offcanvas from "react-bootstrap/Offcanvas"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { Outlet, Link } from "react-router-dom"
-import { LinkContainer } from "react-router-bootstrap"
-
 
 function Navbarvt() {
   return (

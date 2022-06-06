@@ -1,5 +1,4 @@
 import '../styles/CreateTeam.css'
-import shrek from '../assets/shreksophone.gif'
 
 function CreateTeam() {
     return (
