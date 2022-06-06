@@ -6,4 +6,4 @@ const welcomingTxt = 'Bonjour équipe !'
 
 const devTxt = "Bonjour ! L'interface administrateur pour gérer les équipes se trouve dans l'onglet leaderboard !"
 
-export {welcomingTxt, notInTeamTxt, devTxt, disconnectedTxt}
+export { welcomingTxt, notInTeamTxt, devTxt, disconnectedTxt }

@@ -1,20 +1,20 @@
 import '../styles/Home.css'
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { welcomingTxt, notInTeamTxt } from '../assets/lore.js';
 import AdvancementBar from './AdvancementBar';
 
 function Home(props) {
-    return (
-      <div className = 'wrap'>
-        <div className='accueil-flex-hor'>
+  return (
+    <div className='wrap'>
+      <div className='accueil-flex-hor'>
         <div className='accueil-flex-ver'>
-          <TypeWriter content={test_content} speed={30}/>
+          <TypeWriter content={test_content} speed={30} />
           <AdvancementBar team={props.team} nbTasks={4} />
         </div>
-        </div>    
       </div>
-    )
-  }
+    </div>
+  )
+}
 
 
 const TypeWriter = ({ content = "", speed = 1000 }) => {
@@ -28,7 +28,7 @@ const TypeWriter = ({ content = "", speed = 1000 }) => {
         /*This setState function will set the index
         to index+1 if there is more content otherwise
         it will destroy this animation*/
-      
+
         if (index >= content.length - 1) {
           clearInterval(animKey);
           return index;
@@ -39,7 +39,7 @@ const TypeWriter = ({ content = "", speed = 1000 }) => {
   }, []);
 
   useEffect(() => {
-    setDisplayedContent((displayedContent)=>displayedContent + content[index]) 
+    setDisplayedContent((displayedContent) => displayedContent + content[index])
   }, [index])
 
   return (
