@@ -1,4 +1,3 @@
-import Banner from './components/Banner'
 import Navbarvt from './components/Navbar'
 import Leaderboard from './components/Leaderboard'
 import CreateTeam from './components/CreateTeam'
@@ -11,21 +10,7 @@ import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import './App.css'
-
-
-const team1 = {
-  name: 'les BG du 97',
-  score: 1900,
-  time: 1215,
-  step: 1
-}
-const team2 = {
-  name: 'shreksophuckers',
-  score: 2500,
-  time: 1784,
-  step: 1
-}
-const teamList = [team1, team2];
+import { team1, teamList} from './assets/teamTest'
 
 function App() {
   return (
