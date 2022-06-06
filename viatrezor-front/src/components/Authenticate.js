@@ -18,22 +18,19 @@ function AuthPage() {
                     // 'Access-Control-Allow-Origin' : 'http://localhost:3000',
                 },
                 credentials: 'include',
-            }).then(res => {
-                console.log("reponse", res);
-                // setUser(res);
+            }).then(async res => {
+                setUser(await res.json());
             }).catch(e => console.log(e));
         }
     }, [params])
-
-    useEffect(() => {console.log(user)}, [user]);
 
     return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
                 <div className='authenticate-button-wrap'>
-                    {user.length ? 
-                        <div>connecté</div>
+                    {user.fullName ? 
+                        <div>Vous êtes connecté {user.fullName}</div>
                         :
                         <button className='authenticate-button' onClick={() => window.location.assign('http://localhost:3001/api/login/')}>Se connecter</button>
                     }

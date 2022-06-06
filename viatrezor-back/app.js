@@ -88,8 +88,7 @@ app.get('/auth', (req, res) => {
 //     res.redirect(`http://localhost:3000/login/${token}`);
 // });
 app.get('/api/whoami', (req, res) => {
-    console.log(req.session.user);
-    return res.send(req.session.user);
+    return res.json(req.session.user);
 });
 app.get('/api/logout', (req, res) => {
     delete req.session.user;
