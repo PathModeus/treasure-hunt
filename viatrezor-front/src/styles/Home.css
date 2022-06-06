@@ -2,46 +2,48 @@
     font-size: 40px;
 }
 
-@keyframes blink {   
-    from{       
+@keyframes blink {
+    from {
         opacity: 0%;
     }
-    to{        
+
+    to {
         opacity: 100%;
     }
 }
 
-.type-writer::after{    
+.type-writer::after {
     content: "|";
     animation: blink 1s infinite;
 }
 
 .type-writer {
     align-self: center;
-    min-width:300px; 
-    width: 50%;
+    min-width: 300px;
+    width: 100%;
     border-width: 10px;
-    background-color: black;
-    border-color: grey;
+    background-color: rgba(8, 8, 26, 0.473);
+    border-color: rgb(41, 41, 41);
     height: 300px;
     word-wrap: break-word;
     color: white;
     border-style: solid;
     padding: 6px;
     font-family: 'Ubuntu';
-    overflow:scroll;
+    overflow: visible;
+    font: 'Helvetica Neue';
 }
-
 
 .accueil-flex-hor {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
+
 .accueil-flex-ver {
     display: flex;
-    flex-direction:column;
-    width: 60%;
+    flex-direction: column;
+    width: 80%;
 }
 
 .advancement-bar {

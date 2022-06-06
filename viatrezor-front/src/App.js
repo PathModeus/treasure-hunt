@@ -17,7 +17,7 @@ const team1 = {
   name: 'les BG du 97',
   score: 1900,
   time: 1215,
-  step: 4
+  step: 1
 }
 const team2 = {
   name: 'shreksophuckers',
@@ -29,8 +29,7 @@ const teamList = [team1, team2];
 
 function App() {
   return (
-    <div>
-      <Banner />
+    <div className='background' >
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Navbarvt />}>

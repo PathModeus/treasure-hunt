@@ -1,3 +1,36 @@
 .background {
-  background-color: black;
+  background-color: rgb(47, 68, 82);
+}
+
+.footer {
+  background-color: rgb(33, 33, 33);
+}
+
+.footer>.container {
+  padding: 40px 20px 0px 20px;
+}
+
+.footer>.container>.row div:nth-child(2) {
+  margin: 10px 0 20px 0;
+}
+
+.footer>.container>.row div:nth-child(2)>h6 {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 0;
+  color: rgba(21, 130, 194, 0.932);
+}
+
+.footer-bottom {
+  background-color: rgb(33, 33, 33);
+  border-top: 1px solid rgb(123, 121, 126);
+}
+
+.footer-bottom>p {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
 }
