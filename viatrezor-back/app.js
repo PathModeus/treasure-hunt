@@ -18,7 +18,7 @@ app.use(session({
     resave: false,
     proxy: true, // Especially if unsing nginx/apache
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false } // secure: true is recommended however it requires an https-enabled website so it can't be set in development mode
 }));
 
 
@@ -26,7 +26,6 @@ app.get('/auth/login', auth.login)
 app.get('/auth/logout', auth.logout);
 app.get('/auth', auth.AuthCallback);
 
-app.use('/api', auth.validate);
-app.use('/api', api)
+app.use('/api', auth.validate, api);
 
 module.exports = app;
