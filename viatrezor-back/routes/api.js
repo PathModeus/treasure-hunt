@@ -22,8 +22,9 @@ router.get('/infos', (req, res, next) => {
     bdd.query('SELECT * FROM individuals', (err, rows, fields) => {
         if (err) throw err
         console.log(rows)
+
+        res.json("Test de BDD: " + rows[0].id_vr + rows[1].id_vr + rows[2].id_vr)
     })
-    res.json("Test de BDD")
 });
 
 router.get('/next', (req, res, next) => {
