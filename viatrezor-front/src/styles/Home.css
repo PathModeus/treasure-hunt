@@ -2,23 +2,24 @@
     font-size: 40px;
 }
 
-@keyframes blink {   
-    from{       
+@keyframes blink {
+    from {
         opacity: 0%;
     }
-    to{        
+
+    to {
         opacity: 100%;
     }
 }
 
-.type-writer::after{    
+.type-writer::after {
     content: "|";
     animation: blink 1s infinite;
 }
 
 .type-writer {
     align-self: center;
-    min-width:300px; 
+    min-width: 300px;
     width: 100%;
     border-width: 10px;
     background-color: rgba(8, 8, 26, 0.473);
@@ -29,7 +30,7 @@
     border-style: solid;
     padding: 6px;
     font-family: 'Ubuntu';
-    overflow:visible;
+    overflow: visible;
     font: 'Helvetica Neue';
 }
 
@@ -38,9 +39,10 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
 .accueil-flex-ver {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     width: 80%;
 }
 

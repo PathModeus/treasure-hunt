@@ -10,37 +10,37 @@ import barre4V from '../assets/barres/barre4V.png'
 
 
 
-function AdvancementBar (props) {
-    const remainingTasks = props.nbTasks - props.team.step + 1
-    const completedTasks = props.team.step - 1
+function AdvancementBar(props) {
+  const remainingTasks = props.nbTasks - props.team.step + 1
+  const completedTasks = props.team.step - 1
 
-    const listBarEmpty = [
-        <img className='barre' src={barre1V} alt='Epreuve 1 inachevée' />,
-        <img className='barre' src={barre2V} alt='Epreuve 2 inachevée' />,
-        <img className='barre' src={barre3V} alt='Epreuve 3 inachevée' />,
-        <img className='barre' src={barre4V} alt='Epreuve 4 inachevée' />
-    ]
-    const listBarFull = [
+  const listBarEmpty = [
+    <img className='barre' src={barre1V} alt='Epreuve 1 inachevée' />,
+    <img className='barre' src={barre2V} alt='Epreuve 2 inachevée' />,
+    <img className='barre' src={barre3V} alt='Epreuve 3 inachevée' />,
+    <img className='barre' src={barre4V} alt='Epreuve 4 inachevée' />
+  ]
+  const listBarFull = [
     <img className='barre' src={barre1P} alt='Epreuve 1 achevée' />,
     <img className='barre' src={barre2P} alt='Epreuve 2 achevée' />,
     <img className='barre' src={barre3P} alt='Epreuve 3 achevée' />,
     <img className='barre' src={barre4P} alt='Epreuve 4 achevée' />
-    ]
+  ]
 
-    const advancementBar = [];
+  const advancementBar = [];
 
-    for (let i=0; i<completedTasks;i++) {
-        advancementBar.push(listBarFull[i])
-    }
-
-    for (let i=completedTasks; i<remainingTasks+1;i++) {
-        advancementBar.push(listBarEmpty[i])
-    }
-
-    return (
-      <div className='advancement-bar'>{advancementBar}</div>
-    )
+  for (let i = 0; i < completedTasks; i++) {
+    advancementBar.push(listBarFull[i])
   }
-  
+
+  for (let i = completedTasks; i < remainingTasks + 1; i++) {
+    advancementBar.push(listBarEmpty[i])
+  }
+
+  return (
+    <div className='advancement-bar'>{advancementBar}</div>
+  )
+}
+
 
 export default AdvancementBar

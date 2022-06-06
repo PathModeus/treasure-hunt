@@ -16,33 +16,6 @@ function Home(props) {
   )
 }
 
-function Advancement(props) {
-  const remainingTasks = props.nbEquipe - props.team.step
-  const completedTasks = props.team.step
-  const advancementBar = []
-  for (let i = 0; i < completedTasks; i++) {
-    advancementBar.push(<DoneStep />)
-  }
-  for (let i = 0; i < remainingTasks; i++) {
-    advancementBar.push(<ToDoStep />)
-  }
-  return (
-    <div className='advancement-bar'>{advancementBar}</div>
-  )
-}
-
-function ToDoStep() {
-  return (
-    <span className='red-circle circle'>&#128308; </span>
-  )
-}
-
-function DoneStep() {
-  return (
-    <span className='green-circle circle'>&#128994; </span>
-  )
-}
-
 
 const TypeWriter = ({ content = "", speed = 1000 }) => {
   const [displayedContent, setDisplayedContent] = useState("~% ");
