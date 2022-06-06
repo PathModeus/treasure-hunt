@@ -1,45 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/Authenticate.css'
 
-function Authenticate(setstate) {
-    console.log("passage 1");
-    fetch('http://localhost:3001/auth/', {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'true'
-    })
-        .then(function (res) {
-            console.log(res)
-            console.log('ici')
-            setstate(true)
-            return (
-                <div>
-                    <h1>Bonjour {res.session.user}</h1>
-                </div>
-            )
-        }
-        );
-    console.log('passé ici')
-
-}
 
 function AuthPage() {
-    const { state, setstate } = useState(false)
-    const result = Authenticate(setstate)
+    const [user, setUser ] = useState(null);
+
+    const logout = () => {
+        fetch('http://localhost:3001/auth/logout/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Credentials': true,
+            },
+            credentials: 'include',
+        }).then(res => {
+            setUser(null);
+        }).catch(e => console.log(e));
+    }
+
+    useEffect(() => {
+        fetch('http://localhost:3001/api/whoami/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Credentials': true,
+            },
+            credentials: 'include',
+        }).then(async res => {
+            setUser(await res.json());
+        }).catch(e => console.log(e));
+    }, [])
 
     return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
                 <div className='authenticate-button-wrap'>
-                    {state ? result
+                    {user ? 
+                        <>
+                            <div>Vous êtes connecté {user.fullName}</div>
+                            <button className='authenticate-button' onClick={() => logout()}>Se déconnecter</button>
+                        </>
                         :
-                        <form method="get" action="http://localhost:3001">
-                            <button className='authenticate-button' type="submit">Se connecter</button>
-                        </form>
+                        <button className='authenticate-button' onClick={() => window.location.assign('http://localhost:3001/auth/login/')}>Se connecter</button>
                     }
-
                 </div>
             </div>
         </div>
