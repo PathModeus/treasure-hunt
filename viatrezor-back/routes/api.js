@@ -18,11 +18,26 @@ const mysql = require('mysql')
 
 // Fonctionnalités liées à la gestion d'équipe
 
-router.get('/team/create',)
+// Création d'équipe
+router.post('/team/create', (req, res, next) => {
+    var user = req.session.user
+    var team_name = req.body.team_name
+    bdd.query('INSERT INTO teams(team_name) VALUES (?)', [team_name], (err) => {
+        if (err) throw err
+        console.log("Equipe créée avec succès !")
+    })
+})
 
+// Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
+// router.get('/team/ispartof', (req, res, next) => {
+//
+// })
 
+// Ajout de points
 
-
+// router.post('/team/bonus', (req, res, next) => {
+//
+// })
 
 // Tests
 
