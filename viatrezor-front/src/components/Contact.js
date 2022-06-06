@@ -1,19 +1,10 @@
 import React from "react";
-<<<<<<< HEAD
-import viarezo from '../assets/logos/logo.png';
-import linkcs from '../assets/logos/linkcs.png';
-import algorithmics from '../assets/logos/AlgorithmiCS.png';
-import clubtech from '../assets/logos/ClubTech.png';
-import design from '../assets/logos/CSDesign.png';
-import cstudio from '../assets/logos/LogoCSTUDIO.png';
-=======
 import viarezo from '../assets/logo.png';
 import linkcs from '../assets/linkcs.png';
 import algorithmics from '../assets/AlgorithmiCS.png';
 import clubtech from '../assets/ClubTech.png';
 import design from '../assets/CSDesign.png';
 import cstudio from '../assets/LogoCSTUDIO.png';
->>>>>>> 020399a83cd05f73758b9b4ef27b204f52cf9216
 import '../styles/Contact.css'
 
 function Contact() {

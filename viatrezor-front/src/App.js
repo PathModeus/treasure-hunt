@@ -11,9 +11,6 @@ import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import './App.css'
-<<<<<<< HEAD
-import { team1, teamList } from './assets/teamTest'
-=======
 
 
 const team1 = {
@@ -29,7 +26,6 @@ const team2 = {
   step: 1
 }
 const teamList = [team1, team2];
->>>>>>> 020399a83cd05f73758b9b4ef27b204f52cf9216
 
 function App() {
   return (
