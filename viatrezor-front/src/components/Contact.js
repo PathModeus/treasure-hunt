@@ -1,10 +1,10 @@
 import React from "react";
-import viarezo from '../assets/viarezo.jpg';
-import linkcs from '../assets/linkcs.png';
-import algorithmics from '../assets/AlgorithmiCS.png';
-import clubtech from '../assets/ClubTech.png';
-import design from '../assets/CSDesign.png';
-import cstudio from '../assets/LogoCSTUDIO.png';
+import viarezo from '../assets/logos/logo.png';
+import linkcs from '../assets/logos/linkcs.png';
+import algorithmics from '../assets/logos/AlgorithmiCS.png';
+import clubtech from '../assets/logos/ClubTech.png';
+import design from '../assets/logos/CSDesign.png';
+import cstudio from '../assets/logos/LogoCSTUDIO.png';
 import '../styles/Contact.css'
 
 function Contact() {
