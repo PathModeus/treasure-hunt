@@ -10,6 +10,7 @@ import AuthPage from './components/Authenticate'
 import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import './App.css'
 
 
 const team1 = {
@@ -39,8 +40,8 @@ function App() {
             <Route path='create-team' element={<CreateTeam />} />
             <Route path='enigma' element={<Enigma />} />
             <Route path='login' element={<AuthPage />} />
-            <Route path='*' element={<NotFound />} />
             <Route path='test' element={<Test />} />
+            <Route element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

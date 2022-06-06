@@ -17,10 +17,7 @@ router.get('/infos', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-    console.log('requête reçue !')
-    res.send(`Omaewamu Shin Deiru ${req.params.id}`)
-    console.log('Réponse envoyée')
-
+    res.json('Hello world')
 });
 
 router.get('/', (req, res, next) => {
