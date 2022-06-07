@@ -25,9 +25,9 @@ connection.query('CREATE TABLE IF NOT EXISTS admins(id_admin INTEGER PRIMARY KEY
 // Admins = 2As des autres assos
 // Reste = Joueurs
 //
-// connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021berliouxqu', 'superadmin')")
-// connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021brayto', 'superadmin')")
-// connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021perede', 'superadmin')")
+connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021berliouxqu', 'superadmin')")
+connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021brayto', 'superadmin')")
+connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021perede', 'superadmin')")
 // connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021elyaagobi', 'superadmin')")
 // connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021augierme', 'superadmin')")
 // connection.query("INSERT INTO individuals (id_vr, role) VALUES ('2021gaudronan', 'superadmin')")
