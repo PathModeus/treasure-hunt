@@ -7,7 +7,6 @@ app.use(cors())
 
 const bodyParser = require('body-parser');
 const config = require('./config.json');
-const auth = require("viarezo-auth");
 const session = require('express-session');
 const api = require('./routes/api');
 
