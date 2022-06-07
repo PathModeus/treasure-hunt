@@ -15,7 +15,7 @@ connection.connect()
 // INITIALISATION DE LA BDD :
 
 connection.query('CREATE TABLE IF NOT EXISTS individuals(id_indiv INTEGER PRIMARY KEY AUTO_INCREMENT, id_vr TEXT, role TEXT NOT NULL)')
-connection.query('CREATE TABLE IF NOT EXISTS teams(team_id INTEGER PRIMARY KEY AUTO_INCREMENT, team_name TEXT NOT NULL, ongoing_activity TEXT NOT NULL DEFAULT "En recherche de membres", timer_status TINYINT DEFAULT "0", time INTEGER DEFAULT "0", timer_last_on DATETIME NOT NULL DEFAULT "2000-01-01T01:01:01", points INTEGER NOT NULL DEFAULT "0")')
+connection.query('CREATE TABLE IF NOT EXISTS teams(team_id INTEGER PRIMARY KEY AUTO_INCREMENT, team_name TEXT NOT NULL, ongoing_activity TEXT NOT NULL, timer_status TINYINT DEFAULT "0", time INTEGER DEFAULT "0", timer_last_on DATETIME NOT NULL DEFAULT "2000-01-01T01:01:01", points INTEGER NOT NULL DEFAULT "0")')
 connection.query('CREATE TABLE IF NOT EXISTS players(id_player INTEGER PRIMARY KEY AUTO_INCREMENT, id_vr TEXT, team_id INTEGER DEFAULT "0", FOREIGN KEY(team_id) REFERENCES teams(team_id) ON DELETE SET DEFAULT)')
 connection.query('CREATE TABLE IF NOT EXISTS admins(id_admin INTEGER PRIMARY KEY AUTO_INCREMENT, id_vr TEXT, asso_name TEXT NOT NULL)')
 
