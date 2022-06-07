@@ -1,5 +1,4 @@
 import '../styles/CreateTeam.css'
-import shrek from '../assets/shreksophone.gif'
 
 function CreateTeam() {
     return (
@@ -10,7 +9,6 @@ function CreateTeam() {
                 <TeamMembers />
                 <SubmitButton />
             </div>
-            <img className='shrek' src={shrek} alt='shreksophone' />
         </div>
 
     )
