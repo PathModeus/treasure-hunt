@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const next_chall = require('../src/diverse/algo').next_chall
-const bdd = require('../src/diverse/bdd')
+const bdd = require('../src/diverse/bdd');
 
 // Exemples de routes
 // Commencer par router.
@@ -18,6 +17,7 @@ const bdd = require('../src/diverse/bdd')
 // Fonctionnalités liées à la gestion d'équipe
 
 // Création d'équipe
+
 router.post('/team/create', (req, res, next) => {
     // On peut peut-être rajouter le fait d'avoir à ajouter tous les membres de l'équipe d'un coup
     var team_name = req.body.team_name
@@ -28,6 +28,7 @@ router.post('/team/create', (req, res, next) => {
 })
 
 // Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
+
 router.get('/team/ispartof', (req, res, next) => {
     var user = req.session.user
     bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user], (err, rows, fields) => {
@@ -55,23 +56,28 @@ router.post('/team/bonus', (req, res, next) => {
     })
 })
 
-// Tests
+// Arrêt du timer et MAJ du temps
 
-router.get('/infos', (req, res, next) => {
-    bdd.query('SELECT * FROM individuals', (err, rows, fields) => {
-        if (err) throw err
-
-        res.json("Test de BDD: " + rows[0].id_vr + rows[1].id_vr + rows[2].id_vr)
+router.post('/team/stop', (req, res, next) => {
+    var team_name = req.body.team_name
+    var date = new Date()
+    var temps = date.now()
+    bdd.query('SELECT timer_status FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
+        if (rows[0].timer_status == 1) {
+            bdd.query('SELECT time, timer_last_on FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
+                bdd.query('UPDATE teams SET time = (?) WHERE team_name = (?)', [rows[0].time - rows[0].timer_last_on + temps], (err) => { if (err) throw err })
+            })
+            bdd.query('UPDATE teams SET timer_last_on = (?), timer_status = "0" WHERE team_name = (?)', [temps, team_name], (err, rows, fields) => {
+                if (err) throw err
+            })
+        }
+        else {
+            res.json('Timer déjà arrêté !')
+        }
     })
-});
 
-router.get('/next', (req, res, next) => {
-    res.json('Dirigez-vous maintenant vers l\'épreuve numéro ' + next_chall())
 })
 
-router.get('/', (req, res, next) => {
-    console.log(req.session.user)
-})
 
 router.get('/:nimp', (req, res, next) => {
     res.json('Hello world')

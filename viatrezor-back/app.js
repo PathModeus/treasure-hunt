@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const config = require('./config.json');
 const session = require('express-session');
 const api = require('./routes/api');
+const test = require('./routes/test');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,5 +26,6 @@ app.use(session({
 
 
 app.use('/api', api)
+app.use('/test_api', test)
 
 module.exports = app;
