@@ -75,9 +75,18 @@ router.post('/team/stop', (req, res, next) => {
             res.json('Timer déjà arrêté !')
         }
     })
+})
+
+// Vérification des droits de l'utilisateur
+
+router.get('/role', (req, res, next) => {
+    var user = req.session.user
 
 })
 
+
+
+// Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 
 router.get('/:nimp', (req, res, next) => {
     res.json('Hello world')

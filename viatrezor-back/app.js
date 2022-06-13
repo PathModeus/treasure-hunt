@@ -6,7 +6,6 @@ const cors = require('cors')
 app.use(cors())
 
 const bodyParser = require('body-parser');
-const config = require('./config.json');
 const session = require('express-session');
 const api = require('./routes/api');
 const test = require('./routes/test');
@@ -21,11 +20,7 @@ app.use(session({
     cookie: { secure: true }
 }));
 
-//app.use('/', auth.OAuthMiddleware(config));
-//app.get('/auth/', (req, res) => auth.AuthCallback(req, res));
-
-
 app.use('/api', api)
-app.use('/test_api', test)
+app.use('/api/test', test)
 
 module.exports = app;
