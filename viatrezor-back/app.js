@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const auth = require('./authMiddleware');
 const api = require('./routes/api');
+const health = require('./healthChecker');
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use(session({
 app.get('/auth/login', auth.login)
 app.get('/auth/logout', auth.logout);
 app.get('/auth', auth.AuthCallback);
+app.get('/health', health.CheckHealth);
 
 app.use('/api', auth.validate, api);
 
