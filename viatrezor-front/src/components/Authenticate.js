@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { Session } from '../Param';
 import '../styles/Authenticate.css'
 
 
-function AuthPage() {
-    const [user, setUser ] = useState(null);
+function AuthPage({ navigation }) {
+    const [session, setSession] = useContext(Session);
 
     const logout = () => {
+        setSession(null);
+        localStorage.removeItem('session');
         fetch('http://localhost:3001/auth/logout/', {
             method: 'GET',
             mode: 'cors',
@@ -13,22 +16,24 @@ function AuthPage() {
                 'Access-Control-Allow-Credentials': true,
             },
             credentials: 'include',
-        }).then(res => {
-            setUser(null);
-        }).catch(e => console.log(e));
+        })
     }
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/whoami/', {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Access-Control-Allow-Credentials': true,
-            },
-            credentials: 'include',
-        }).then(async res => {
-            setUser(await res.json());
-        }).catch(e => console.log(e));
+        if (!session) {
+            fetch('http://localhost:3001/api/whoami/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Access-Control-Allow-Credentials': true,
+                },
+                credentials: 'include',
+            }).then(async res => {
+                const session = await res.json();
+                localStorage.setItem('session', session)
+                setSession(session);
+            }).catch(e => console.log(e));
+        }
     }, [])
 
     return (
@@ -36,9 +41,9 @@ function AuthPage() {
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
                 <div className='authenticate-button-wrap'>
-                    {user ? 
+                    {session ? 
                         <>
-                            <div>Vous êtes connecté {user.fullName}</div>
+                            <div>Vous êtes connecté {session.fullName}</div>
                             <button className='authenticate-button' onClick={() => logout()}>Se déconnecter</button>
                         </>
                         :

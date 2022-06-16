@@ -3,8 +3,12 @@ import Offcanvas from "react-bootstrap/Offcanvas"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import { Outlet, Link } from "react-router-dom"
+import { useContext } from "react"
+import { Session } from "../Param"
 
 function Navbarvt() {
+  const [session,] = useContext(Session);
+
   return (
     <div className='Navbarvt'>
       <Navbar style={{ minHeight: '70px' }} className="NavBG" bg="dark" variant="dark" expand={false}>
@@ -24,10 +28,14 @@ function Navbarvt() {
               <Nav className="justify-content-end flex-grow-1 pe-3">
 
                 <Nav.Link as={Link} to="/">Accueil</Nav.Link>
-                <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
-                <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
-                <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
                 <Nav.Link as={Link} to="/login">S'authentifier</Nav.Link>
+                { session && 
+                  <>
+                    <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
+                    <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
+                    <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
+                  </>
+                }
 
               </Nav>
             </Offcanvas.Body>

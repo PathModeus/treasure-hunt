@@ -1,5 +1,8 @@
 import logo from './assets/logos/logo.png'
 import logoCStudio from './assets/logos/LogoCSTUDIO.png'
+import { createContext } from 'react'
+
+const Session = createContext(null);
 
 class Epreuve { /*Cette classe permet de définir une épreuve pour la chasse au trésor de votre année !*/
     constructor(name, texteOrientation, texteEpreuve, texteFin) {
@@ -38,4 +41,4 @@ const listeAsso = [assoCStudio, assoVR]
 
 const listeStaffeurs = ['2021brayto'] /*Cette liste permet de définir les staffeurs pour la chasser au Trésor. Il suffit de rentrer leurs identifiants auth. Ils auront accès à l'interface administrateur du leaderboard*/
 
-export { listeEpreuve, listeAsso, listeStaffeurs }
+export { Session, listeEpreuve, listeAsso, listeStaffeurs }
