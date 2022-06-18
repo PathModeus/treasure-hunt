@@ -3,15 +3,13 @@
 This project gathers the code of the treasure hunt realized during the Weild Weeks.
 If you have any questions, please contact Noxov, Byejablek or Path!
 
-## WARNING: To launch it on your machine, you must replace the URL in Test.js and Authenticate.js by localhost:3001
-
 ## Structure
 
 This repository is divided in two main folders: viatrezor-front and viatrezor-back.
 
 The website is currently hosted on ViaRézo's Kubernetes cluster on chasseautresor.cs-campus.fr.
 
-There is a gitlab CI that automaically deploys what is pushed on the main branch so that the changes immediately take place on the site.
+There is a gitlab CI that automatically deploys what is pushed on the main branch so that the changes immediately take place on the site.
 
 ## Front-end
 
@@ -25,9 +23,21 @@ The back-end is written using the Javascript framework ExpressJs.
 
 The database is not currently hosted on Kubernetes but can be set up locally using a simple MySQL Docker.
 
-**WARNING:** The authentication method doesn't currently work, you need to manually connect to the database and then run the following command: 
+
+## Attention, Pour lancer en local, suivez les instructions suivantes :
+* Remplacer dans Test.js et Authenticate.js l'url par localhost:3001
+* Lancer un docker MySQL avec les paramètres donnés dans back/src/diverse/bdd.js
+* S'y connecter en tant que root
+* Entrer dans MySQL
+* Lancer la commande suivante
 ```
 ALTER USER 'captain'@'%' IDENTIFIED WITH mysql_native_password BY 'sacrebleu';
 ```
+* Quitter le Docker
+* Décommenter les instructions SQL d'initialisation de la BDD dans back/src/diverse/bdd.js
+* Lancer le back
+* Commenter les instructions
+* Relancer le back
+* Lancer le front
 
-Be careful, to initiate the database, you need to start the back the first time with the queries uncommented in bdd.js
+Il est possible qu'il faille lancer un *npm install* après un changement de branche.
