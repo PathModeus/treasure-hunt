@@ -20,8 +20,8 @@ const router = express.Router();
 
 router.get('/init', (req, res, next) => {
     var user = req.session.user
-    bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user], (err) => { if (err) throw err })
-    bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user], (err) => { if (err) throw err })
+    bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user.login], (err) => { if (err) throw err })
+    bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login], (err) => { if (err) throw err })
 })
 
 // Fonctionnalités liées à la gestion d'équipe
@@ -29,7 +29,7 @@ router.get('/init', (req, res, next) => {
 // Création d'équipe
 
 router.post('/team/create', (req, res, next) => {
-    // On peut peut-être rajouter le fait d'avoir à ajouter tous les membres de l'équipe d'un coup
+    // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
     var team_name = req.body.team_name
     bdd.query('INSERT INTO teams(team_name) VALUES (?)', [team_name], (err) => {
         if (err) throw err
@@ -37,19 +37,11 @@ router.post('/team/create', (req, res, next) => {
     })
 })
 
-router.get('/whoami', (req, res) => {
-    return res.json(req.session.user);
-});
-
-router.get('/connect', (req, res, next) => {
-    res.redirect('http://localhost:3000')
-})
-
 // Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
 
 router.get('/team/ispartof', (req, res, next) => {
     var user = req.session.user
-    bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user], (err, rows, fields) => {
+    bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
         if (err) throw err
         if (rows[0].team_id === 0) { res.json("Vous n'êtes pas encore dans une équipe !") } // On peut aussi faire ce tri côté front, je ne sais pas ce qui est préférable
         else {
@@ -99,10 +91,21 @@ router.post('/team/stop', (req, res, next) => {
 
 router.get('/role', (req, res, next) => {
     var user = req.session.user
-
+    bdd.query('SELECT role FROM individuals WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
+        if (err) throw err
+        res.json(rows[0].role)
+    })
 })
 
+// Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
+router.get('/whoami', (req, res) => {
+    return res.json(req.session.user);
+});
+
+router.get('/connect', (req, res, next) => {
+    res.redirect('http://localhost:3000')
+})
 
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 
