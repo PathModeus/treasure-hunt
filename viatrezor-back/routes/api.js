@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const bdd = require('../src/diverse/bdd');
+// const bdd = require('../src/diverse/bdd');
+
 
 // Exemples de routes
 // Commencer par router.
@@ -12,7 +13,16 @@ const bdd = require('../src/diverse/bdd');
 // La syntaxe /:var fait que n'importe quoi après / est stocker comme un argument nommé var
 // Il faut donc le mettre comme une solution par défaut et les autres avant !!!
 
+// Ajout du joueur à la bdd
+// Rediriger le joueur via cette route depuis l'auth
+// Est-ce qu'on met tous les admins à l'initialisation et on met par défaut qu'il s'agit de joueur ?
+// Quitte à faire un bouton pour mettre admin quelqu'un, voire juste via une commande SQL
 
+router.get('/init', (req, res, next) => {
+    var user = req.session.user
+    bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user], (err) => { if (err) throw err })
+    bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user], (err) => { if (err) throw err })
+})
 
 // Fonctionnalités liées à la gestion d'équipe
 
@@ -32,7 +42,6 @@ router.get('/whoami', (req, res) => {
 });
 
 router.get('/connect', (req, res, next) => {
-    console.log('goiheroigspr')
     res.redirect('http://localhost:3000')
 })
 

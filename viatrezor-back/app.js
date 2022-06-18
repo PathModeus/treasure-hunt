@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const auth = require('./authMiddleware');
 const api = require('./routes/api');
-const test = require('./routes/test');
 const health = require('./healthChecker');
+const test = require('./routes/test');
 
 const app = express();
 app.use(express.json());
@@ -23,13 +23,15 @@ app.use(session({
     cookie: { secure: false } // secure: true is recommended however it requires an https-enabled website so it can't be set in development mode
 }));
 
-app.use('/api/test', test)
+
 
 app.get('/auth/login', auth.login)
 app.get('/auth/logout', auth.logout);
 app.get('/auth', auth.AuthCallback);
-app.get('/health', health.CheckHealth);
+app.get('/health', health);
 
 app.use('/api', auth.validate, api);
+
+app.use('/test', test)
 
 module.exports = app;
