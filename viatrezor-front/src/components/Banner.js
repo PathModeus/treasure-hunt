@@ -1,8 +1,7 @@
-import logo from '../assets/logo.png'
 import '../styles/Banner.css'
 
 function Banner() {
-  const title = 'ViaTrézor'
+  const title = 'Chasse au Rézo'
   return (
     <div className='vt-banner'>
       <h1 className='vt-title'>{title}</h1>

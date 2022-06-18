@@ -1,45 +1,54 @@
-import { useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { Session } from '../Param';
 import '../styles/Authenticate.css'
 
-function Authenticate(setstate) {
-    console.log("passage 1");
-    fetch('http://localhost:3001/auth/', {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'true'
-    })
-        .then(function (res) {
-            console.log(res)
-            console.log('ici')
-            setstate(true)
-            return (
-                <div>
-                    <h1>Bonjour {res.session.user}</h1>
-                </div>
-            )
+
+function AuthPage({ navigation }) {
+    const [session, setSession] = useContext(Session);
+
+    const logout = () => {
+        setSession(null);
+        localStorage.removeItem('session');
+        fetch('http://localhost:3001/auth/logout/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Credentials': true,
+            },
+            credentials: 'include',
+        })
+    }
+
+    useEffect(() => {
+        if (!session) {
+            fetch('http://localhost:3001/api/whoami/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Access-Control-Allow-Credentials': true,
+                },
+                credentials: 'include',
+            }).then(async res => {
+                const session = await res.json();
+                localStorage.setItem('session', session)
+                setSession(session);
+            }).catch(e => console.log(e));
         }
-        );
-    console.log('passé ici')
-
-}
-
-function AuthPage() {
-    const { state, setstate } = useState(false)
-    const result = Authenticate(setstate)
+    }, [])
 
     return (
         <div className='authenticate-wrap'>
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
                 <div className='authenticate-button-wrap'>
-                    {state ? result
+                    {session ? 
+                        <>
+                            <div>Vous êtes connecté {session.fullName}</div>
+                            <button className='authenticate-button' onClick={() => logout()}>Se déconnecter</button>
+                        </>
                         :
-                        <form method="get" action="http://localhost:3001">
-                            <button className='authenticate-button' type="submit">Se connecter</button>
-                        </form>
+                        <button className='authenticate-button' onClick={() => window.location.assign('http://localhost:3001/auth/login/')}>Se connecter</button>
                     }
-
                 </div>
             </div>
         </div>

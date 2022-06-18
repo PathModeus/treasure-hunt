@@ -27,6 +27,15 @@ router.post('/team/create', (req, res, next) => {
     })
 })
 
+router.get('/whoami', (req, res) => {
+    return res.json(req.session.user);
+});
+
+router.get('/connect', (req, res, next) => {
+    console.log('goiheroigspr')
+    res.redirect('http://localhost:3000')
+})
+
 // Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
 
 router.get('/team/ispartof', (req, res, next) => {
