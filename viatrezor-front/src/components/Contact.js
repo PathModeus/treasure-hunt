@@ -18,11 +18,11 @@ function Contact(props) {
 }
 
 function Asso(props) {
-  const textImg = "logo de " + props.asso.name 
+  const textImg = "logo de " + props.asso.name
   return (
     <div className="asso">
-      <a href = {props.asso.website}>
-        <img className="asso-logo" src={props.asso.pathLogo} alt= {textImg} ></img>
+      <a href={props.asso.website}>
+        <img className="asso-logo" src={props.asso.pathLogo} alt={textImg} ></img>
       </a>
       <div className="asso-texte">
         <p>

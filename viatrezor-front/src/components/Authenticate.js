@@ -41,7 +41,7 @@ function AuthPage({ navigation }) {
             <div className='authenticate'>
                 <h1 className='authenticate-text'>Connectez vous avec ViaRézo</h1>
                 <div className='authenticate-button-wrap'>
-                    {session ? 
+                    {session ?
                         <>
                             <div>Vous êtes connecté {session.fullName}</div>
                             <button className='authenticate-button' onClick={() => logout()}>Se déconnecter</button>
