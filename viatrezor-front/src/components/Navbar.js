@@ -29,7 +29,7 @@ function Navbarvt() {
 
                 <Nav.Link as={Link} to="/">Accueil</Nav.Link>
                 <Nav.Link as={Link} to="/login">S'authentifier</Nav.Link>
-                { session && 
+                {session &&
                   <>
                     <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
                     <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
