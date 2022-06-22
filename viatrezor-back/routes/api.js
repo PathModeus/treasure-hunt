@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bdd = require('../src/diverse/bdd');
 
+
 // Exemples de routes
 // Commencer par router.
 // puis ajouter le type de requête à intercepter (get, post, delete, etc.)
@@ -12,35 +13,44 @@ const bdd = require('../src/diverse/bdd');
 // La syntaxe /:var fait que n'importe quoi après / est stocker comme un argument nommé var
 // Il faut donc le mettre comme une solution par défaut et les autres avant !!!
 
+// Ajout du joueur à la bdd
+// Rediriger le joueur via cette route depuis l'auth
+// Est-ce qu'on met tous les admins à l'initialisation et on met par défaut qu'il s'agit de joueur ?
+// Quitte à faire un bouton pour mettre admin quelqu'un, voire juste via une commande SQL
 
+router.get('/init', (req, res, next) => {
+    var user = req.session.user
+    let query = bdd.query('SELECT id_vr FROM individuals WHERE id_vr = (?)', [user.login])
+    console.log(query)
+    if (!query) {
+        bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user.login], (err) => { if (err) throw err })
+        bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login], (err) => { if (err) throw err })
+    }
+    return res.redirect('http://localhost:3000/login')
+})
 
 // Fonctionnalités liées à la gestion d'équipe
 
 // Création d'équipe
 
 router.post('/team/create', (req, res, next) => {
-    // On peut peut-être rajouter le fait d'avoir à ajouter tous les membres de l'équipe d'un coup
+    // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
     var team_name = req.body.team_name
-    bdd.query('INSERT INTO teams(team_name) VALUES (?)', [team_name], (err) => {
+    var vr_ids = req.body.members.split(";")
+    let team_id = bdd.query('INSERT INTO teams(team_name) OUTPUT INSERTED.ID VALUES (?)', [team_name], (err) => {
         if (err) throw err
         console.log("Equipe créée avec succès !")
     })
-})
-
-router.get('/whoami', (req, res) => {
-    return res.json(req.session.user);
-});
-
-router.get('/connect', (req, res, next) => {
-    console.log('goiheroigspr')
-    res.redirect('http://localhost:3000')
+    for (let vr_id of vr_ids) {
+        bdd.query('UPDATE players SET team_id = (?) WHERE vr_id = (?)', [team_id, vr_id])
+    }
 })
 
 // Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
 
 router.get('/team/ispartof', (req, res, next) => {
     var user = req.session.user
-    bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user], (err, rows, fields) => {
+    bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
         if (err) throw err
         if (rows[0].team_id === 0) { res.json("Vous n'êtes pas encore dans une équipe !") } // On peut aussi faire ce tri côté front, je ne sais pas ce qui est préférable
         else {
@@ -90,10 +100,21 @@ router.post('/team/stop', (req, res, next) => {
 
 router.get('/role', (req, res, next) => {
     var user = req.session.user
-
+    bdd.query('SELECT role FROM individuals WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
+        if (err) throw err
+        res.json(rows[0].role)
+    })
 })
 
+// Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
+router.get('/whoami', (req, res) => {
+    return res.json(req.session.user);
+});
+
+router.get('/connect', (req, res, next) => {
+    res.redirect('http://localhost:3000')
+})
 
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 

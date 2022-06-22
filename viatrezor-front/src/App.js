@@ -9,7 +9,7 @@ import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import './App.css'
-import { team1, teamList} from './assets/teamTest'
+import { team1, teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
 import { useState } from 'react'
 import { Session } from './Param'
@@ -25,7 +25,7 @@ function App() {
             <Route path='/' element={<Navbarvt />}>
               <Route index element={session ? <Home team={team1} /> : <Navigate to='/login' />} />
               <Route path='login' element={<AuthPage />} />
-              { session &&
+              {session &&
                 <>
                   <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />
                   <Route path='contact' element={<Contact listeAsso={listeAsso} />} />
