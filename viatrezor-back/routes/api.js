@@ -20,10 +20,10 @@ const bdd = require('../src/diverse/bdd');
 
 router.get('/init', (req, res, next) => {
     var user = req.session.user
-    let query = bdd.query('SELECT id_vr FROM individuals WHERE id_vr = (?)', [user.login])
-    console.log(query)
-    if (!query) {
-        bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user.login], (err) => { if (err) throw err })
+    let query_player = bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login])
+    let query_admin = bdd.query('SELECT id_vr FROM admins WHERE id_vr = (?)', [user.login])
+    console.log(query_player)
+    if (!query_player && !query_admin) {
         bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login], (err) => { if (err) throw err })
     }
     return res.redirect('http://localhost:3000/login')
@@ -100,9 +100,22 @@ router.post('/team/stop', (req, res, next) => {
 
 router.get('/role', (req, res, next) => {
     var user = req.session.user
-    bdd.query('SELECT role FROM individuals WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
+    bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
         if (err) throw err
-        res.json(rows[0].role)
+        if (!rows[0].id_vr) {
+            res.json('joueur')
+        }
+        else {
+            bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
+                if (err) throw err
+                if (!rows[0].id_vr) {
+                    res.json('admin')
+                }
+                else {
+                    res.json('Non inscrit ?!')
+                }
+            })
+        }
     })
 })
 
