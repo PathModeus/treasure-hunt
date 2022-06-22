@@ -18,14 +18,22 @@ const bdd = require('../src/diverse/bdd');
 // Est-ce qu'on met tous les admins à l'initialisation et on met par défaut qu'il s'agit de joueur ?
 // Quitte à faire un bouton pour mettre admin quelqu'un, voire juste via une commande SQL
 
-router.get('/init', (req, res, next) => {
+router.get('/init', (req, res) => {
     var user = req.session.user
-    let query_player = bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login])
-    let query_admin = bdd.query('SELECT id_vr FROM admins WHERE id_vr = (?)', [user.login])
-    console.log(query_player)
-    if (!query_player && !query_admin) {
-        bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login], (err) => { if (err) throw err })
-    }
+
+    bdd.query('SELECT id_vr FROM admins WHERE id_vr = (?)', [user.login], (err, rows) => { 
+        if (err) {
+            res.status(500);
+        } else if (!rows.length) {
+            bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
+                if (err) {
+                    res.status(500);
+                } else if (!rows.length) {
+                    bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login]);
+                }
+            })
+        }
+    })
     return res.redirect('http://localhost:3000/login')
 })
 
@@ -48,14 +56,18 @@ router.post('/team/create', (req, res, next) => {
 
 // Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
 
-router.get('/team/ispartof', (req, res, next) => {
+router.get('/team/ispartof', async (req, res, next) => {
     var user = req.session.user
     bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-        if (err) throw err
-        if (rows[0].team_id === 0) { res.json("Vous n'êtes pas encore dans une équipe !") } // On peut aussi faire ce tri côté front, je ne sais pas ce qui est préférable
-        else {
-            bdd.query('SELECT team_name FROM teams WHERE team_id = (?)', [rows[0].team_id], (err, rows, fields) => {
-                res.json(rows[0].team_name)
+        if (!rows.length || err) {
+            res.status(500).json('An error as occured');
+        } else {
+            bdd.query('SELECT team_name, points, time, ongoing_activity FROM teams WHERE team_id = (?)', [rows[0].team_id], (err, rows, fields) => {
+                if (!rows.length || err) {
+                    res.status(500).json('An error as occured');
+                } else {
+                    res.json(rows[0]);
+                }
             })
         }
     })

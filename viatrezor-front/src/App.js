@@ -11,11 +11,29 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import './App.css'
 import { team1, teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Session } from './Param'
 
 function App() {
-  const [session, setSession] = useState(localStorage.getItem('session'));
+  const [session, setSession] = useState(JSON.parse(localStorage.getItem('session')));
+  const [team, setTeam] = useState(null);
+
+  useEffect(() => {
+    if (session) {
+      fetch('http://localhost:3001/api/team/ispartof', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Credentials': true,
+        },
+        credentials: 'include',
+      }).then(async res => {
+        setTeam(await res.json());
+      }).catch(e => console.log(e));
+    }
+  }, [session])
+
+  useEffect(() => console.log(team), [team])
 
   return (
     <div className='background' >
