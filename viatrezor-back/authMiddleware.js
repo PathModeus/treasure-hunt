@@ -49,7 +49,7 @@ function AuthCallback(req, res) {
             const data = JSON.parse(body);
             // Store user in session
             req.session.user = data;
-            return res.redirect('http://localhost:3000/login');
+            return res.redirect('api/init');
           });
         };
       };

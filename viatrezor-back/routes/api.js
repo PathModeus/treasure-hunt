@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const bdd = require('../src/diverse/bdd');
+const bdd = require('../src/diverse/bdd');
 
 
 // Exemples de routes
@@ -20,8 +20,13 @@ const router = express.Router();
 
 router.get('/init', (req, res, next) => {
     var user = req.session.user
-    bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user.login], (err) => { if (err) throw err })
-    bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login], (err) => { if (err) throw err })
+    let query = bdd.query('SELECT id_vr FROM individuals WHERE id_vr = (?)', [user.login])
+    console.log(query)
+    if (!query) {
+        bdd.query('INSERT INTO individuals(id_vr, role) VALUES (?, "player")', [user.login], (err) => { if (err) throw err })
+        bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login], (err) => { if (err) throw err })
+    }
+    return res.redirect('http://localhost:3000/login')
 })
 
 // Fonctionnalités liées à la gestion d'équipe
@@ -31,10 +36,14 @@ router.get('/init', (req, res, next) => {
 router.post('/team/create', (req, res, next) => {
     // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
     var team_name = req.body.team_name
-    bdd.query('INSERT INTO teams(team_name) VALUES (?)', [team_name], (err) => {
+    var vr_ids = req.body.members.split(";")
+    let team_id = bdd.query('INSERT INTO teams(team_name) OUTPUT INSERTED.ID VALUES (?)', [team_name], (err) => {
         if (err) throw err
         console.log("Equipe créée avec succès !")
     })
+    for (let vr_id of vr_ids) {
+        bdd.query('UPDATE players SET team_id = (?) WHERE vr_id = (?)', [team_id, vr_id])
+    }
 })
 
 // Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
