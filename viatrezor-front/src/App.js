@@ -40,7 +40,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role ? (session.role[0] === "players" ? <Home team={team} /> : <Admin />) : <Navigate to='/login' />} />
+              <Route index element={session?.role ? (session.role[0] === "players" || session.role[1] === "VR" ? <Home team={team} /> : <Admin />) : <Navigate to='/login' />} />
               <Route path='login' element={<AuthPage />} />
               {session &&
                 <>
@@ -49,6 +49,9 @@ function App() {
                   <Route path='create-team' element={<CreateTeam />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
+                  {session.role && session.role[1] === "VR" &&
+                    <Route path='admin' element={<Admin superAdmin/>} />
+                  }
                 </>
               }
             </Route>

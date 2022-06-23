@@ -1,3 +1,5 @@
 export function Admin() {
-    return
+    return (
+        <div>Page admin</div>
+    )
 }

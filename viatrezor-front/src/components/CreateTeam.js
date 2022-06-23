@@ -1,42 +1,45 @@
+import { useState } from 'react'
 import '../styles/CreateTeam.css'
 
 function CreateTeam() {
+    const [newTeam, setNewTeam] = useState({team_name: "", members: ""});
+
+    const Submit = () => {
+        if (!newTeam.team_name.length || !newTeam.members.length) {
+            alert("Veuillez bien renseigner le nom et les membres de l'équipe !")
+        } else {
+            fetch('http://127.0.0.1:3001/api/team/create', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Access-Control-Allow-Credentials': true,
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: newTeam,
+            })
+        }
+    }
+
     return (
         <div className='create-team-wrap'>
             <div className='create-team-container'>
                 <h1 className='create-team-title'>Créer une équipe</h1>
-                <TeamName />
-                <TeamMembers />
-                <SubmitButton />
+                <div className='create-team-name create-team-container'>
+                    <label className='create-team-name-label'>Nom de l'équipe:</label>
+                    <input className='create-team-name-input' type='text' placeholder="Nom d'équipe" onChange={(e) => setNewTeam({...newTeam, team_name: e.target.value})} />
+                </div>
+                <div className="create-team-members create-team-container">
+                    <label className="create-team-members-label">
+                        Identifiants ViaRézo des membres de l'équipe séparés par des ";":
+                    </label>
+                    <textarea className="create-team-members-input" placeholder="ID des membres" onChange={(e) => setNewTeam({...newTeam, members: e.target.value.replace(/\s/g, '')})} />
+                </div>
+                <button className="create-team-validate" onClick={Submit}>Créer l'équipe</button>
             </div>
         </div>
 
     )
 }
 
-function TeamName() {
-    return (
-        <div className='create-team-name create-team-container'>
-            <label className='create-team-name-label' for='team-name'>Nom de l'équipe:</label>
-            <input className='create-team-name-input' type='text' placeholder="Nom d'équipe"></input>
-        </div>
-    )
-}
-
-function TeamMembers() {
-    return (
-        <div className="create-team-members create-team-container">
-            <label className="create-team-members-label" for='team-members'>
-                Identifiants ViaRézo des membres de l'équipe séparés par des ";":
-            </label>
-            <textarea className="create-team-members-input" placeholder="ID des membres"></textarea>
-        </div>
-    )
-}
-
-function SubmitButton() {
-    return (
-        <button className="create-team-validate">Créer l'équipe</button>
-    )
-}
 export default CreateTeam

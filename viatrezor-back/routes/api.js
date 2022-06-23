@@ -41,17 +41,24 @@ router.get('/init', (req, res) => {
 
 // Création d'équipe
 
-router.post('/team/create', (req, res, next) => {
+router.post('/team/create', (req, res) => {
     // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
     var team_name = req.body.team_name
-    var vr_ids = req.body.members.split(";")
-    let team_id = bdd.query('INSERT INTO teams(team_name) OUTPUT INSERTED.ID VALUES (?)', [team_name], (err) => {
-        if (err) throw err
-        console.log("Equipe créée avec succès !")
-    })
-    for (let vr_id of vr_ids) {
-        bdd.query('UPDATE players SET team_id = (?) WHERE vr_id = (?)', [team_id, vr_id])
+    let vr_ids = req.body.members
+    if (req.body.members.includes(";")) {
+        vr_ids = req.body.members.split(";")
     }
+    bdd.query('INSERT INTO teams(team_name) OUTPUT INSERTED.ID VALUES (?)', [team_name], (err, rows) => { 
+        console.log(rows)
+        if (err || !rows.length) {
+            res.status(500);
+        } else {
+            console.log("Equipe créée avec succès !");
+            for (let vr_id of vr_ids) {
+                bdd.query('UPDATE players SET team_id = (?) WHERE vr_id = (?)', [rows[0].team_id, vr_id])
+            }
+        }
+    })
 })
 
 // Ajout de points bonus

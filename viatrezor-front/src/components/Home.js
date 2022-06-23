@@ -2,6 +2,7 @@ import '../styles/Home.css'
 import { useState, useEffect } from 'react';
 import { welcomingTxt, notInTeamTxt } from '../assets/lore.js';
 import AdvancementBar from './AdvancementBar';
+import { Link } from 'react-router-dom';
 
 function Home(props) {
   return (
@@ -14,7 +15,9 @@ function Home(props) {
               <AdvancementBar team={props.team} nbTasks={4} />
             </>
             :
-            <div>Il vous faut rejoindre une équipe</div>
+            <div class="no-team">
+              Il vous faut d'abord rejoindre une équipe, c'est par <Link to="/create-team">ici</Link> !
+            </div>
           }
         </div>
       </div>
