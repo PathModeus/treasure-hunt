@@ -104,6 +104,7 @@ router.get('/team/:id', (req, res) => {
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
 router.get('/whoami', (req, res) => {
+    let user = req.session.user
     let role = null;
     bdd.query('SELECT asso_name FROM admins WHERE id_vr = (?)', [user.login], (err, rows) => { 
         if (err) {

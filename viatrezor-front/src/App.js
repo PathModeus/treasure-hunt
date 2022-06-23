@@ -13,6 +13,7 @@ import { teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
+import { Admin } from './components/Admin'
 
 function App() {
   const [session, setSession] = useState(JSON.parse(localStorage.getItem('session')));
@@ -39,7 +40,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session ? <Home team={team} /> : <Navigate to='/login' />} />
+              <Route index element={session?.role ? (session.role[0] === "players" ? <Home team={team} /> : <Admin />) : <Navigate to='/login' />} />
               <Route path='login' element={<AuthPage />} />
               {session &&
                 <>
@@ -48,9 +49,6 @@ function App() {
                   <Route path='create-team' element={<CreateTeam />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
-                  {session.role[0] !== "player" &&
-                    <Route path='admin' element={<Admin />} />
-                  }
                 </>
               }
             </Route>

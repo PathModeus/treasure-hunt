@@ -29,12 +29,12 @@ function AuthPage() {
                 },
                 credentials: 'include',
             }).then(async res => {
-                const session = await res.json();
-                localStorage.setItem('session', JSON.stringify(session));
-                setSession(session);
+                const response = await res.json();
+                localStorage.setItem('session', JSON.stringify(response));
+                setSession(response);
             }).catch(e => console.log(e));
         }
-    }, [session])
+    }, [])
 
     return (
         <div className='authenticate-wrap'>

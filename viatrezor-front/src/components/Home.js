@@ -8,8 +8,14 @@ function Home(props) {
     <div className='wrap'>
       <div className='accueil-flex-hor'>
         <div className='accueil-flex-ver'>
-          <TypeWriter content={test_content} speed={30} />
-          <AdvancementBar team={props.team} nbTasks={4} />
+          {props.team && props.team.team_name !== "No team" ?
+            <>
+              <TypeWriter content={test_content} speed={30} />
+              <AdvancementBar team={props.team} nbTasks={4} />
+            </>
+            :
+            <div>Il vous faut rejoindre une équipe</div>
+          }
         </div>
       </div>
     </div>
