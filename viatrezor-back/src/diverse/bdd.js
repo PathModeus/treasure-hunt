@@ -34,24 +34,24 @@ connection.query('CREATE TABLE IF NOT EXISTS activities(team_id INTEGER PRIMARY 
 // Etre à ViaRézo donne tous les droits.
 // Etre ailleurs donne uniquement accès à l'épreuve de son club.
 
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021berliouxqu', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021brayto', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021perede', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021elyaagobi', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021augierme', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021gaudronan', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021kalflechju', 'VR')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021bireem', 'CS Design')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021meignanco', 'Pics')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021rosenberju', 'CStudio')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021adjivonce', 'Club Tech')");
-// connection.query("INSERT INTO admin (id_vr, asso) VALUES ('2021achghafan', 'AlgorithmiCS')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021berliouxqu', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021brayto', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021perede', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021elyaagobi', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021augierme', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021gaudronan', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021kalflechju', 'VR')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021bireem', 'CS Design')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021meignanco', 'Pics')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021rosenberju', 'CStudio')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021adjivonce', 'Club Tech')");
+// connection.query("INSERT INTO admins (id_vr, asso_name) VALUES ('2021achghafan', 'AlgorithmiCS')");
 
 // INITIALISATION DE LA TABLE TEAMS
 
 // Par défaut, tout joueur se connectant se retrouvera dans l'équipe numéro 0 'Sans équipe', et devra changer d'équipe avant de pouvoir partir
 //
-// connection.query("INSERT INTO teams (team_id, team_name, ongoing_activity) VALUES (0, 'No team', 'Looking for a team')");
+// connection.query("INSERT INTO teams (team_name, ongoing_activity) VALUES ('No team', 'Looking for a team')");
 //
 
 module.exports = connection;

@@ -9,7 +9,7 @@ import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import './App.css'
-import { team1, teamList } from './assets/teamTest'
+import { teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
@@ -19,8 +19,8 @@ function App() {
   const [team, setTeam] = useState(null);
 
   useEffect(() => {
-    if (session) {
-      fetch('http://localhost:3001/api/team/ispartof', {
+    if (session?.role && session.role[0] === "player") {
+      fetch(`http://localhost:3001/api/team/${session.role[1]}`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -33,15 +33,13 @@ function App() {
     }
   }, [session])
 
-  useEffect(() => console.log(team), [team])
-
   return (
     <div className='background' >
       <Session.Provider value={[session, setSession]}>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session ? <Home team={team1} /> : <Navigate to='/login' />} />
+              <Route index element={session ? <Home team={team} /> : <Navigate to='/login' />} />
               <Route path='login' element={<AuthPage />} />
               {session &&
                 <>
@@ -50,6 +48,9 @@ function App() {
                   <Route path='create-team' element={<CreateTeam />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
+                  {session.role[0] !== "player" &&
+                    <Route path='admin' element={<Admin />} />
+                  }
                 </>
               }
             </Route>

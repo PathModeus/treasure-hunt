@@ -79,10 +79,10 @@ function logout(req, res) {
   try {
     delete req.session.user;
     delete req.session.state;
-    res.end();
   } catch (e) {
     console.log(e)
   }
+  res.end();
 }
 
 

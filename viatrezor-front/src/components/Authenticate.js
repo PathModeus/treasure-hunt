@@ -34,7 +34,7 @@ function AuthPage() {
                 setSession(session);
             }).catch(e => console.log(e));
         }
-    }, [])
+    }, [session])
 
     return (
         <div className='authenticate-wrap'>

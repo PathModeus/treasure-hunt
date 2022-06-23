@@ -54,25 +54,6 @@ router.post('/team/create', (req, res, next) => {
     }
 })
 
-// Vérification d'appartenance à une équipe (vérifier que le id_team =/= 0) (Retourne le nom de l'équipe si en a une)
-
-router.get('/team/ispartof', async (req, res, next) => {
-    var user = req.session.user
-    bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-        if (!rows.length || err) {
-            res.status(500).json('An error as occured');
-        } else {
-            bdd.query('SELECT team_name, points, time, ongoing_activity FROM teams WHERE team_id = (?)', [rows[0].team_id], (err, rows, fields) => {
-                if (!rows.length || err) {
-                    res.status(500).json('An error as occured');
-                } else {
-                    res.json(rows[0]);
-                }
-            })
-        }
-    })
-})
-
 // Ajout de points bonus
 
 router.post('/team/bonus', (req, res, next) => {
@@ -108,25 +89,14 @@ router.post('/team/stop', (req, res, next) => {
     })
 })
 
-// Vérification des droits de l'utilisateur
+// Renvoie les informations de l'équipe concernée
 
-router.get('/role', (req, res, next) => {
-    var user = req.session.user
-    bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-        if (err) throw err
-        if (!rows[0].id_vr) {
-            res.json('joueur')
-        }
-        else {
-            bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-                if (err) throw err
-                if (!rows[0].id_vr) {
-                    res.json('admin')
-                }
-                else {
-                    res.json('Non inscrit ?!')
-                }
-            })
+router.get('/team/:id', (req, res) => {
+    bdd.query('SELECT team_name, ongoing_activity, timer_status, time, timer_last_on, points FROM teams WHERE team_id = (?)', [req.params.id], (err, rows, fields) => {
+        if (!rows.length || err) {
+            res.status(500).json('An error as occured');
+        } else {
+            res.json(rows[0]);
         }
     })
 })
@@ -134,7 +104,23 @@ router.get('/role', (req, res, next) => {
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
 router.get('/whoami', (req, res) => {
-    return res.json(req.session.user);
+    let role = null;
+    bdd.query('SELECT asso_name FROM admins WHERE id_vr = (?)', [user.login], (err, rows) => { 
+        if (err) {
+            res.status(500);
+        } else if (!rows.length) {
+            bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
+                if (err) {
+                    res.status(500);
+                } else if (rows.length) {
+                    role = ["player", rows[0]];
+                }
+            })
+        } else {
+            role = ["admin", rows[0]];
+        }
+    })
+    return res.json({...req.session.user, role});
 });
 
 router.get('/connect', (req, res, next) => {
