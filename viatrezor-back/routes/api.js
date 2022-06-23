@@ -108,20 +108,21 @@ router.get('/whoami', (req, res) => {
     let role = null;
     bdd.query('SELECT asso_name FROM admins WHERE id_vr = (?)', [user.login], (err, rows) => { 
         if (err) {
-            res.status(500);
+            res.status(500).json({...req.session.user, role});
         } else if (!rows.length) {
             bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-                if (err) {
-                    res.status(500);
-                } else if (rows.length) {
-                    role = ["player", rows[0]];
+                if (err || !rows.length) {
+                    res.status(500).json({...req.session.user, role});
+                } else {
+                    role = ["player", rows[0].team_id];
+                    return res.json({...req.session.user, role});
                 }
             })
         } else {
-            role = ["admin", rows[0]];
+            role = ["admin", rows[0].asso_name];
+            return res.json({...req.session.user, role});
         }
     })
-    return res.json({...req.session.user, role});
 });
 
 router.get('/connect', (req, res, next) => {
