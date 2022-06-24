@@ -33,9 +33,13 @@ function Navbarvt() {
                   <>
                     <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
                     <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
-                    <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
-                    {session.role && session.role[1] === "VR" &&
-                      <Nav.Link as={Link} to="/admin">Interface administrateur</Nav.Link>
+                    {session?.role && session.role[0] === "admin" &&
+                      <>
+                        <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
+                        {session.role[1] === "VR" &&
+                          <Nav.Link as={Link} to="/admin">Interface administrateur</Nav.Link>
+                        }
+                      </>
                     }
                   </>
                 }
