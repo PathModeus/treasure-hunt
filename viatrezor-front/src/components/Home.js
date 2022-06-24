@@ -15,7 +15,7 @@ function Home(props) {
               <AdvancementBar team={props.team} nbTasks={4} />
             </>
             :
-            <div class="no-team">
+            <div className="no-team">
               Il vous faut d'abord rejoindre une équipe, c'est par <Link to="/create-team">ici</Link> !
             </div>
           }

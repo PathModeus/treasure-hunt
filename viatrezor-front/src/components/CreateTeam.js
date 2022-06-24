@@ -8,16 +8,17 @@ function CreateTeam() {
         if (!newTeam.team_name.length || !newTeam.members.length) {
             alert("Veuillez bien renseigner le nom et les membres de l'équipe !")
         } else {
-            fetch('http://127.0.0.1:3001/api/team/create', {
+            fetch('http://localhost:3001/api/team/create', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Access-Control-Allow-Credentials': true,
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: newTeam,
-            })
+                body: JSON.stringify(newTeam),
+            }).catch(e => console.log(e))
         }
     }
 

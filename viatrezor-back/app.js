@@ -10,7 +10,7 @@ const test = require('./routes/test');
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: ['http://127.0.0.1:3000', 'https://auth.viarezo.fr'],
+    origin: ['http://localhost:3000', 'https://auth.viarezo.fr'],
     credentials: true,
 }))
 app.use(bodyParser.json());

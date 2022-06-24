@@ -16,7 +16,7 @@ import { Session } from './Param'
 import { Admin } from './components/Admin'
 
 function App() {
-  const [session, setSession] = useState(JSON.parse(localStorage.getItem('session')));
+  const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
   const [team, setTeam] = useState(null);
 
   useEffect(() => {

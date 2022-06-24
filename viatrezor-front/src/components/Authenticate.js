@@ -21,7 +21,7 @@ function AuthPage() {
 
     useEffect(() => {
         if (!session) {
-            fetch('http://127.0.0.1:3001/api/whoami/', {
+            fetch('http://localhost:3001/api/whoami/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -29,9 +29,11 @@ function AuthPage() {
                 },
                 credentials: 'include',
             }).then(async res => {
-                const response = await res.json();
-                localStorage.setItem('session', JSON.stringify(response));
-                setSession(response);
+                if (res.status === 200) {
+                    let response = await res.json();
+                    localStorage.setItem('session', JSON.stringify(response));
+                    setSession(response);
+                }
             }).catch(e => console.log(e));
         }
     }, [])

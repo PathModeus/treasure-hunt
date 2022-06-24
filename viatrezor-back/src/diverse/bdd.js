@@ -50,8 +50,8 @@ connection.query('CREATE TABLE IF NOT EXISTS activities(team_id INTEGER PRIMARY 
 // INITIALISATION DE LA TABLE TEAMS
 
 // Par défaut, tout joueur se connectant se retrouvera dans l'équipe numéro 0 'Sans équipe', et devra changer d'équipe avant de pouvoir partir
-//
+
 // connection.query("INSERT INTO teams (team_name, ongoing_activity) VALUES ('No team', 'Looking for a team')");
-//
+
 
 module.exports = connection;
