@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Table, TableHeader } from 'semantic-ui-react';
 import PlayPause from '../components/PlayPause';
 
