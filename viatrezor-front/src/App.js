@@ -13,7 +13,7 @@ import { teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
-import { Admin } from './components/Admin'
+import  adminPage from './pages/adminPage'
 
 function App() {
   const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
@@ -68,9 +68,7 @@ function App() {
                   <Route path='create-team' element={<CreateTeam setLoad={setLoad} />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
-                  {session.role?.admin === "VR" &&
-                    <Route path='admin' element={<Admin superAdmin/>} />
-                  }
+                  <Route path='admin' element={< adminPage />} />
                 </>
               }
             </Route>
