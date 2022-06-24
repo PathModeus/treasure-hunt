@@ -21,17 +21,11 @@ const bdd = require('../src/diverse/bdd');
 router.get('/init', (req, res) => {
     var user = req.session.user
 
-    bdd.query('SELECT id_vr FROM admins WHERE id_vr = (?)', [user.login], (err, rows) => { 
+    bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows) => {
         if (err) {
             res.status(500);
         } else if (!rows.length) {
-            bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-                if (err) {
-                    res.status(500);
-                } else if (!rows.length) {
-                    bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login]);
-                }
-            })
+            bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login]);
         }
     })
     return res.redirect('http://localhost:3000/login')
@@ -50,11 +44,19 @@ router.post('/team/create', (req, res) => {
     }
     bdd.query('INSERT INTO teams (team_name, ongoing_activity) VALUES (?, ?)', [team_name, "Null"], (err, row) => { 
         if (err || !row?.insertId) {
-            res.status(500);
+            res.status(500).end();
         } else {
             console.log("Equipe créée avec succès !");
             for (let vr_id of vr_ids) {
-                bdd.query('UPDATE players SET team_id = (?) WHERE id_vr = (?)', [row.insertId, vr_id])
+                bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [vr_id], (err, rows) => { 
+                    if (err) {
+                        res.status(500).end();
+                    } else if (!rows.length) {
+                        bdd.query('INSERT INTO players(id_vr) VALUES (?)', [vr_id]);
+                    } else {
+                        bdd.query('UPDATE players SET team_id = (?) WHERE id_vr = (?)', [row.insertId, vr_id]);
+                    }
+                })
             }
         }
     })
