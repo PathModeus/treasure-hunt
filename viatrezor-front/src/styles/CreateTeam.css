@@ -6,12 +6,15 @@
 
 .create-team-wrap {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
 .create-team-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: left;
     color: aliceblue;
 }
@@ -22,4 +25,8 @@
 
 .shrek {
     max-width: 100%;
+}
+
+label {
+    color: aliceblue;
 }

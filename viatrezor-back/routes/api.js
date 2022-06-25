@@ -52,7 +52,7 @@ router.post('/team/create', (req, res) => {
                     if (err) {
                         res.status(500).end();
                     } else if (!rows.length) {
-                        bdd.query('INSERT INTO players(id_vr) VALUES (?)', [vr_id]);
+                        bdd.query('INSERT INTO players(id_vr, team_id) VALUES (?, ?)', [vr_id, row.insertId]);
                     } else {
                         bdd.query('UPDATE players SET team_id = (?) WHERE id_vr = (?)', [row.insertId, vr_id]);
                     }
