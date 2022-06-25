@@ -41,6 +41,8 @@ router.post('/team/create', (req, res) => {
     let vr_ids;
     if (req.body.members.includes(";")) {
         vr_ids = req.body.members.split(";");
+    } else {
+        return res.status(500).end();
     }
     bdd.query('INSERT INTO teams (team_name, ongoing_activity) VALUES (?, ?)', [team_name, "Null"], (err, row) => { 
         if (err || !row?.insertId) {
@@ -53,8 +55,10 @@ router.post('/team/create', (req, res) => {
                         res.status(500).end();
                     } else if (!rows.length) {
                         bdd.query('INSERT INTO players(id_vr, team_id) VALUES (?, ?)', [vr_id, row.insertId]);
+                        res.status(200).end();
                     } else {
                         bdd.query('UPDATE players SET team_id = (?) WHERE id_vr = (?)', [row.insertId, vr_id]);
+                        res.status(200).end();
                     }
                 })
             }

@@ -20,7 +20,14 @@ function CreateTeam() {
                 },
                 credentials: 'include',
                 body: JSON.stringify(newTeam),
-            }).then(() => setLoading(false))
+            }).then((res) => {
+                if (res.status == 200) {
+                    alert("L'équipe a été créée avec succès !")
+                } else {
+                    alert("Une erreur c'est produite, vérifiez d'avoir bien renseigné tous les joueurs de l'équipe !")
+                }
+                setLoading(false)
+            })
             .catch((e) => {
                 setLoading(false)
                 console.log(e)
@@ -34,15 +41,15 @@ function CreateTeam() {
                 <h1 className='create-team-title'>Créer une équipe</h1>
                 <div className='create-team-name create-team-container'>
                     <label>Nom de l'équipe:</label>
-                    <input className='create-team-name-input' type='text' placeholder="Nom d'équipe" onChange={(e) => setNewTeam({...newTeam, team_name: e.target.value})} disable={loading} />
+                    <input className='create-team-name-input' type='text' placeholder="Nom d'équipe" onChange={(e) => setNewTeam({...newTeam, team_name: e.target.value})} disabled={loading} />
                 </div>
                 <div className="create-team-members create-team-container">
                     <label>
                         Identifiants ViaRézo des membres de l'équipe séparés par des ";":
                     </label>
-                    <textarea className="create-team-members-input" placeholder="ID des membres" onChange={(e) => setNewTeam({...newTeam, members: e.target.value.replace(/\s/g, '')})} disable={loading} />
+                    <textarea className="create-team-members-input" placeholder="ID des membres" onChange={(e) => setNewTeam({...newTeam, members: e.target.value.replace(/\s/g, '')})} disabled={loading} />
                 </div>
-                <button className="create-team-validate" onClick={Submit} disable={loading}>Créer l'équipe</button>
+                <button className="create-team-validate" onClick={Submit} disabled={loading}>Créer l'équipe</button>
             </div>
         </div>
 
