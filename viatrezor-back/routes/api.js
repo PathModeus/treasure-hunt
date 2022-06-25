@@ -52,17 +52,16 @@ router.post('/team/create', async (req, res) => {
 
 // Ajout de points bonus
 
-router.post('/team/bonus', async (req, res) => {
-    var team_name = req.body.team_name
-    var bonus = req.body.bonus
-    try {
-        team = (await bdd.teams.findAll({ where: { team_name: team_name } }))[0]
-        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
-        return res.json('Bonus accordé !')
-    } catch (e) {
-        console.log(e);
-        return res.status(500).end();
-    }
+router.put('/team/bonus', (req, res, next) => {
+    let team_name = req.body.team_name
+    let bonus = req.body.bonus
+    bdd.query('SELECT points FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
+        if (err) throw err
+        bdd.query('UPDATE teams SET points = (?) WHERE team_name = (?)', [rows[0] + bonus, team_name], (err) => {
+            if (err) throw err
+            res.json('Bonus accordé !')
+        })
+    })
 })
 
 // Arrêt du timer et MAJ du temps

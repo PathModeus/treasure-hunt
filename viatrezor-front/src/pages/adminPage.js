@@ -15,7 +15,7 @@ function createData(rang, nom, points, temps) {
   ];
 
 function AdminPage() {
-    //const [showPlayButton, setShowPlayButton] = useState(true);
+    const [showPlayButton, setShowPlayButton] = useState(true);
     const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
     const Submit = () => {
       
@@ -62,11 +62,10 @@ function AdminPage() {
                   <Table.Cell align="left">{row.temps}</Table.Cell>
                   <Table.Cell align="center">
                   <div className="Pause">
-                    <button
-                    //onClick={() => ()}
+                    <button onClick={() => setShowPlayButton(!showPlayButton) }
                     style={{
                         border: "none",
-                        backgroundColor: "#ff8d8d",
+                        backgroundColor: "#04AA6D",
                         boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
                         cursor: "pointer",
                         height: 40,
@@ -75,6 +74,7 @@ function AdminPage() {
                         width: 40
                     }}
                     >
+                      <PlayPause buttonToShow={showPlayButton ? "play" : "pause"} />
                     </button>
                 </div>
                   </Table.Cell>
@@ -86,7 +86,10 @@ function AdminPage() {
                     onClick={Submit}
                     style={{
                         border: "none",
-                        backgroundColor: "green",
+                        backgroundColor: "#04AA6D",
+                        textAlign: 'center',
+                        textDecoration: 'none',
+                        color: "white",
                         boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
                         cursor: "pointer",
                         height: 40,
@@ -94,7 +97,7 @@ function AdminPage() {
                         borderRadius: "5px",
                         width: 100
                     }}
-                    >Valider
+                    color= "white">Valider
                     </button>
                   </Table.Cell>
                 </Table.Row>
