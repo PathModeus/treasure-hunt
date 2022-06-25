@@ -14,9 +14,24 @@ function createData(rang, nom, points, temps) {
     createData("4", "equipe4", 1, "5:40:21"),
   ];
 
-function adminPage() {
+function AdminPage() {
     //const [showPlayButton, setShowPlayButton] = useState(true);
-    //const [addPoint, setAddPoint ] = useState(0)
+    const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+    const Submit = () => {
+      
+          fetch('http://localhost:3001/api/team/bonus', {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                  'Access-Control-Allow-Credentials': true,
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
+              credentials: 'include',
+              body: JSON.stringify(addPoint)
+          }).catch(e => console.log(e))
+      }
+
 
     return (
         <div className="Table">
@@ -64,12 +79,11 @@ function adminPage() {
                 </div>
                   </Table.Cell>
                   <Table.Cell align="left">
-                  <input className='add-point-input' type='text' ></input>
+                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.nom, bonus: e.target.value }) }></input>
                   </Table.Cell>
                   <Table.Cell align="center">
-                  <div className="Validate">
-                    <button
-                    //onClick={() => ()}
+                    <button className= 'validate-activity' type="submit"
+                    onClick={Submit}
                     style={{
                         border: "none",
                         backgroundColor: "green",
@@ -77,12 +91,11 @@ function adminPage() {
                         cursor: "pointer",
                         height: 40,
                         outline: "none",
-                        borderRadius: "100%",
-                        width: 40
+                        borderRadius: "5px",
+                        width: 100
                     }}
-                    >
+                    >Valider
                     </button>
-                </div>
                   </Table.Cell>
                 </Table.Row>
               ))}
@@ -93,4 +106,4 @@ function adminPage() {
     );
 };
 
-export default adminPage;
+export default AdminPage;
