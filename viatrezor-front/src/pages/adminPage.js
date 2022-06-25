@@ -9,21 +9,32 @@ function createData(rang, nom, points, temps) {
   }
 
 
-  const rows = [
-    createData("1", "equipe1", 1000,"5:40:21" ),
-    createData("2", "equipe2", 500, "5:40:21"),
-    createData("3", "equipe3", 12, "5:40:21"),
-    createData("4", "equipe4", 1, "5:40:21"),
-  ];
-
 function AdminPage() {
     const [showPlayButton, setShowPlayButton] = useState(true);
     const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+    const  [teams, setTeams ]  = useState([
+      createData("1", "equipe1", 1000,"5:40:21" ),
+      createData("2", "equipe2", 500, "5:40:21"),
+      createData("3", "equipe3", 12, "5:40:21"),
+      createData("4", "equipe4", 1, "5:40:21"),
+    ]);
 
     useEffect(() => {
         // ${asso_name}
-        fetch('http://localhost:3001/api/team/ispartof', {
-      }).then( (response) => console.log(response.json))
+        fetch('http://localhost:3001/api/team/VR', {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+              'Access-Control-Allow-Credentials': true,
+          },
+          credentials: 'include',
+      }).then(function(response) {
+        return response.json();
+      })
+      .then(function(res) {
+        console.log(res)
+       setTeams(res)
+      })
   }, [])
 
     const Submit = () => {
@@ -37,7 +48,6 @@ function AdminPage() {
                   'Content-Type': 'application/json',
               },
               credentials: 'include',
-              body: JSON.stringify(addPoint)
           }).catch(e => console.log(e))
       }
 
@@ -58,17 +68,17 @@ function AdminPage() {
               </Table.Row>
             </Table.Header>
             <Table.Body style={{ color: "white" }}>
-              {rows.map((row) => (
+              {teams.map((row, index) => (
                 <Table.Row
-                  key={row.rang}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <Table.Cell component="th" scope="row">
-                    {row.rang}
+                    {index + 1}
                   </Table.Cell>
-                  <Table.Cell align="left">{row.nom}</Table.Cell>
+                  <Table.Cell align="left">{row.team_name}</Table.Cell>
                   <Table.Cell align="left">{row.points}</Table.Cell>
-                  <Table.Cell align="left">{row.temps}</Table.Cell>
+                  <Table.Cell align="left">{row.time}</Table.Cell>
                   <Table.Cell align="center">
                   <div className="Pause">
                     <button onClick={() => setShowPlayButton(!showPlayButton) }

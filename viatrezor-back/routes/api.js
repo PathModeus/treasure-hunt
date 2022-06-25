@@ -86,9 +86,17 @@ router.post('/team/stop', async (req, res) => {
 // Cette route récupère les équipes présentes sur un activité
 router.get('/team/:activity', (req, res) => {
     var user = req.session.user
-    bdd.query('SELECT team_id,team_name FROM teams WHERE ongoing_activity = (?)', [req.params.activity], (err, rows, fields) => {
-        if (err) throw err
-        console.log("hy")
+    bdd.query('SELECT team_id,team_name,points,time FROM teams WHERE ongoing_activity = (?)', [req.params.activity], (err, rows, fields) => {
+        if (err) {
+            res.status(500);
+        }
+        else
+        {
+            console.log("ee")
+            res.json(rows)
+        }
+        
+
     })
 
 });
