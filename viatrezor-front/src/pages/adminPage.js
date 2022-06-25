@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import React, {useEffect , useState } from 'react';
 import { Table, TableHeader } from 'semantic-ui-react';
 import PlayPause from '../components/PlayPause';
+const axios = require('axios');
 
 
 function createData(rang, nom, points, temps) {
     return { rang, nom, points, temps };
   }
-  
+
+
   const rows = [
     createData("1", "equipe1", 1000,"5:40:21" ),
     createData("2", "equipe2", 500, "5:40:21"),
@@ -17,6 +19,13 @@ function createData(rang, nom, points, temps) {
 function AdminPage() {
     const [showPlayButton, setShowPlayButton] = useState(true);
     const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+
+    useEffect(() => {
+        // ${asso_name}
+        fetch('http://localhost:3001/api/team/ispartof', {
+      }).then( (response) => console.log(response.json))
+  }, [])
+
     const Submit = () => {
       
           fetch('http://localhost:3001/api/team/bonus', {
