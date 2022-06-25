@@ -83,7 +83,17 @@ router.post('/team/stop', async (req, res) => {
     }
 })
 
-// Renvoie les informations de l'équipe concernée
+// Cette route récupère les équipes présentes sur un activité
+router.get('/team/:activity', (req, res) => {
+    var user = req.session.user
+    bdd.query('SELECT team_id,team_name FROM teams WHERE ongoing_activity = (?)', [req.params.activity], (err, rows, fields) => {
+        if (err) throw err
+        console.log("hy")
+    })
+
+});
+
+// Vérification des droits de l'utilisateur
 
 router.get('/team/:id', async (req, res) => {
     try{
