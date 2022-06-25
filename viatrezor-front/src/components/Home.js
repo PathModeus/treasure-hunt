@@ -16,7 +16,7 @@ function Home(props) {
             </>
             :
             <div className="no-team">
-              Il vous faut d'abord rejoindre une équipe, c'est par <Link to="/create-team">ici</Link> !
+              Il te faut d'abord rejoindre une équipe, va t'enregistrer auprès d'un organisateur !
             </div>
           }
         </div>
