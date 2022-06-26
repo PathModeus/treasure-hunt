@@ -30,10 +30,7 @@ The database is not currently hosted on Kubernetes but can be set up locally usi
 * Lancer le docker MySQL personnalisée dans le dossier bdd-chasse. Ne pas oublier de modifier MYSQL_ROOT_PASSWORD pour y mettre un mot de passe plus sécurisée. 
 
 ```
-cd bdd-chasse/
-```
-```
-docker build . -t bdd-chasse
+docker build bdd-chasse/ -t bdd-chasse
 ```
 ```
 docker run --name bdd-chasse -p 3306:3306 --env MYSQL_DATABASE=letresor --env MYSQL_USER=captain --env MYSQL_PASSWORD=sacrebleu --env MYSQL_ROOT_PASSWORD=poney -d bdd-chasse
