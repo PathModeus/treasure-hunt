@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../styles/CreateTeam.css'
 
-function CreateTeam() {
+function CreateTeam({ setLoad }) {
     const [newTeam, setNewTeam] = useState({team_name: "", members: ""});
     const [loading, setLoading] = useState(false);
 
@@ -23,6 +23,7 @@ function CreateTeam() {
             }).then((res) => {
                 if (res.status == 200) {
                     alert("L'équipe a été créée avec succès !")
+                    setLoad(true)
                 } else {
                     alert("Une erreur c'est produite, vérifiez d'avoir bien renseigné tous les joueurs de l'équipe !")
                 }

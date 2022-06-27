@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bdd = require('../src/diverse/bdd');
+const bdd = require('../models/db');
 
 
 // Exemples de routes
@@ -21,12 +21,8 @@ const bdd = require('../src/diverse/bdd');
 router.get('/init', (req, res) => {
     var user = req.session.user
 
-    bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [user.login], (err, rows) => {
-        if (err) {
-            res.status(500);
-        } else if (!rows.length) {
-            bdd.query('INSERT INTO players(id_vr) VALUES (?)', [user.login]);
-        }
+    bdd.players.bulkCreate([{id_vr: user.login}], {ignoreDuplicates: true}).catch((e) => {
+        console.log(e)
     })
     return res.redirect('http://localhost:3000/login')
 })
@@ -35,106 +31,89 @@ router.get('/init', (req, res) => {
 
 // Création d'équipe
 
-router.post('/team/create', (req, res) => {
+router.post('/team/create', async (req, res) => {
     // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
-    let team_name = req.body.team_name;
-    let vr_ids;
     if (req.body.members.includes(";")) {
-        vr_ids = req.body.members.split(";");
+        let id_vr_list = req.body.members.split(";");
+        try {
+            team = await bdd.teams.create({team_name: req.body.team_name});
+            for (let id_vr of id_vr_list) {
+                bdd.players.upsert({id_vr: id_vr, team_id: team.team_id}, {where: { id_vr: id_vr }});
+            };
+            return res.status(200).end();
+        } catch (e) {
+            console.log(e);
+            return res.status(500).end();
+        }
     } else {
         return res.status(500).end();
     }
-    bdd.query('INSERT INTO teams (team_name, ongoing_activity) VALUES (?, ?)', [team_name, "Null"], (err, row) => { 
-        if (err || !row?.insertId) {
-            res.status(500).end();
-        } else {
-            console.log("Equipe créée avec succès !");
-            for (let vr_id of vr_ids) {
-                bdd.query('SELECT id_vr FROM players WHERE id_vr = (?)', [vr_id], (err, rows) => { 
-                    if (err) {
-                        res.status(500).end();
-                    } else if (!rows.length) {
-                        bdd.query('INSERT INTO players(id_vr, team_id) VALUES (?, ?)', [vr_id, row.insertId]);
-                        res.status(200).end();
-                    } else {
-                        bdd.query('UPDATE players SET team_id = (?) WHERE id_vr = (?)', [row.insertId, vr_id]);
-                        res.status(200).end();
-                    }
-                })
-            }
-        }
-    })
 })
 
 // Ajout de points bonus
 
-router.post('/team/bonus', (req, res, next) => {
+router.post('/team/bonus', async (req, res) => {
     var team_name = req.body.team_name
     var bonus = req.body.bonus
-    bdd.query('SELECT points FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
-        if (err) throw err
-        bdd.query('UPDATE teams SET points = (?) WHERE team_name = (?)', [rows[0] + bonus, team_name], (err) => {
-            if (err) throw err
-            res.json('Bonus accordé !')
-        })
-    })
+    try {
+        team = (await bdd.teams.findAll({ where: { team_name: team_name } }))[0]
+        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+        return res.json('Bonus accordé !')
+    } catch (e) {
+        console.log(e);
+        return res.status(500).end();
+    }
 })
 
 // Arrêt du timer et MAJ du temps
 
-router.post('/team/stop', (req, res, next) => {
+router.post('/team/stop', async (req, res) => {
     var team_name = req.body.team_name
     var date = new Date()
     var temps = date.now()
-    bdd.query('SELECT timer_status FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
-        if (rows[0].timer_status == 1) {
-            bdd.query('SELECT time, timer_last_on FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
-                bdd.query('UPDATE teams SET time = (?) WHERE team_name = (?)', [rows[0].time - rows[0].timer_last_on + temps], (err) => { if (err) throw err })
-            })
-            bdd.query('UPDATE teams SET timer_last_on = (?), timer_status = "0" WHERE team_name = (?)', [temps, team_name], (err, rows, fields) => {
-                if (err) throw err
-            })
-        }
-        else {
+    try {
+        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
+        if (team.timer_status) {
+            bdd.teams.update({time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}})
+        } else {
             res.json('Timer déjà arrêté !')
         }
-    })
+    } catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
 })
 
 // Renvoie les informations de l'équipe concernée
 
-router.get('/team/:id', (req, res) => {
-    bdd.query('SELECT team_name, ongoing_activity, timer_status, time, timer_last_on, points FROM teams WHERE team_id = (?)', [req.params.id], (err, rows, fields) => {
-        if (!rows.length || err) {
-            res.status(500).json('An error as occured');
-        } else {
-            res.json(rows[0]);
-        }
-    })
+router.get('/team/:id', async (req, res) => {
+    try{
+        team = (await bdd.teams.findAll({where: {team_id: req.params.id}}))[0];
+        res.json(team);
+    } catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
 })
 
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
-router.get('/whoami', (req, res) => {
+router.get('/whoami', async (req, res) => {
     let user = req.session.user
-    let role = null;
-    bdd.query('SELECT asso_name FROM admins WHERE id_vr = (?)', [user.login], (err, rows) => { 
-        if (err) {
-            res.status(500).json({...req.session.user, role});
-        } else if (!rows.length) {
-            bdd.query('SELECT team_id FROM players WHERE id_vr = (?)', [user.login], (err, rows, fields) => {
-                if (err || !rows.length) {
-                    res.status(500).json({...req.session.user, role});
-                } else {
-                    role = ["player", rows[0].team_id];
-                    return res.json({...req.session.user, role});
-                }
-            })
-        } else {
-            role = ["admin", rows[0].asso_name];
-            return res.json({...req.session.user, role});
-        }
-    })
+    try {
+        admin = (await bdd.admins.findAll({where: {id_vr: user.login}}))
+        player = (await bdd.players.findAll({where: {id_vr: user.login}}))
+        return res.json({...req.session.user, role: {
+            admin: admin ? admin[0].asso_name : null, 
+            player: player ? player[0].team_id : null
+        }});
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({...req.session.user, role: {
+            admin: null, 
+            player: null
+        }});
+    }
 });
 
 router.get('/connect', (req, res, next) => {

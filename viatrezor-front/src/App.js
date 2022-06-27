@@ -18,10 +18,28 @@ import { Admin } from './components/Admin'
 function App() {
   const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
   const [team, setTeam] = useState(null);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    if (session?.role && session.role[0] === "player") {
-      fetch(`http://localhost:3001/api/team/${session.role[1]}`, {
+    fetch('http://localhost:3001/api/whoami/', {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    }).then(async res => {
+      if (res.status === 200) {
+        let response = await res.json();
+        localStorage.setItem('session', JSON.stringify(response));
+        setSession(response);
+      }
+    }).catch(e => console.log(e));
+  }, [load])
+
+  useEffect(() => {
+    if (session?.role?.player) {
+      fetch(`http://localhost:3001/api/team/${session.role.player}`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -30,9 +48,10 @@ function App() {
         credentials: 'include',
       }).then(async res => {
         setTeam(await res.json());
+        setLoad(false);
       }).catch(e => console.log(e));
     }
-  }, [session])
+  }, [session, load])
 
   return (
     <div className='background' >
@@ -40,16 +59,16 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role ? (session.role[0] === "players" || session.role[1] === "VR" ? <Home team={team} /> : <Admin />) : <Navigate to='/login' />} />
+              <Route index element={session?.role?.player ? <Home team={team} /> : (session?.role?.Admin ? <Admin /> : <Navigate to='/login' />)} />
               <Route path='login' element={<AuthPage />} />
               {session &&
                 <>
                   <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />
                   <Route path='contact' element={<Contact listeAsso={listeAsso} />} />
-                  <Route path='create-team' element={<CreateTeam />} />
+                  <Route path='create-team' element={<CreateTeam setLoad={setLoad} />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
-                  {session.role && session.role[1] === "VR" &&
+                  {session.role?.admin === "VR" &&
                     <Route path='admin' element={<Admin superAdmin/>} />
                   }
                 </>
