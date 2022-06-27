@@ -9,13 +9,30 @@ import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import './App.css'
-import { team1, teamList } from './assets/teamTest'
+import { teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Session } from './Param'
+import { Admin } from './components/Admin'
 
 function App() {
-  const [session, setSession] = useState(localStorage.getItem('session'));
+  const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
+  const [team, setTeam] = useState(null);
+
+  useEffect(() => {
+    if (session?.role && session.role[0] === "player") {
+      fetch(`http://localhost:3001/api/team/${session.role[1]}`, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Credentials': true,
+        },
+        credentials: 'include',
+      }).then(async res => {
+        setTeam(await res.json());
+      }).catch(e => console.log(e));
+    }
+  }, [session])
 
   return (
     <div className='background' >
@@ -23,7 +40,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session ? <Home team={team1} /> : <Navigate to='/login' />} />
+              <Route index element={session?.role ? (session.role[0] === "players" || session.role[1] === "VR" ? <Home team={team} /> : <Admin />) : <Navigate to='/login' />} />
               <Route path='login' element={<AuthPage />} />
               {session &&
                 <>
@@ -32,6 +49,9 @@ function App() {
                   <Route path='create-team' element={<CreateTeam />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
+                  {session.role && session.role[1] === "VR" &&
+                    <Route path='admin' element={<Admin superAdmin/>} />
+                  }
                 </>
               }
             </Route>

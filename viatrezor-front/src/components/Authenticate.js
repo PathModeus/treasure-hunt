@@ -3,7 +3,7 @@ import { Session } from '../Param';
 import '../styles/Authenticate.css'
 
 
-function AuthPage({ navigation }) {
+function AuthPage() {
     const [session, setSession] = useContext(Session);
 
     const logout = () => {
@@ -29,9 +29,11 @@ function AuthPage({ navigation }) {
                 },
                 credentials: 'include',
             }).then(async res => {
-                const session = await res.json();
-                localStorage.setItem('session', session)
-                setSession(session);
+                if (res.status === 200) {
+                    let response = await res.json();
+                    localStorage.setItem('session', JSON.stringify(response));
+                    setSession(response);
+                }
             }).catch(e => console.log(e));
         }
     }, [])

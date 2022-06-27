@@ -2,14 +2,23 @@ import '../styles/Home.css'
 import { useState, useEffect } from 'react';
 import { welcomingTxt, notInTeamTxt } from '../assets/lore.js';
 import AdvancementBar from './AdvancementBar';
+import { Link } from 'react-router-dom';
 
 function Home(props) {
   return (
     <div className='wrap'>
       <div className='accueil-flex-hor'>
         <div className='accueil-flex-ver'>
-          <TypeWriter content={test_content} speed={30} />
-          <AdvancementBar team={props.team} nbTasks={4} />
+          {props.team && props.team.team_name !== "No team" ?
+            <>
+              <TypeWriter content={test_content} speed={30} />
+              <AdvancementBar team={props.team} nbTasks={4} />
+            </>
+            :
+            <div className="no-team">
+              Il te faut d'abord rejoindre une équipe, va t'enregistrer auprès d'un organisateur !
+            </div>
+          }
         </div>
       </div>
     </div>

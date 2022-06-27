@@ -38,7 +38,7 @@ function TeamLine(props) {
 
 function StopButton(props) {
   return (
-    <button class="team-line-pause team-line-element">Pause</button>
+    <button className="team-line-pause team-line-element">Pause</button>
   )
 }
 

@@ -27,16 +27,22 @@ function Navbarvt() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
 
-                <Nav.Link as={Link} to="/">Accueil</Nav.Link>
+                {session && <Nav.Link as={Link} to="/">Accueil</Nav.Link>}
                 <Nav.Link as={Link} to="/login">S'authentifier</Nav.Link>
                 {session &&
                   <>
                     <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
                     <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
-                    <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
+                    {session?.role && session.role[0] === "admin" &&
+                      <>
+                        <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
+                        {session.role[1] === "VR" &&
+                          <Nav.Link as={Link} to="/admin">Interface administrateur</Nav.Link>
+                        }
+                      </>
+                    }
                   </>
                 }
-
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
