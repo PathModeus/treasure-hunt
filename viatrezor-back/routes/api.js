@@ -52,12 +52,14 @@ router.post('/team/create', async (req, res) => {
 
 // Ajout de points bonus
 
-router.put('/team/bonus', (req, res, next) => {
+router.put('/team/bonus', (req, res) => {
+    console.log(req.body)
     let team_name = req.body.team_name
-    let bonus = req.body.bonus
+    let bonus_str = req.body.bonus
+    let bonus = parseInt( bonus_str, 10)
     bdd.query('SELECT points FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
         if (err) throw err
-        bdd.query('UPDATE teams SET points = (?) WHERE team_name = (?)', [rows[0] + bonus, team_name], (err) => {
+        bdd.query('UPDATE teams SET points = (?) WHERE team_name = (?)', [rows[0].points + bonus, team_name], (err) => {
             if (err) throw err
             res.json('Bonus accordé !')
         })

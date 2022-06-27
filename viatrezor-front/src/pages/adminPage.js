@@ -37,17 +37,20 @@ function AdminPage() {
 
 
     const Submit = () => {
-      
+          
           fetch('http://localhost:3001/api/team/bonus', {
-              method: 'POST',
+              method: 'PUT',
               mode: 'cors',
               headers: {
+                  'Access-Control-Allow-Origin': 'http://localhost:3000/api',
                   'Access-Control-Allow-Credentials': true,
                   'Accept': 'application/json',
                   'Content-Type': 'application/json',
               },
               credentials: 'include',
+              body: JSON.stringify(addPoint)
           }).catch(e => console.log(e))
+          setAddPoint({team_name:"", bonus: 0})
       }
 
 
@@ -97,7 +100,7 @@ function AdminPage() {
                 </div>
                   </Table.Cell>
                   <Table.Cell align="left">
-                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.nom, bonus: e.target.value }) }></input>
+                  <input className='add-point-input' value={addPoint.bonus} placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.team_name, bonus: e.target.value }) }></input>
                   </Table.Cell>
                   <Table.Cell align="center">
                     <button className= 'validate-activity' type="submit"
