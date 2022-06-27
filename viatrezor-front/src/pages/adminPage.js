@@ -32,7 +32,7 @@ function AdminPage() {
       //  setTeams(res.teams)
       //  setTimes(res.times)
       })
-  }, [])
+  }, [teams])
 
 
 
@@ -50,7 +50,7 @@ function AdminPage() {
               credentials: 'include',
               body: JSON.stringify(addPoint)
           }).catch(e => console.log(e))
-          setAddPoint({team_name:"", bonus: 0})
+          setAddPoint({team_name:"", bonus: ""})
       }
 
 
@@ -100,7 +100,7 @@ function AdminPage() {
                 </div>
                   </Table.Cell>
                   <Table.Cell align="left">
-                  <input className='add-point-input' value={addPoint.bonus} placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.team_name, bonus: e.target.value }) }></input>
+                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.team_name, bonus: e.target.value }) }></input>
                   </Table.Cell>
                   <Table.Cell align="center">
                     <button className= 'validate-activity' type="submit"
