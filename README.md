@@ -27,7 +27,6 @@ The database is not currently hosted on Kubernetes but can be set up locally usi
 ## Attention, Pour lancer en local, suivez les instructions suivantes :
 * Remplacer dans Test.js et Authenticate.js l'url par localhost:3001 (s'il n'y a pas d'autre url c'est bon !)
 * Créer un fichier config.json en utilisant le template et mettre http://localhost:3001 en domain
-* Lancer le docker MySQL personnalisée dans le dossier bdd-chasse. Ne pas oublier de modifier MYSQL_ROOT_PASSWORD pour y mettre un mot de passe plus sécurisée. 
 
 ```
 docker build bdd-chasse/ -t bdd-chasse
