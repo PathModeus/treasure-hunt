@@ -1,5 +1,6 @@
 import React, {useEffect , useState } from 'react';
 import { Table, TableHeader } from 'semantic-ui-react';
+import Leaderboard_team from '../components/LearderBoard_team';
 import PlayPause from '../components/PlayPause';
 const axios = require('axios');
 
@@ -31,7 +32,7 @@ function AdminPage() {
       //  setTeams(res.teams)
       //  setTimes(res.times)
       })
-  }, [teams])
+  }, [])
 
 
 
@@ -50,6 +51,7 @@ function AdminPage() {
               body: JSON.stringify(addPoint)
           }).catch(e => console.log(e))
           setAddPoint({team_name:"", bonus: ""})
+        }
 
   const NextActivity = () => {    
     fetch("http://localhost:3001/api/team/next_activity", {
@@ -87,60 +89,7 @@ function AdminPage() {
         </Table.Header>
         <Table.Body style={{ color: "white" }}>
           {teams.map((row, index) => (
-            <Table.Row
-              key={index}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <Table.Cell component="th" scope="row">
-                {index + 1}
-              </Table.Cell>
-              <Table.Cell align="left">{row.team_name}</Table.Cell>
-              <Table.Cell align="left">{row.points}</Table.Cell>
-              <Table.Cell align="left">{row.time}</Table.Cell>
-              <Table.Cell align="center">
-                <div className="Pause">
-                  <button
-                    onClick={() => setShowPlayButton(!showPlayButton)}
-                    style={{
-                        border: "none",
-                        backgroundColor: "#04AA6D",
-                        boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
-                        cursor: "pointer",
-                        height: 40,
-                        outline: "none",
-                        borderRadius: "100%",
-                        width: 40
-                    }}
-                  >
-                    <PlayPause
-                      buttonToShow={showPlayButton ? "play" : "pause"}
-                    />
-                  </button>
-                </div>
-                  </Table.Cell>
-                  <Table.Cell align="left">
-                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.team_name, bonus: e.target.value }) }></input>
-                  </Table.Cell>
-                  <Table.Cell align="center">
-                    <button className= 'validate-activity' type="submit"
-                    onClick={Submit}
-                    style={{
-                        border: "none",
-                        backgroundColor: "#04AA6D",
-                        textAlign: 'center',
-                        textDecoration: 'none',
-                        color: "white",
-                        boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
-                        cursor: "pointer",
-                        height: 40,
-                        outline: "none",
-                        borderRadius: "5px",
-                        width: 100
-                    }}
-                    color= "white">Valider
-                    </button>
-                  </Table.Cell>
-                </Table.Row>
+           <Leaderboard_team team ={row} index={index} />
               ))}
             </Table.Body>
           </Table>
@@ -148,6 +97,5 @@ function AdminPage() {
         
     );
 };
-}
 
 export default AdminPage;

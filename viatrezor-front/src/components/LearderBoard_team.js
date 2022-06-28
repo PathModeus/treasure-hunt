@@ -8,17 +8,19 @@ function Leaderboard_team(props) {
     const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
     const  [times, setTimes ]  = useState(props.team.time? props.team.time : 0 );      
     const  [timer, setTimer ]  = useState("00:00:00");
-    useEffect(() => {
+   
+   
+  useEffect(() => {
       let {  hours, minutes, seconds }  = getTime(times);
       setTimer(
         (hours > 9 ? hours : '0' + hours) + ':' +
         (minutes > 9 ? minutes : '0' + minutes) + ':'
         + (seconds > 9 ? seconds : '0' + seconds)
     )
+        console.log(times)
         const interval = setInterval(() => {
             setTimes(times+1)
         }, 1000);
-      
         return () => clearInterval(interval);
       }, [times]);
      
@@ -56,7 +58,7 @@ function Leaderboard_team(props) {
       <Table.Row
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
-      <Table.Cell component="th" scope="row">      </Table.Cell>
+      <Table.Cell align="left">{props.index + 1}</Table.Cell>
       <Table.Cell align="left">{props.team.team_name}</Table.Cell>
       <Table.Cell align="left">{props.team.points}</Table.Cell>
       <Table.Cell align="left">{timer}</Table.Cell>
