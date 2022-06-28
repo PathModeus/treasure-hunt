@@ -6,9 +6,8 @@ function Leaderboard_team(props) {
 
     const [showPlayButton, setShowPlayButton] = useState(true);
     const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
-    const  [times, setTimes ]  = useState(0);      
+    const  [times, setTimes ]  = useState(props.team.time? props.team.time : 0 );      
     const  [timer, setTimer ]  = useState("00:00:00");
-   
     useEffect(() => {
       let {  hours, minutes, seconds }  = getTime(times);
       setTimer(
@@ -54,59 +53,101 @@ function Leaderboard_team(props) {
 
     return (
 
-   
-                <Table.Row
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <Table.Cell component="th" scope="row">
-                    {props.team.team_id} 
-                  </Table.Cell>
-                  <Table.Cell align="left">{props.team.team_name}</Table.Cell>
-                  <Table.Cell align="left">{props.team.points}</Table.Cell>
-                  <Table.Cell align="left">{timer}</Table.Cell>
-                  <Table.Cell align="center">
-                  <div className="Pause">
-                    <button onClick={() => setShowPlayButton(!showPlayButton) }
-                    style={{
-                        border: "none",
-                        backgroundColor: "#ff8d8d",
-                        boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
-                        cursor: "pointer",
-                        height: 40,
-                        outline: "none",
-                        borderRadius: "100%",
-                        width: 40
-                    }}
-                    >
-                      <PlayPause buttonToShow={showPlayButton ? "play" : "pause"} />
-                    </button>
-                </div>
-                  </Table.Cell>
-                  <Table.Cell align="left">
-                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: props.team.nom, bonus: e.target.value }) }></input>
-                  </Table.Cell>
-                  <Table.Cell align="center">
-                    <button className= 'validate-activity' type="submit"
-                    onClick={Submit}
-                    style={{
-                        border: "none",
-                        backgroundColor: "#04AA6D",
-                        textAlign: 'center',
-                        textDecoration: 'none',
-                        color: "white",
-                        backgroundColor: "green",
-                        boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
-                        cursor: "pointer",
-                        height: 40,
-                        outline: "none",
-                        borderRadius: "5px",
-                        width: 100
-                    }}
-                    color= "white">Valider
-                    </button>
-                  </Table.Cell>
-                </Table.Row>
-)};
+      <Table.Row
+      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+    >
+      <Table.Cell component="th" scope="row">      </Table.Cell>
+      <Table.Cell align="left">{props.team.team_name}</Table.Cell>
+      <Table.Cell align="left">{props.team.points}</Table.Cell>
+      <Table.Cell align="left">{timer}</Table.Cell>
+      <Table.Cell align="center">
+        <div className="Pause">
+          <button
+            onClick={() =>{
+              setShowPlayButton(!showPlayButton);
+              
+            
+            }
+            }
+            style={{
+              border: "none",
+              backgroundColor: "#ff8d8d",
+              boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
+              cursor: "pointer",
+              height: 40,
+              outline: "none",
+              borderRadius: "100%",
+              width: 40,
+            }}
+          >
+            <PlayPause
+              buttonToShow={showPlayButton ? "play" : "pause"}
+            />
+          </button>
+        </div>
+      </Table.Cell>
+      <Table.Cell align="left">
+        <input
+          className="add-point-input"
+          placeholder="points de l'activité"
+          type="int"
+          onChange={(e) =>
+            setAddPoint({
+              team_name: props.team.team_name,
+              bonus: e.target.value,
+              next_activity: "Oser",
+            }) 
+          }
+        ></input>
+        <button
+          className="validate-activity"
+          type="submit"
+          onClick={Submit}
+          style={{
+            border: "none",
+            backgroundColor: "#04AA6D",
+            textAlign: "center",
+            textDecoration: "none",
+            color: "white",
+            backgroundColor: "green",
+            boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
+            cursor: "pointer",
+            height: 50,
+            outline: "none",
+            borderRadius: "5px",
+            width: 100,
+          }}
+          color="white"
+        >
+          Ajouter les points
+        </button>
+      </Table.Cell>
+      <Table.Cell align="center">
+        <button
+          className="validate-activity"
+          type="submit"
+          onClick={props.NextActivity}
+          style={{
+            border: "none",
+            backgroundColor: "#04AA6D",
+            textAlign: "center",
+            textDecoration: "none",
+            color: "white",
+            backgroundColor: "green",
+            boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
+            cursor: "pointer",
+            height: 50,
+            outline: "none",
+            borderRadius: "5px",
+            width: 100,
+          }}
+          color="white"
+        >
+          Activité suivante
+        </button>
+      </Table.Cell>
+    </Table.Row>
+  )};
 
 export default Leaderboard_team;
 
