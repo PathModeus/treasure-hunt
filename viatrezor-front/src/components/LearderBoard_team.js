@@ -1,39 +1,40 @@
-import React, {useEffect , useState } from 'react';
-import { Table, TableHeader } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
 import PlayPause from '../components/PlayPause';
-const axios = require('axios');
+import { Table} from 'semantic-ui-react';
 
+function Leaderboard_team(props) {
 
-function createData(rang, nom, points, temps) {
-    return { rang, nom, points, temps };
-  }
-
-
-function AdminPage() {
     const [showPlayButton, setShowPlayButton] = useState(true);
     const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
-    const  [teams, setTeams ]  = useState([]);
-    const  [times, setTimes ]  = useState(0);
-  
+    const  [times, setTimes ]  = useState(0);      
+    const  [timer, setTimer ]  = useState("00:00:00");
+   
     useEffect(() => {
-        // ${asso_name}
-        fetch('http://localhost:3001/api/team/VR', {
-          method: 'GET',
-          mode: 'cors',
-          headers: {
-              'Access-Control-Allow-Credentials': true,
-          },
-          credentials: 'include',
-      }).then(function(response) {
-        return response.json();
-      })
-      .then(function(res) {
-        setTeams(res)
-      //  setTeams(res.teams)
-      //  setTimes(res.times)
-      })
-  }, [])
+      let {  hours, minutes, seconds }  = getTime(times);
+      setTimer(
+        (hours > 9 ? hours : '0' + hours) + ':' +
+        (minutes > 9 ? minutes : '0' + minutes) + ':'
+        + (seconds > 9 ? seconds : '0' + seconds)
+    )
+        const interval = setInterval(() => {
+            setTimes(times+1)
+        }, 1000);
+      
+        return () => clearInterval(interval);
+      }, [times]);
+     
+  
+  const getTime = (e) => {
+   
 
+    const seconds = Math.floor(e % 60);
+    const minutes = Math.floor((e / 60) % 60);
+    const hours = Math.floor((e / 60 / 60) % 24);
+    return {
+        e, hours, minutes, seconds
+    };
+  }
+  
 
 
     const Submit = () => {
@@ -52,38 +53,23 @@ function AdminPage() {
 
 
     return (
-        <div className="Table">
-      <h3></h3>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <Table.Header>
-              <Table.Row style={{color : "white"}}>
-                <Table.HeaderCell>Rang</Table.HeaderCell>
-                <Table.HeaderCell align="center">Nom de l'équipe</Table.HeaderCell>
-                <Table.HeaderCell align="center">Points</Table.HeaderCell>
-                <Table.HeaderCell align="center">Temps</Table.HeaderCell>
-                <Table.HeaderCell align="center">Pause/Resume time</Table.HeaderCell>
-                <Table.HeaderCell align="center">Ajout des points</Table.HeaderCell>
-                <Table.HeaderCell align="center">Valider l'activité</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body style={{ color: "white" }}>
-              {teams.map((row, index) => (
+
+   
                 <Table.Row
-                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <Table.Cell component="th" scope="row">
-                    {index + 1}
+                    {props.team.team_id} 
                   </Table.Cell>
-                  <Table.Cell align="left">{row.team_name}</Table.Cell>
-                  <Table.Cell align="left">{row.points}</Table.Cell>
-                  <Table.Cell align="left">{row.time}</Table.Cell>
+                  <Table.Cell align="left">{props.team.team_name}</Table.Cell>
+                  <Table.Cell align="left">{props.team.points}</Table.Cell>
+                  <Table.Cell align="left">{timer}</Table.Cell>
                   <Table.Cell align="center">
                   <div className="Pause">
                     <button onClick={() => setShowPlayButton(!showPlayButton) }
                     style={{
                         border: "none",
-                        backgroundColor: "#04AA6D",
+                        backgroundColor: "#ff8d8d",
                         boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
                         cursor: "pointer",
                         height: 40,
@@ -97,7 +83,7 @@ function AdminPage() {
                 </div>
                   </Table.Cell>
                   <Table.Cell align="left">
-                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: row.nom, bonus: e.target.value }) }></input>
+                  <input className='add-point-input' placeholder="points de l'activité" type='int'  onChange={(e) => setAddPoint({team_name: props.team.nom, bonus: e.target.value }) }></input>
                   </Table.Cell>
                   <Table.Cell align="center">
                     <button className= 'validate-activity' type="submit"
@@ -108,6 +94,7 @@ function AdminPage() {
                         textAlign: 'center',
                         textDecoration: 'none',
                         color: "white",
+                        backgroundColor: "green",
                         boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
                         cursor: "pointer",
                         height: 40,
@@ -119,12 +106,7 @@ function AdminPage() {
                     </button>
                   </Table.Cell>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-      </div>
-        
-    );
-};
+)};
 
-export default AdminPage;
+export default Leaderboard_team;
+
