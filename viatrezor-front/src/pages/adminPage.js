@@ -51,6 +51,22 @@ function AdminPage() {
               body: JSON.stringify(addPoint)
           }).catch(e => console.log(e))
           setAddPoint({team_name:"", bonus: ""})
+
+          fetch('http://localhost:3001/api/team/activity', {
+            methode: 'PUT',
+            mode: 'cors',
+            headers: {
+              'Access-Control-Allow-Origin': 'http://localhost:3000/api',
+              'Access-Control-Allow-Credentials': true,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            credentials:'include',
+            body: JSON.stringify({
+              team_name: addPoint.team_name,
+              next_activity: "Oser"
+            })
+          }).catch(e => console.log(e))
       }
 
 

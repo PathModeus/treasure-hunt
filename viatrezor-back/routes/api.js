@@ -66,6 +66,23 @@ router.put('/team/bonus', (req, res) => {
     })
 })
 
+//Changement d'activité
+
+router.put('/team/activity', (req,res) => {
+    let team_name = req.body.team_name
+    let ongoing_activity = req.body.next_activity
+    bdd.query ('UPDATE teams SET ongoing_activity = (?) WHERE team_name = (?)', [ongoing_activity, team_name], (err) => {
+        if (err) throw err
+        bdd.query('SELECT team_id FROM teams WHERE team_name = (?)' , [team_name], (err, rows, fields) => {
+            if (err) throw err
+            bdd.query('UPDATE activities SET activity_2 = 1 WHERE team_id = (?)', [rows[0].team_id], (err) => {
+                if (err) throw err
+                res.json('Equipe envoyée vers la prochaine activité')
+            })
+        })
+    })
+})
+
 // Arrêt du timer et MAJ du temps
 
 router.post('/team/stop', async (req, res) => {
