@@ -17,7 +17,7 @@ function AdminPage() {
   
     useEffect(() => {
         // ${asso_name}
-        fetch('http://localhost:3001/api/team/VR', {
+        fetch('http://localhost:3001/api/team/admin/VR', {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -28,6 +28,9 @@ function AdminPage() {
         return response.json();
       })
       .then(function(res) {
+        console.log("eeee")
+        console.log(res)
+
         setTeams(res)
       //  setTeams(res.teams)
       //  setTimes(res.times)

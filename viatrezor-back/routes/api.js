@@ -57,24 +57,26 @@ router.put('/team/bonus', (req, res) => {
     let team_name = req.body.team_name
     let bonus_str = req.body.bonus
     let bonus = parseInt( bonus_str, 10)
-    bdd.query('SELECT points FROM teams WHERE team_name = (?)', [team_name], (err, rows, fields) => {
-        if (err) throw err
-        bdd.query('UPDATE teams SET points = (?) WHERE team_name = (?)', [rows[0].points + bonus, team_name], (err) => {
-            if (err) throw err
-            res.json('Bonus accordé !')
-        })
-    })
+    try {
+        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
+        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+        res.json('Bonus accordé !')
+    } catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
+
 })
 
 //Changement d'activité
 
 router.put('/team/next_activity', (req,res) => {
-    console.log(req.body)
     let team_name = req.body.team_name
     let ongoing_activity = req.body.next_activity
-    bdd.query ('UPDATE teams SET ongoing_activity = (?) WHERE team_name = (?)', [ongoing_activity, team_name], (err) => {
-        console.log(err)
-        if (err) throw err
+    try
+    {
+    bdd.teams.update({ongoing_activity: ongoing_activity}, {where: {team_name: team_name}})
+    if (err) throw err
         bdd.query('SELECT team_id FROM teams WHERE team_name = (?)' , [team_name], (err, rows, fields) => {
             console.log(rows[0])
             if (err) throw err
@@ -106,24 +108,18 @@ router.post('/team/stop', async (req, res) => {
     }
 })
 
-// Cette route récupère les équipes présentes sur un activité
-router.get('/team/:activity', (req, res) => {
-    var user = req.session.user
-    bdd.query('SELECT team_id,team_name,points,time FROM teams WHERE ongoing_activity = (?) ORDER BY points DESC ', [req.params.activity], (err, rows, fields) => {
-        if (err) {
-            res.status(500);
-        }
-        else
-        {
-            console.log("ee")
-            res.json(rows)
-        }
-        
-
-    })
-
-});
-
+// // Cette route récupère les équipes présentes sur un activité
+router.get('/team/admin/:activity', async (req, res) => {
+    console.log( req.params)
+    try{
+        team = (await bdd.teams.findAll({where: {ongoing_activity: req.params.activity}}));
+        console.log(team)
+        res.json(team);
+    } catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
+})
 // Vérification des droits de l'utilisateur
 
 router.get('/team/:id', async (req, res) => {
@@ -144,7 +140,7 @@ router.get('/whoami', async (req, res) => {
         admin = (await bdd.admins.findAll({where: {id_vr: user.login}}))
         player = (await bdd.players.findAll({where: {id_vr: user.login}}))
         return res.json({...req.session.user, role: {
-            admin: admin ? admin[0].asso_name : null, 
+            admin: admin[0] ? admin[0].asso_name : null, 
             player: player ? player[0].team_id : null
         }});
     } catch (e) {
