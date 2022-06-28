@@ -5,9 +5,8 @@ const axios = require('axios');
 
 
 function createData(rang, nom, points, temps) {
-    return { rang, nom, points, temps };
-  }
-
+  return { rang, nom, points, temps };
+}
 
 function AdminPage() {
     const [showPlayButton, setShowPlayButton] = useState(true);
@@ -52,54 +51,56 @@ function AdminPage() {
           }).catch(e => console.log(e))
           setAddPoint({team_name:"", bonus: ""})
 
-          fetch('http://localhost:3001/api/team/activity', {
-            methode: 'PUT',
+  const NextActivity = () => {    
+    fetch("http://localhost:3001/api/team/next_activity", {
+            methode: 'POST',
             mode: 'cors',
             headers: {
-              'Access-Control-Allow-Origin': 'http://localhost:3000/api',
+              //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
               'Access-Control-Allow-Credentials': true,
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
-            credentials:'include',
-            body: JSON.stringify({
-              team_name: addPoint.team_name,
-              next_activity: "Oser"
-            })
+            credentials:"include",
+            body: JSON.stringify(addPoint),
           }).catch(e => console.log(e))
-      }
+  }
 
-
-    return (
-        <div className="Table">
+  return (
+    <div className="Table">
       <h3></h3>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <Table.Header>
-              <Table.Row style={{color : "white"}}>
-                <Table.HeaderCell>Rang</Table.HeaderCell>
-                <Table.HeaderCell align="center">Nom de l'équipe</Table.HeaderCell>
-                <Table.HeaderCell align="center">Points</Table.HeaderCell>
-                <Table.HeaderCell align="center">Temps</Table.HeaderCell>
-                <Table.HeaderCell align="center">Pause/Resume time</Table.HeaderCell>
-                <Table.HeaderCell align="center">Ajout des points</Table.HeaderCell>
-                <Table.HeaderCell align="center">Valider l'activité</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body style={{ color: "white" }}>
-              {teams.map((row, index) => (
-                <Table.Row
-                  key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <Table.Cell component="th" scope="row">
-                    {index + 1}
-                  </Table.Cell>
-                  <Table.Cell align="left">{row.team_name}</Table.Cell>
-                  <Table.Cell align="left">{row.points}</Table.Cell>
-                  <Table.Cell align="left">{row.time}</Table.Cell>
-                  <Table.Cell align="center">
-                  <div className="Pause">
-                    <button onClick={() => setShowPlayButton(!showPlayButton) }
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table.Header>
+          <Table.Row style={{ color: "white" }}>
+            <Table.HeaderCell>Rang</Table.HeaderCell>
+            <Table.HeaderCell align="center">Nom de l'équipe</Table.HeaderCell>
+            <Table.HeaderCell align="center">Points</Table.HeaderCell>
+            <Table.HeaderCell align="center">Temps</Table.HeaderCell>
+            <Table.HeaderCell align="center">
+              Pause/Resume time
+            </Table.HeaderCell>
+            <Table.HeaderCell align="center">Ajout des points</Table.HeaderCell>
+            <Table.HeaderCell align="center">
+              Valider l'activité
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body style={{ color: "white" }}>
+          {teams.map((row, index) => (
+            <Table.Row
+              key={index}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <Table.Cell component="th" scope="row">
+                {index + 1}
+              </Table.Cell>
+              <Table.Cell align="left">{row.team_name}</Table.Cell>
+              <Table.Cell align="left">{row.points}</Table.Cell>
+              <Table.Cell align="left">{row.time}</Table.Cell>
+              <Table.Cell align="center">
+                <div className="Pause">
+                  <button
+                    onClick={() => setShowPlayButton(!showPlayButton)}
                     style={{
                         border: "none",
                         backgroundColor: "#04AA6D",
@@ -110,9 +111,11 @@ function AdminPage() {
                         borderRadius: "100%",
                         width: 40
                     }}
-                    >
-                      <PlayPause buttonToShow={showPlayButton ? "play" : "pause"} />
-                    </button>
+                  >
+                    <PlayPause
+                      buttonToShow={showPlayButton ? "play" : "pause"}
+                    />
+                  </button>
                 </div>
                   </Table.Cell>
                   <Table.Cell align="left">
@@ -145,5 +148,6 @@ function AdminPage() {
         
     );
 };
+}
 
 export default AdminPage;
