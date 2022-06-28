@@ -68,13 +68,17 @@ router.put('/team/bonus', (req, res) => {
 
 //Changement d'activité
 
-router.put('/team/activity', (req,res) => {
+router.put('/team/next_activity', (req,res) => {
+    console.log(req.body)
     let team_name = req.body.team_name
     let ongoing_activity = req.body.next_activity
     bdd.query ('UPDATE teams SET ongoing_activity = (?) WHERE team_name = (?)', [ongoing_activity, team_name], (err) => {
+        console.log(err)
         if (err) throw err
         bdd.query('SELECT team_id FROM teams WHERE team_name = (?)' , [team_name], (err, rows, fields) => {
+            console.log(rows[0])
             if (err) throw err
+            console.log(rows[0])
             bdd.query('UPDATE activities SET activity_2 = 1 WHERE team_id = (?)', [rows[0].team_id], (err) => {
                 if (err) throw err
                 res.json('Equipe envoyée vers la prochaine activité')
@@ -105,7 +109,7 @@ router.post('/team/stop', async (req, res) => {
 // Cette route récupère les équipes présentes sur un activité
 router.get('/team/:activity', (req, res) => {
     var user = req.session.user
-    bdd.query('SELECT team_id,team_name,points,time FROM teams WHERE ongoing_activity = (?)', [req.params.activity], (err, rows, fields) => {
+    bdd.query('SELECT team_id,team_name,points,time FROM teams WHERE ongoing_activity = (?) ORDER BY points DESC ', [req.params.activity], (err, rows, fields) => {
         if (err) {
             res.status(500);
         }
