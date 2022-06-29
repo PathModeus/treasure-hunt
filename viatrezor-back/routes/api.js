@@ -52,41 +52,37 @@ router.post('/team/create', async (req, res) => {
 
 // Ajout de points bonus
 
-router.put('/team/bonus', (req, res) => {
-    console.log(req.body)
-    let team_name = req.body.team_name
-    let bonus_str = req.body.bonus
-    let bonus = parseInt( bonus_str, 10)
+// router.put('/team/bonus', (req, res) => {
+//     console.log(req.body)
+//     let team_name = req.body.team_name
+//     let bonus_str = req.body.bonus
+//     let bonus = parseInt( bonus_str, 10)
+//     try {
+//         team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
+//         bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+//         res.json('Bonus accordé !')
+//     } catch (e) {
+//         console.log(e);
+//         res.status(500).end();
+//     }
+
+// })
+
+//Changement d'activité
+
+router.put('/team/next_activity/:ongoing_activity', (req,res) => {
+    
+    let team_id = req.body.team_id
+    let ongoing_activity =  req.params.activity
+    console.log(team_id)
     try {
-        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
-        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
-        res.json('Bonus accordé !')
+        team =  bdd.teams.findAll({where: {team_id: team_id}})
+        bdd.teams.update({ongoing_activity: ongoing_activity}, {where: {team_id: team_id}})
+        bdd.activities.update({ activity_1: 1}, {where: {team_id: team_id}})
     } catch (e) {
         console.log(e);
         res.status(500).end();
     }
-
-})
-
-//Changement d'activité
-
-router.put('/team/next_activity', (req,res) => {
-    let team_name = req.body.team_name
-    let ongoing_activity = req.body.next_activity
-    try
-    {
-    bdd.teams.update({ongoing_activity: ongoing_activity}, {where: {team_name: team_name}})
-    if (err) throw err
-        bdd.query('SELECT team_id FROM teams WHERE team_name = (?)' , [team_name], (err, rows, fields) => {
-            console.log(rows[0])
-            if (err) throw err
-            console.log(rows[0])
-            bdd.query('UPDATE activities SET activity_2 = 1 WHERE team_id = (?)', [rows[0].team_id], (err) => {
-                if (err) throw err
-                res.json('Equipe envoyée vers la prochaine activité')
-            })
-        })
-    })
 })
 
 // Arrêt du timer et MAJ du temps
@@ -110,10 +106,8 @@ router.post('/team/stop', async (req, res) => {
 
 // // Cette route récupère les équipes présentes sur un activité
 router.get('/team/admin/:activity', async (req, res) => {
-    console.log( req.params)
     try{
         team = (await bdd.teams.findAll({where: {ongoing_activity: req.params.activity}}));
-        console.log(team)
         res.json(team);
     } catch (e) {
         console.log(e);
