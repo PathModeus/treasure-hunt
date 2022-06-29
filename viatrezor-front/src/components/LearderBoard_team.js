@@ -5,7 +5,9 @@ import { Table} from 'semantic-ui-react';
 function Leaderboard_team(props) {
 
     const [showPlayButton, setShowPlayButton] = useState(true);
-    const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0, next_activity: ""})
+    const [addPoint, setAddPoint ] = useState({team_name:props.team_name, bonus: 0, next_activity: ""})
+    const [Points, setPoints ] = useState(props.team.points)
+
     const  [times, setTimes ]  = useState(props.team.time? props.team.time : 0 );      
     const  [timer, setTimer ]  = useState("00:00:00");
 
@@ -28,7 +30,27 @@ function Leaderboard_team(props) {
     )
 });
     }
-   
+
+    const Pause = () => {    
+      fetch('http://localhost:3001/api/team/stop', {
+         method: "PUT", 
+         mode: 'cors',
+         headers: {
+          //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
+          'Access-Control-Allow-Credentials': true,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials:"include",
+body: JSON.stringify(
+  {
+    team_id: props.team.team_id,
+    next_activity: "CStudio"
+  }
+)
+});
+}
+
   useEffect(() => {
       let {  hours, minutes, seconds }  = getTime(times);
       setTimer(
@@ -68,8 +90,8 @@ function Leaderboard_team(props) {
         credentials: 'include',
         body: JSON.stringify(addPoint)
     }).catch(e => console.log(e))
-    console.log(addPoint)
-    setAddPoint({team_name:"", bonus: ""})
+    setPoints( Points + addPoint.bonus)
+    setAddPoint({team_name:"", bonus: 0})
   }
 
     return (
@@ -79,12 +101,13 @@ function Leaderboard_team(props) {
     >
       <Table.Cell align="left">{props.index + 1}</Table.Cell>
       <Table.Cell align="left">{props.team.team_name}</Table.Cell>
-      <Table.Cell align="left">{props.team.points}</Table.Cell>
+      <Table.Cell align="left">{Points}</Table.Cell>
       <Table.Cell align="left">{timer}</Table.Cell>
       <Table.Cell align="left">
         <div className="Pause">
           <button
             onClick={() =>{
+              Pause()
               setShowPlayButton(!showPlayButton);
               
             
@@ -113,10 +136,9 @@ function Leaderboard_team(props) {
           placeholder="points de l'activité"
           type="int"
           onChange={(e) => {
-            console.log(e.target.value)
             setAddPoint({
               team_name: props.team.team_name,
-              bonus: e.target.value,
+              bonus: parseInt(e.target.value, 10), 
               next_activity: "Oser",
             }) 
           }

@@ -28,14 +28,9 @@ function AdminPage() {
         return response.json();
       })
       .then(function(res) {
-        console.log("eeee")
-        console.log(res)
-
         setTeams(res)
-      //  setTeams(res.teams)
-      //  setTimes(res.times)
       })
-  }, [teams])
+  }, [])
 
 
   return (

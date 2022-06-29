@@ -58,7 +58,6 @@ router.put('/team/next_activity/:ongoing_activity', (req,res) => {
     let team_id = req.body.team_id
     let ongoing_activity =  req.params.activity
     let next_activity = req.body.next_activity
-    console.log(team_id)
     try {
         team =  bdd.teams.findAll({where: {team_id: team_id}})
         bdd.teams.update({ongoing_activity: next_activity}, {where: {team_id: team_id}})
@@ -90,11 +89,11 @@ router.put('/team/bonus', async (req, res) => {
 // Arrêt du timer et MAJ du temps
 
 router.post('/team/stop', async (req, res) => {
-    var team_name = req.body.team_name
+    var team_id = req.body.team_id
     var date = new Date()
     var temps = date.now()
     try {
-        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
+        team = (await bdd.teams.findAll({where: {team_id: team_id}}))[0]
         if (team.timer_status) {
             bdd.teams.update({time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}})
         } else {
