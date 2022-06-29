@@ -37,40 +37,6 @@ function AdminPage() {
       })
   }, [teams])
 
-
-
-  //   const Submit = () => {
-          
-  //         fetch('http://localhost:3001/api/team/bonus', {
-  //             method: 'PUT',
-  //             mode: 'cors',
-  //             headers: {
-  //                 'Access-Control-Allow-Origin': 'http://localhost:3000/api',
-  //                 'Access-Control-Allow-Credentials': true,
-  //                 'Accept': 'application/json',
-  //                 'Content-Type': 'application/json',
-  //             },
-  //             credentials: 'include',
-  //             body: JSON.stringify(addPoint)
-  //         }).catch(e => console.log(e))
-  //         setAddPoint({team_name:"", bonus: ""})
-  //       }
-
-  // const NextActivity = () => {    
-  //   fetch("http://localhost:3001/api/team/next_activity", {
-  //           methode: 'POST',
-  //           mode: 'cors',
-  //           headers: {
-  //             //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
-  //             'Access-Control-Allow-Credentials': true,
-  //             'Accept': 'application/json',
-  //             'Content-Type': 'application/json',
-  //           },
-  //           credentials:"include",
-  //           body: JSON.stringify(addPoint),
-  //         }).catch(e => console.log(e))
-  // }
-
   return (
     <div className="Table">
       <h3></h3>

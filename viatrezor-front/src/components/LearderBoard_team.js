@@ -77,7 +77,7 @@ function Leaderboard_team(props) {
       <Table.Cell align="left">{props.team.team_name}</Table.Cell>
       <Table.Cell align="left">{props.team.points}</Table.Cell>
       <Table.Cell align="left">{timer}</Table.Cell>
-      <Table.Cell align="center">
+      <Table.Cell align="left">
         <div className="Pause">
           <button
             onClick={() =>{
@@ -117,12 +117,18 @@ function Leaderboard_team(props) {
             }) 
           }
           }
+          style={{
+            width: 200,
+            borderRadius: "5px",
+          }}
         ></input>
+        <div heigth='20px'></div>
         <button
           className="validate-activity"
           type="submit"
           onClick={Submit}
           style={{
+            display: "right",
             border: "none",
             backgroundColor: "#04AA6D",
             textAlign: "center",
@@ -131,17 +137,18 @@ function Leaderboard_team(props) {
             backgroundColor: "green",
             boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
             cursor: "pointer",
-            height: 50,
+            height: 25,
             outline: "none",
             borderRadius: "5px",
-            width: 100,
+            width: 200,
+            marginTop: 10,
           }}
           color="white"
         >
           Ajouter les points
         </button>
       </Table.Cell>
-      <Table.Cell align="center">
+      <Table.Cell align="left">
         <button
           className="validate-activity"
           type="submit"
