@@ -81,11 +81,11 @@ sequelize.sync()
             console.log("Admins have been saved")
         });
         
-        Teams.bulkCreate([
-            {team_name: 'No team', ongoing_activity: 'Looking for a team'}
-        ], {ignoreDuplicates: true}).then(() => {
-            console.log("Default team has been created");
-        });
+        // Teams.bulkCreate([
+        //     {team_name: 'No team', ongoing_activity: 'Looking for a team'}
+        // ], {ignoreDuplicates: true}).then(() => {
+        //     console.log("Default team has been created");
+        // });
     })
     .catch((err) => {
         console.log("Failed to sync db: " + err.message);

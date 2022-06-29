@@ -52,14 +52,15 @@ router.post('/team/create', async (req, res) => {
 
 // Ajout de points bonus
 
-router.put('/team/bonus', (req, res) => {
-    console.log(req.body)
+router.put('/team/bonus', async (req, res) => {
+    console.log("bonus: ", req.body.bonus)
     let team_name = req.body.team_name
     let bonus_str = req.body.bonus
     let bonus = parseInt( bonus_str, 10)
     try {
         team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
-        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+        console.log(team.dataValues.points)
+        bdd.teams.update({points: team.dataValues.points + bonus}, {where: {team_name: team_name}})
         res.json('Bonus accordé !')
     } catch (e) {
         console.log(e);
@@ -70,7 +71,7 @@ router.put('/team/bonus', (req, res) => {
 
 //Changement d'activité
 
-router.put('/team/next_activity', (req,res) => {
+router.put('/team/next_activity', async (req,res) => {
     let team_name = req.body.team_name
     let ongoing_activity = req.body.next_activity
     try
@@ -86,7 +87,10 @@ router.put('/team/next_activity', (req,res) => {
                 res.json('Equipe envoyée vers la prochaine activité')
             })
         })
-    })
+    } catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
 })
 
 // Arrêt du timer et MAJ du temps
