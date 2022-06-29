@@ -69,20 +69,6 @@ function Leaderboard_team(props) {
     setAddPoint({team_name:"", bonus: ""})
   }
 
-  const NextActivity = () => {    
-    fetch("http://localhost:3001/api/team/next_activity", {
-            methode: 'PUT',
-            mode: 'cors',
-            headers: {
-              //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
-              'Access-Control-Allow-Credentials': true,
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            credentials:"include",
-            body: JSON.stringify(addPoint),
-          }).catch(e => console.log(e))
-  }
     return (
 
       <Table.Row

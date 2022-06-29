@@ -62,8 +62,15 @@ router.put('/team/next_activity/:ongoing_activity', (req,res) => {
         team =  bdd.teams.findAll({where: {team_id: team_id}})
         bdd.teams.update({ongoing_activity: ongoing_activity}, {where: {team_id: team_id}})
         bdd.activities.update({ activity_1: 1}, {where: {team_id: team_id}})
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
+})
 
-        router.put('/team/bonus', async (req, res) => {
+
+router.put('/team/bonus', async (req, res) => {
     console.log("bonus: ", req.body.bonus)
     let team_name = req.body.team_name
     let bonus_str = req.body.bonus
@@ -151,5 +158,3 @@ router.get('/:nimp', (req, res, next) => {
 });
 
 module.exports = router;
-
-// Si certain players ne se sont jamais connectes avant d'être ajouté à une équipe échec : pareil si c'est un admin
