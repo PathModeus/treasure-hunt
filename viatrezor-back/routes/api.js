@@ -57,11 +57,12 @@ router.put('/team/next_activity/:ongoing_activity', (req,res) => {
     
     let team_id = req.body.team_id
     let ongoing_activity =  req.params.activity
+    let next_activity = req.body.next_activity
     console.log(team_id)
     try {
         team =  bdd.teams.findAll({where: {team_id: team_id}})
-        bdd.teams.update({ongoing_activity: ongoing_activity}, {where: {team_id: team_id}})
-        bdd.activities.update({ activity_1: 1}, {where: {team_id: team_id}})
+        bdd.teams.update({ongoing_activity: next_activity}, {where: {team_id: team_id}})
+        bdd.activities.upsert({team_id: team_id, VR: 1}, {where: {team_id: team_id}})
     }
     catch (e) {
         console.log(e);

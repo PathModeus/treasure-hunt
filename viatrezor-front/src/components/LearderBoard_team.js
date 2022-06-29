@@ -21,7 +21,10 @@ function Leaderboard_team(props) {
               },
               credentials:"include",
     body: JSON.stringify(
-        { team_id: props.team.team_id}
+        {
+          team_id: props.team.team_id,
+          next_activity: "CStudio"
+        }
     )
 });
     }

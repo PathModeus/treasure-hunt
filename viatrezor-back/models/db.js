@@ -34,13 +34,13 @@ const Admins = sequelize.define("admins", {
 
 const Activities = sequelize.define("activities", {
     team_id: {type: Sequelize.INTEGER, primaryKey: true, references: {model: Teams, key: 'team_id'}},
-    activity_1: {type: Sequelize.BOOLEAN, defaultValue: false},
-    activity_2: {type: Sequelize.BOOLEAN, defaultValue: false},
-    activity_3: {type: Sequelize.BOOLEAN, defaultValue: false},
-    activity_4: {type: Sequelize.BOOLEAN, defaultValue: false},
-    activity_5: {type: Sequelize.BOOLEAN, defaultValue: false},
-    activity_6: {type: Sequelize.BOOLEAN, defaultValue: false},
-    activity_7: {type: Sequelize.BOOLEAN, defaultValue: false},
+    Start_activity: {type: Sequelize.BOOLEAN, defaultValue: true},
+    VR: {type: Sequelize.BOOLEAN, defaultValue: false},
+    CSDesign: {type: Sequelize.BOOLEAN, defaultValue: false},
+    CStudio: {type: Sequelize.BOOLEAN, defaultValue: false},
+    ClubTech: {type: Sequelize.BOOLEAN, defaultValue: false},
+    AlgorithmiCS: {type: Sequelize.BOOLEAN, defaultValue: false},
+    Pics: {type: Sequelize.BOOLEAN, defaultValue: false},
 });
 
 
