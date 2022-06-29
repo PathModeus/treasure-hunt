@@ -5,7 +5,7 @@ import { Table} from 'semantic-ui-react';
 function Leaderboard_team(props) {
 
     const [showPlayButton, setShowPlayButton] = useState(true);
-    const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+    const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0, next_activity: ""})
     const  [times, setTimes ]  = useState(props.team.time? props.team.time : 0 );      
     const  [timer, setTimer ]  = useState("00:00:00");
 
@@ -51,23 +51,38 @@ function Leaderboard_team(props) {
     };
   }
   
+  const Submit = () => {
+          
+    fetch('http://localhost:3001/api/team/bonus', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000/api',
+            'Access-Control-Allow-Credentials': true,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(addPoint)
+    }).catch(e => console.log(e))
+    console.log(addPoint)
+    setAddPoint({team_name:"", bonus: ""})
+  }
 
-
-    const Submit = () => {
-      
-          fetch('http://localhost:3001/api/team/bonus', {
-              method: 'POST',
-              mode: 'cors',
-              headers: {
-                  'Access-Control-Allow-Credentials': true,
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-              },
-              credentials: 'include',
+  const NextActivity = () => {    
+    fetch("http://localhost:3001/api/team/next_activity", {
+            methode: 'PUT',
+            mode: 'cors',
+            headers: {
+              //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
+              'Access-Control-Allow-Credentials': true,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            credentials:"include",
+            body: JSON.stringify(addPoint),
           }).catch(e => console.log(e))
-      }
-
-
+  }
     return (
 
       <Table.Row
@@ -77,7 +92,7 @@ function Leaderboard_team(props) {
       <Table.Cell align="left">{props.team.team_name}</Table.Cell>
       <Table.Cell align="left">{props.team.points}</Table.Cell>
       <Table.Cell align="left">{timer}</Table.Cell>
-      <Table.Cell align="center">
+      <Table.Cell align="left">
         <div className="Pause">
           <button
             onClick={() =>{
@@ -108,19 +123,27 @@ function Leaderboard_team(props) {
           className="add-point-input"
           placeholder="points de l'activité"
           type="int"
-          onChange={(e) =>
+          onChange={(e) => {
+            console.log(e.target.value)
             setAddPoint({
               team_name: props.team.team_name,
               bonus: e.target.value,
               next_activity: "Oser",
             }) 
           }
+          }
+          style={{
+            width: 200,
+            borderRadius: "5px",
+          }}
         ></input>
+        <div heigth='20px'></div>
         <button
           className="validate-activity"
           type="submit"
           onClick={Submit}
           style={{
+            display: "right",
             border: "none",
             backgroundColor: "#04AA6D",
             textAlign: "center",
@@ -129,17 +152,18 @@ function Leaderboard_team(props) {
             backgroundColor: "green",
             boxShadow: "0 0 4px 2px rgba(0,0,0,.2)",
             cursor: "pointer",
-            height: 50,
+            height: 25,
             outline: "none",
             borderRadius: "5px",
-            width: 100,
+            width: 200,
+            marginTop: 10,
           }}
           color="white"
         >
           Ajouter les points
         </button>
       </Table.Cell>
-      <Table.Cell align="center">
+      <Table.Cell align="left">
         <button
           className="validate-activity"
           type="submit"

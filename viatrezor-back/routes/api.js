@@ -52,23 +52,6 @@ router.post('/team/create', async (req, res) => {
 
 // Ajout de points bonus
 
-// router.put('/team/bonus', (req, res) => {
-//     console.log(req.body)
-//     let team_name = req.body.team_name
-//     let bonus_str = req.body.bonus
-//     let bonus = parseInt( bonus_str, 10)
-//     try {
-//         team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
-//         bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
-//         res.json('Bonus accordé !')
-//     } catch (e) {
-//         console.log(e);
-//         res.status(500).end();
-//     }
-
-// })
-
-//Changement d'activité
 
 router.put('/team/next_activity/:ongoing_activity', (req,res) => {
     
@@ -79,6 +62,17 @@ router.put('/team/next_activity/:ongoing_activity', (req,res) => {
         team =  bdd.teams.findAll({where: {team_id: team_id}})
         bdd.teams.update({ongoing_activity: ongoing_activity}, {where: {team_id: team_id}})
         bdd.activities.update({ activity_1: 1}, {where: {team_id: team_id}})
+
+        router.put('/team/bonus', async (req, res) => {
+    console.log("bonus: ", req.body.bonus)
+    let team_name = req.body.team_name
+    let bonus_str = req.body.bonus
+    let bonus = parseInt( bonus_str, 10)
+    try {
+        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
+        console.log(team.dataValues.points)
+        bdd.teams.update({points: team.dataValues.points + bonus}, {where: {team_name: team_name}})
+        res.json('Bonus accordé !')
     } catch (e) {
         console.log(e);
         res.status(500).end();

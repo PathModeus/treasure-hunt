@@ -11,7 +11,7 @@ function createData(rang, nom, points, temps) {
 
 function AdminPage() {
     const [showPlayButton, setShowPlayButton] = useState(true);
-    const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+    //const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
     const  [teams, setTeams ]  = useState([]);
     const  [times, setTimes ]  = useState(0);
   
@@ -35,26 +35,8 @@ function AdminPage() {
       //  setTeams(res.teams)
       //  setTimes(res.times)
       })
-  }, [])
+  }, [teams])
 
-
-
-    const Submit = () => {
-          
-          fetch('http://localhost:3001/api/team/bonus', {
-              method: 'PUT',
-              mode: 'cors',
-              headers: {
-                  'Access-Control-Allow-Origin': 'http://localhost:3000/api',
-                  'Access-Control-Allow-Credentials': true,
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-              },
-              credentials: 'include',
-              body: JSON.stringify(addPoint)
-          }).catch(e => console.log(e))
-          setAddPoint({team_name:"", bonus: ""})
-        }
 
   return (
     <div className="Table">
