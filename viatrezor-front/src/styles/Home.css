@@ -14,7 +14,7 @@
 
 .type-writer::after {
     content: "|";
-    animation: blink 1s infinite;
+    animation: blink 0.5s infinite alternate-reverse ;
 }
 
 .type-writer {
@@ -32,18 +32,16 @@
     font-family: 'Ubuntu';
     overflow: visible;
     font: 'Helvetica Neue';
+    margin-top: 1em;
 }
 
-.accueil-flex-hor {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.accueil-flex-ver {
+.accueil-flex {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 
 .advancement-bar {
@@ -56,4 +54,17 @@
     justify-self: center;
     color: white;
     font-size: 1.5rem;
+}
+
+#team-name {
+    font-size: 1.5em;
+    color: white;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+}
+
+#round-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
 }

@@ -17,7 +17,7 @@ import { Admin } from './components/Admin'
 
 function App() {
   const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
-  const [team, setTeam] = useState(null);
+  const [teamInfo, setTeamInfo] = useState(null);
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function App() {
         },
         credentials: 'include',
       }).then(async res => {
-        setTeam(await res.json());
+        setTeamInfo(await res.json());
         setLoad(false);
       }).catch(e => console.log(e));
     }
@@ -59,8 +59,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role?.player ? <Home team={team} /> : (session?.role?.Admin ? <Admin /> : <Navigate to='/login' />)} />
-              <Route path='login' element={<AuthPage />} />
+              <Route index element={session?.role?.admin && !session?.role?.player ? <Admin /> : <Home teamInfo={teamInfo} />} />
+              <Route path='login' element={<AuthPage  setLoad={setLoad}  />} />
               {session &&
                 <>
                   <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />

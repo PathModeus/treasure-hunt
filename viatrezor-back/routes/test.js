@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const next_chall = require('../src/diverse/algo').next_chall
-const bdd = require('../src/diverse/bdd')
+const bdd = require('../models/db')
 
 // Fichier pour mettre les routes de test
 //

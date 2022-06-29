@@ -3,7 +3,7 @@ import { Session } from '../Param';
 import '../styles/Authenticate.css'
 
 
-function AuthPage() {
+function AuthPage({setLoad}) {
     const [session, setSession] = useContext(Session);
 
     const logout = () => {
@@ -20,22 +20,7 @@ function AuthPage() {
     }
 
     useEffect(() => {
-        if (!session) {
-            fetch('http://localhost:3001/api/whoami/', {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Access-Control-Allow-Credentials': true,
-                },
-                credentials: 'include',
-            }).then(async res => {
-                if (res.status === 200) {
-                    let response = await res.json();
-                    localStorage.setItem('session', JSON.stringify(response));
-                    setSession(response);
-                }
-            }).catch(e => console.log(e));
-        }
+        if (!session) { setLoad(true) }
     }, [])
 
     return (

@@ -88,8 +88,9 @@ router.post('/team/stop', async (req, res) => {
 
 router.get('/team/:id', async (req, res) => {
     try{
-        team = (await bdd.teams.findAll({where: {team_id: req.params.id}}))[0];
-        res.json(team);
+        team = await bdd.teams.findByPk(req.params.id);
+        activity = await bdd.activities.findByPk(team.ongoing_activity);
+        res.json({team, activity});
     } catch (e) {
         console.log(e);
         res.status(500).end();
