@@ -21,7 +21,7 @@ const bdd = require('../models/db');
 router.get('/init', (req, res) => {
     var user = req.session.user
 
-    bdd.players.bulkCreate([{id_vr: user.login}], {ignoreDuplicates: true}).catch((e) => {
+    bdd.players.bulkCreate([{ id_vr: user.login }], { ignoreDuplicates: true }).catch((e) => {
         console.log(e)
     })
     return res.redirect('http://localhost:3000/login')
@@ -36,9 +36,9 @@ router.post('/team/create', async (req, res) => {
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
         try {
-            team = await bdd.teams.create({team_name: req.body.team_name});
+            team = await bdd.teams.create({ team_name: req.body.team_name });
             for (let id_vr of id_vr_list) {
-                bdd.players.upsert({id_vr: id_vr, team_id: team.team_id}, {where: { id_vr: id_vr }});
+                bdd.players.upsert({ id_vr: id_vr, team_id: team.team_id }, { where: { id_vr: id_vr } });
             };
             return res.status(200).end();
         } catch (e) {
@@ -57,7 +57,7 @@ router.post('/team/bonus', async (req, res) => {
     var bonus = req.body.bonus
     try {
         team = (await bdd.teams.findAll({ where: { team_name: team_name } }))[0]
-        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+        bdd.teams.update({ points: team.points + bonus }, { where: { team_name: team_name } })
         return res.json('Bonus accordé !')
     } catch (e) {
         console.log(e);
@@ -72,9 +72,9 @@ router.post('/team/stop', async (req, res) => {
     var date = new Date()
     var temps = date.now()
     try {
-        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
+        team = (await bdd.teams.findAll({ where: { team_name: team_name } }))[0]
         if (team.timer_status) {
-            bdd.teams.update({time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}})
+            bdd.teams.update({ time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0 }, { where: { team_name: team_name } })
         } else {
             res.json('Timer déjà arrêté !')
         }
@@ -87,8 +87,8 @@ router.post('/team/stop', async (req, res) => {
 // Renvoie les informations de l'équipe concernée
 
 router.get('/team/:id', async (req, res) => {
-    try{
-        team = (await bdd.teams.findAll({where: {team_id: req.params.id}}))[0];
+    try {
+        team = (await bdd.teams.findAll({ where: { team_id: req.params.id } }))[0];
         res.json(team);
     } catch (e) {
         console.log(e);
@@ -99,20 +99,25 @@ router.get('/team/:id', async (req, res) => {
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
 router.get('/whoami', async (req, res) => {
+    console.log(req.session)
     let user = req.session.user
     try {
-        admin = (await bdd.admins.findAll({where: {id_vr: user.login}}))
-        player = (await bdd.players.findAll({where: {id_vr: user.login}}))
-        return res.json({...req.session.user, role: {
-            admin: admin ? admin[0].asso_name : null, 
-            player: player ? player[0].team_id : null
-        }});
+        admin = (await bdd.admins.findAll({ where: { id_vr: user.login } }))
+        player = (await bdd.players.findAll({ where: { id_vr: user.login } }))
+        return res.json({
+            ...req.session.user, role: {
+                admin: admin ? admin[0].asso_name : null,
+                player: player ? player[0].team_id : null
+            }
+        });
     } catch (e) {
         console.log(e);
-        res.status(500).json({...req.session.user, role: {
-            admin: null, 
-            player: null
-        }});
+        res.status(500).json({
+            ...req.session.user, role: {
+                admin: null,
+                player: null
+            }
+        });
     }
 });
 
