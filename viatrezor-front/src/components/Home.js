@@ -10,10 +10,15 @@ function Home({teamInfo}) {
   useEffect(() => {
     setContent(
       session ? 
-        teamInfo?.activity?.description ?
-          teamInfo.activity.description
+        (session.role && session.role.player !== 'No team' ?
+          (teamInfo?.activity?.description ?
+            teamInfo.activity.description
+            :
+            "....."    
+          )      
           :
           "Parfait ! Vous avez réussi à vous connecter à l'authentificateur de ViaRézo ! Je n'ai pas le temps pour les présentations, rendez-vous au carré des Sciences dès que possible pour former une équipe. J'ai besoin de votre aide en urgence !"
+        )
       :  
       "Bonjour, vous êtes là ? Connectez-vous afin que je puisse savoir qui vous êtes !"
     )
@@ -21,7 +26,7 @@ function Home({teamInfo}) {
 
   return (
     <div className='accueil-flex'>
-      {teamInfo?.team?.team_name && 
+      {teamInfo?.team?.team_name && teamInfo.team.team_name !== 'No team' && 
         <div id="team-name">Équipe : {teamInfo.team.team_name}</div>
       }
       {teamInfo?.activity?.name && 
@@ -38,15 +43,15 @@ function Home({teamInfo}) {
 const TypeWriter = ({ content, speed }) => {
   const [session,] = useContext(Session);
   const [displayedContent, setDisplayedContent] = useState("$  ");
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(-1);
   const animKey = useRef(null);
 
   useEffect(() => {
-    setDisplayedContent("$  ");
-    setIndex(0);
     if (animKey.current) {
       clearInterval(animKey.current);
     }
+    setDisplayedContent("$  ");
+    setIndex(-1);
     /*Create a new setInterval and store its id*/
     animKey.current = setInterval(() => {
       setIndex((index) => {
@@ -55,7 +60,7 @@ const TypeWriter = ({ content, speed }) => {
         it will destroy this animation*/
 
         if (index >= content.length - 1) {
-          clearInterval(animKey);
+          clearInterval(animKey.current);
           return index;
         }
         return index + 1;
@@ -64,7 +69,9 @@ const TypeWriter = ({ content, speed }) => {
   }, [content]);
 
   useEffect(() => {
-    setDisplayedContent(displayedContent + content[index])
+    if (index !== -1 && content) {
+      setDisplayedContent(displayedContent + content[index])
+    }
   }, [index])
 
   return (
