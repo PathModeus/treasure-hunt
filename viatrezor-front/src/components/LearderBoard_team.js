@@ -5,7 +5,7 @@ import { Table} from 'semantic-ui-react';
 function Leaderboard_team(props) {
 
     const [showPlayButton, setShowPlayButton] = useState(props.team.timer_status);
-    const [addPoint, setAddPoint ] = useState({team_name:props.team_name, bonus: 0, next_activity: ""})
+    const [addPoint, setAddPoint ] = useState({team_name:props.team_name, bonus: "", next_activity: ""})
     const [Points, setPoints ] = useState(props.team.points)
     let temps = Date.now()
     let date = new Date( props.team.timer_last_on);
@@ -99,8 +99,8 @@ body: JSON.stringify(
         credentials: 'include',
         body: JSON.stringify(addPoint)
     }).catch(e => console.log(e))
-    setPoints( Points + addPoint.bonus)
-    setAddPoint({team_name:"", bonus: 0})
+    setPoints( Points + parseInt(addPoint.bonus))
+    setAddPoint({team_name:"", bonus: ""})
   }
 
     return (
@@ -143,6 +143,7 @@ body: JSON.stringify(
           className="add-point-input"
           placeholder="points de l'activité"
           type="int"
+          value={addPoint.bonus}
           onChange={(e) => {
             setAddPoint({
               team_name: props.team.team_name,
