@@ -88,17 +88,23 @@ router.put('/team/bonus', async (req, res) => {
 
 // Arrêt du timer et MAJ du temps
 
-router.post('/team/stop', async (req, res) => {
-    var team_id = req.body.team_id
-    var date = new Date()
-    var temps = date.now()
+router.put('/team/stop', async (req, res) => {
+    let team_id = req.body.team_id
+    let temps = Date.now()
+    let date = new Date;
+    date.setHours(date.getHours() +2 );
     try {
         team = (await bdd.teams.findAll({where: {team_id: team_id}}))[0]
-        if (team.timer_status) {
-            bdd.teams.update({time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}})
+        let time = team.time;
+        if (!team.timer_status) {
+            bdd.teams.update({timer_last_on: date, timer_status: 1}, {where: {team_id: team_id}})
         } else {
-            res.json('Timer déjà arrêté !')
+            var dif = ( temps - team.timer_last_on.getTime() +2*60*60*1000 ) / 1000;  // bug de timezone
+            time = time + dif;
+            console.log( team.timer_last_on.getHours(), team.timer_last_on.getMinutes())
+             bdd.teams.update({time: team.time+ dif, timer_last_on: date, timer_status: 0}, {where: {team_id: team_id}})
         }
+        res.json({time: time, date:date, status:!team.timer_status});
     } catch (e) {
         console.log(e);
         res.status(500).end();
