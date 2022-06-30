@@ -59,7 +59,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role?.admin && !session?.role?.player ? <Admin /> : <Home teamInfo={teamInfo} />} />
+              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <Admin /> : <Home teamInfo={teamInfo} />} />
               <Route path='login' element={<AuthPage  setLoad={setLoad}  />} />
               {session &&
                 <>
