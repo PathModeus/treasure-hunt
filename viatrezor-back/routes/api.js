@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bdd = require('../models/db');
+const algo = require('../src/diverse/algo');
 
 
 // Exemples de routes
@@ -36,7 +37,10 @@ router.post('/team/create', async (req, res) => {
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
         try {
-            team = await bdd.teams.create({ team_name: req.body.team_name });
+            let team = await bdd.teams.create({ team_name: req.body.team_name });
+            let activity_id = algo.next_chall(team.team_name);
+            bdd.teams.update({ ongoing_activity: activity_id }, { where: {team_name: team_name}})
+            bdd.history.create({team_name: team.team_name, activity_id: 1})
             for (let id_vr of id_vr_list) {
                 bdd.players.upsert({id_vr: id_vr, team_name: team.team_name}, {where: { id_vr: id_vr }});
             };

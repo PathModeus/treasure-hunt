@@ -104,12 +104,6 @@ sequelize.sync()
         ], {ignoreDuplicates: true}).then(() => {
             console.log("Default team has been created");
         });
-
-        Activities.bulkCreate([
-            { team_id: '1' }
-        ], { ignoreDuplicates: true }).then(() => {
-            console.log("Default team activities added !")
-        });
     })
     .catch((err) => {
         console.log("Failed to sync db: " + err.message);
