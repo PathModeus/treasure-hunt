@@ -27,7 +27,7 @@ function Navbarvt() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
 
-                {session && <Nav.Link as={Link} to="/">Accueil</Nav.Link>}
+                <Nav.Link as={Link} to="/">Accueil</Nav.Link>
                 <Nav.Link as={Link} to="/login">S'authentifier</Nav.Link>
                 {session &&
                   <>
