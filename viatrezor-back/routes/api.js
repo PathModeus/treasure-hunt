@@ -99,7 +99,6 @@ router.get('/team/:id', async (req, res) => {
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
 router.get('/whoami', async (req, res) => {
-    console.log(req.session)
     let user = req.session.user
     try {
         admin = (await bdd.admins.findAll({ where: { id_vr: user.login } }))
