@@ -13,23 +13,23 @@ const sequelize = new Sequelize('letresor', 'captain', 'sacrebleu', {
 
 // Structure de la bdd
 const Activities = sequelize.define("activities", {
-    id: {type: Sequelize.INTEGER, primaryKey: true},
-    name: {type: Sequelize.STRING},
-    description: {type: Sequelize.TEXT}
+    id: { type: Sequelize.INTEGER, primaryKey: true },
+    name: { type: Sequelize.STRING },
+    description: { type: Sequelize.TEXT }
 });
 
 const Teams = sequelize.define("teams", {
-    team_name: {type: Sequelize.STRING, allowNull: false, primaryKey: true},
-    ongoing_activity: {type: Sequelize.INTEGER, defaultValue: 1, allowNull: false, references: {model: Activities, key: 'id'}, onDelete: 'SET DEFAULT'},
-    timer_status: {type: Sequelize.BOOLEAN, defaultValue: false},
-    time: {type: Sequelize.INTEGER, defaultValue: 0},
-    timer_last_on: {type: Sequelize.DATE, allowNull: false, defaultValue: "2000-01-01T01:01:01"},
-    points: {type: Sequelize.INTEGER, allowNull: false, defaultValue: 0}
+    team_name: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
+    ongoing_activity: { type: Sequelize.INTEGER, defaultValue: 1, allowNull: false, references: { model: Activities, key: 'id' }, onDelete: 'SET DEFAULT' },
+    timer_status: { type: Sequelize.BOOLEAN, defaultValue: false },
+    time: { type: Sequelize.INTEGER, defaultValue: 0 },
+    timer_last_on: { type: Sequelize.DATE, allowNull: false, defaultValue: "2000-01-01T01:01:01" },
+    points: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }
 });
 
 const Players = sequelize.define("players", {
-    id_vr: {type: Sequelize.STRING, primaryKey: true},
-    team_name: {type: Sequelize.STRING, defaultValue: 'No team', references: {model: Teams, key: 'team_name'}, onDelete: 'SET DEFAULT'}  // onDelete: 'SET DEFAULT'
+    id_vr: { type: Sequelize.STRING, primaryKey: true },
+    team_name: { type: Sequelize.STRING, defaultValue: 'No team', references: { model: Teams, key: 'team_name' }, onDelete: 'SET DEFAULT' }  // onDelete: 'SET DEFAULT'
 });
 
 const Admins = sequelize.define("admins", {
@@ -38,9 +38,9 @@ const Admins = sequelize.define("admins", {
 });
 
 const History = sequelize.define("history", {
-    team_name: {type: Sequelize.STRING, primaryKey: true, allowNull: false, references: {model: Teams, key: 'team_name'}, onDelete: 'CASCADE'},
-    activity_id: {type: Sequelize.INTEGER, primaryKey: true, allowNull: false, references: {model: Activities, key: 'id'}, onDelete: 'CASCADE'}
-},);
+    team_name: { type: Sequelize.STRING, primaryKey: true, allowNull: false, references: { model: Teams, key: 'team_name' }, onDelete: 'CASCADE' },
+    activity_id: { type: Sequelize.INTEGER, primaryKey: true, allowNull: false, references: { model: Activities, key: 'id' }, onDelete: 'CASCADE' }
+});
 
 
 // Synchronisation de la bdd
@@ -79,9 +79,9 @@ sequelize.sync()
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Admins have been saved")
         });
-        
+
         await Activities.bulkCreate([
-            {   
+            {
                 id: 1,
                 description: "Attendez un instant, je me connecte à la base de donnée pour récupérer votre première épreuve..."
             },
@@ -95,13 +95,13 @@ sequelize.sync()
                 name: "Autre épreuve",
                 description: "Description de la deuxième épreuve"
             }
-        ], {ignoreDuplicates: true}).then(() => {
+        ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
         });
 
         await Teams.bulkCreate([
-            {team_name: 'No team'}
-        ], {ignoreDuplicates: true}).then(() => {
+            { team_name: 'No team' }
+        ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");
         });
     })
