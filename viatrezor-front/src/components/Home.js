@@ -1,62 +1,85 @@
 import '../styles/Home.css'
-import { useState, useEffect } from 'react';
-import { welcomingTxt, notInTeamTxt } from '../assets/lore.js';
+import { useState, useEffect, useContext, useRef } from 'react';
 import AdvancementBar from './AdvancementBar';
-import { Link } from 'react-router-dom';
+import { Session } from '../Param';
 
-function Home(props) {
-  return (
-    <div className='wrap'>
-      <div className='accueil-flex-hor'>
-        <div className='accueil-flex-ver'>
-          {props.team && props.team.team_name !== "No team" ?
-            <>
-              <TypeWriter content={test_content} speed={30} />
-              <AdvancementBar team={props.team} nbTasks={4} />
-            </>
+function Home({teamInfo}) {
+  const [session,] = useContext(Session);
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    setContent(
+      session ? 
+        (session.role && session.role.player !== 'No team' ?
+          (teamInfo?.activity?.description ?
+            teamInfo.activity.description
             :
-            <div className="no-team">
-              Il te faut d'abord rejoindre une équipe, va t'enregistrer auprès d'un organisateur !
-            </div>
-          }
-        </div>
-      </div>
+            "....."    
+          )      
+          :
+          "Parfait ! Vous avez réussi à vous connecter à l'authentificateur de ViaRézo ! Je n'ai pas le temps pour les présentations, rendez-vous au carré des Sciences dès que possible pour former une équipe. J'ai besoin de votre aide en urgence !"
+        )
+      :  
+      "Bonjour, vous êtes là ? Connectez-vous afin que je puisse savoir qui vous êtes !"
+    )
+  }, [session, teamInfo])
+
+  return (
+    <div className='accueil-flex'>
+      {teamInfo?.team?.team_name && teamInfo.team.team_name !== 'No team' && 
+        <div id="team-name">Équipe : {teamInfo.team.team_name}</div>
+      }
+      {teamInfo?.activity?.name && 
+        <div id="round-name">Prochaine épreuve : {teamInfo.activity.name}</div>
+      }
+      <TypeWriter content={content} speed={30} />
+      {teamInfo?.team &&
+        <AdvancementBar team={teamInfo.team} nbTasks={4} />
+      }
     </div>
   )
 }
 
-const TypeWriter = ({ content = "", speed = 1000 }) => {
-  const [displayedContent, setDisplayedContent] = useState("~% ");
-  const [index, setIndex] = useState(0);
+const TypeWriter = ({ content, speed }) => {
+  const [session,] = useContext(Session);
+  const [displayedContent, setDisplayedContent] = useState("$  ");
+  const [index, setIndex] = useState(-1);
+  const animKey = useRef(null);
 
   useEffect(() => {
+    if (animKey.current) {
+      clearInterval(animKey.current);
+    }
+    setDisplayedContent("$  ");
+    setIndex(-1);
     /*Create a new setInterval and store its id*/
-    const animKey = setInterval(() => {
+    animKey.current = setInterval(() => {
       setIndex((index) => {
         /*This setState function will set the index
         to index+1 if there is more content otherwise
         it will destroy this animation*/
 
         if (index >= content.length - 1) {
-          clearInterval(animKey);
+          clearInterval(animKey.current);
           return index;
         }
         return index + 1;
       });
     }, speed);
-  }, []);
+  }, [content]);
 
   useEffect(() => {
-    setDisplayedContent((displayedContent) => displayedContent + content[index])
+    if (index !== -1 && content) {
+      setDisplayedContent(displayedContent + content[index])
+    }
   }, [index])
 
   return (
-    <p className="type-writer">{displayedContent}</p>
+    <p className="type-writer">
+      {session && <>{session.firstName.toLowerCase().substring(0, 5)}@viarezo:~/ <br/></>}
+      {displayedContent}
+    </p>
   )
 };
-
-
-const test_content = notInTeamTxt
-
 
 export default Home
