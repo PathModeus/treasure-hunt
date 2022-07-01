@@ -39,10 +39,10 @@ router.post('/team/create', async (req, res) => {
         try {
             let team = await bdd.teams.create({ team_name: req.body.team_name });
             let activity_id = await algo.next_chall(team.team_name);
-            bdd.teams.update({ ongoing_activity: activity_id }, { where: {team_name: team.team_name}})
-            bdd.history.create({team_name: team.team_name, activity_id: 1})
+            bdd.teams.update({ ongoing_activity: activity_id }, { where: { team_name: team.team_name } })
+            bdd.history.create({ team_name: team.team_name, activity_id: 1 })
             for (let id_vr of id_vr_list) {
-                bdd.players.upsert({id_vr: id_vr, team_name: team.team_name}, {where: { id_vr: id_vr }});
+                bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
             };
             return res.status(200).end();
         } catch (e) {
@@ -61,7 +61,7 @@ router.post('/team/bonus', async (req, res) => {
     var bonus = req.body.bonus
     try {
         team = await bdd.teams.findByPk(team_name)
-        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+        bdd.teams.update({ points: team.points + bonus }, { where: { team_name: team_name } })
         return res.json('Bonus accordé !')
     } catch (e) {
         console.log(e);
@@ -91,10 +91,10 @@ router.post('/team/stop', async (req, res) => {
 // Renvoie les informations de l'équipe concernée
 
 router.get('/team/:team_name', async (req, res) => {
-    try{
+    try {
         team = await bdd.teams.findByPk(req.params.team_name);
         activity = await bdd.activities.findByPk(team.ongoing_activity);
-        res.json({team, activity});
+        res.json({ team, activity });
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -108,10 +108,12 @@ router.get('/whoami', async (req, res) => {
     try {
         admin = await bdd.admins.findByPk(user.login)
         player = await bdd.players.findByPk(user.login)
-        return res.json({...req.session.user, role: {
-            admin: admin ? admin.asso_name : null, 
-            player: player ? player.team_name : null
-        }});
+        return res.json({
+            ...req.session.user, role: {
+                admin: admin ? admin.asso_name : null,
+                player: player ? player.team_name : null
+            }
+        });
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -123,9 +125,30 @@ router.get('/whoami', async (req, res) => {
     }
 });
 
+
+// Redirection vers la page d'accueil
+
 router.get('/connect', (req, res, next) => {
     res.redirect('http://localhost:3000')
 })
+
+
+// Met à jour l'activité après avoir passé une épreuve
+
+router.post('/team/next', async (req, res, next) => {
+    try {
+        var team_name = req.body.team_name;
+        team_info = (await bdd.teams.findAll({ where: { team_name: team_name } }));
+        activity = team_info.ongoing_activity;
+        await bdd.history.bulkCreate([{ team_name: team_name, activity_id: activity }]);
+        next_activity = algo.next_chall(team_name)
+        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+    } catch (e) {
+        console.log(e)
+        res.status(500).end()
+    }
+})
+
 
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 
