@@ -6,14 +6,14 @@ const config = require('./config.json');
 // Redirect to OAuth gateway
 function login(req, res) {
   if ('user' in req.session) {
-    return res.redirect("http://localhost:3000/login");
+    return res.redirect(`${config.WEBROOT}/login`);
   };
 
   if (!('state' in req.session)) {
     req.session.state = randomstring.generate();
   };
   // Redirect user to auth to authorize client to read his data
-  return res.redirect('https://auth.viarezo.fr/oauth/authorize/?client_id='+config.client_id+"&redirect_uri="+config.domain+"/auth&response_type=code&scope=default&state="+req.session.state);
+  return res.redirect('https://auth.viarezo.fr/oauth/authorize/?client_id='+config.CLIENT_ID+"&redirect_uri="+config.DOMAIN+"/auth&response_type=code&scope=default&state="+req.session.state);
 }
 
 
@@ -25,9 +25,9 @@ function AuthCallback(req, res) {
     request.post("https://auth.viarezo.fr/oauth/token", {form:{
       grant_type:'authorization_code',
       code: req.query.code,
-      redirect_uri: config.domain+"/auth",
-      client_id: config.client_id,
-      client_secret: config.client_secret,
+      redirect_uri: config.DOMAIN+"/auth",
+      client_id: config.CLIENT_ID,
+      client_secret: config.CLIENT_SECRET,
     }}, (err, response, body)=>{
       const data = JSON.parse(body);
       // Check if the response is an error
@@ -38,7 +38,7 @@ function AuthCallback(req, res) {
         // First check wheter the token is still correct or not
         let now = Date.now();
         if (now/1000 > data.expires_at) {
-          return res.redirect('http://localhost:3000/login');
+          return res.redirect(`${config.WEBROOT}/login`);
         }
         else {
           // Call auth API to get user data
@@ -58,7 +58,7 @@ function AuthCallback(req, res) {
     if ('state' in req.session) {
       delete req.session.state;
     };
-    return res.redirect('http://localhost:3000/login');
+    return res.redirect(`${config.WEBROOT}/login`);
   };
 }
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bdd = require('../models/db');
+const config = require('../config.json');
 
 
 // Exemples de routes
@@ -24,7 +25,7 @@ router.get('/init', (req, res) => {
     bdd.players.bulkCreate([{id_vr: user.login}], {ignoreDuplicates: true}).catch((e) => {
         console.log(e)
     })
-    return res.redirect('http://localhost:3000/login')
+    return res.redirect(`${config.WEBROOT}/login`)
 })
 
 // Fonctionnalités liées à la gestion d'équipe
@@ -118,7 +119,7 @@ router.get('/whoami', async (req, res) => {
 });
 
 router.get('/connect', (req, res, next) => {
-    res.redirect('http://localhost:3000')
+    res.redirect(config.WEBROOT)
 })
 
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World

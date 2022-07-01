@@ -21,7 +21,7 @@ function App() {
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/whoami/', {
+    fetch(`${process.env.REACT_APP_SERVER}/api/whoami/`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     if (session?.role?.player) {
-      fetch(`http://localhost:3001/api/team/${session.role.player}`, {
+      fetch(`${process.env.REACT_APP_SERVER}/api/team/${session.role.player}`, {
         method: 'GET',
         mode: 'cors',
         headers: {

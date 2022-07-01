@@ -9,7 +9,7 @@ function AuthPage({setLoad}) {
     const logout = () => {
         setSession(null);
         localStorage.removeItem('session');
-        fetch('http://localhost:3001/auth/logout/', {
+        fetch(`${process.env.REACT_APP_SERVER}/api/auth/logout/`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -34,7 +34,7 @@ function AuthPage({setLoad}) {
                             <button className='authenticate-button' onClick={() => logout()}>Se déconnecter</button>
                         </>
                         :
-                        <button className='authenticate-button' onClick={() => window.location.assign('http://localhost:3001/auth/login/')}>Se connecter</button>
+                        <button className='authenticate-button' onClick={() => window.location.assign(`${process.env.REACT_APP_SERVER}/api/auth/login/`)}>Se connecter</button>
                     }
                 </div>
             </div>
