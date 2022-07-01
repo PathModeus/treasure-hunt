@@ -6,7 +6,7 @@ const bdd = require('../../models/db');
 
 
 async function next_chall(team_name) {
-    let activities_list = await bdd.activities.findAll()
+    let activities_list = (await bdd.activities.findAll()).filter(item => item.id != 1)
     activities_done = (await bdd.history.findAll({ where: { team_name: team_name }}));
     activity_load = (await bdd.teams.count({ group: ['ongoing_activity'] }));
     var min_temp = 10000;
