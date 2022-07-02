@@ -138,10 +138,10 @@ router.get('/connect', (req, res, next) => {
 router.post('/team/next', async (req, res, next) => {
     try {
         var team_name = req.body.team_name;
-        team_info = (await bdd.teams.findAll({ where: { team_name: team_name } }));
-        activity = team_info.ongoing_activity;
-        await bdd.history.bulkCreate([{ team_name: team_name, activity_id: activity }]);
-        next_activity = algo.next_chall(team_name)
+        let team_info = await bdd.teams.findByPk(team_name);
+        let activity = team_info.ongoing_activity;
+        await bdd.history.create({ team_name: team_name, activity_id: activity });
+        let next_activity = await algo.next_chall(team_name)
         await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
     } catch (e) {
         console.log(e)
