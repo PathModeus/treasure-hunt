@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../styles/Authenticate.css'
 
 function TestRequest(setState, setResult) {
-    fetch('http://localhost:3001/api/infos', {
+    fetch(`${process.env.REACT_APP_SERVER}/api/infos`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -33,7 +33,7 @@ function Test() {
                                 event.preventDefault();
                                 TestRequest(setState, setResult)
                             }}>
-                                <button className='authenticate-button' type="submit">
+                                <button className='authenticate-button' onClick={() => window.location.assign('http://localhost:3001/test/next')}>
                                     Send Request
                                 </button>
                             </form>

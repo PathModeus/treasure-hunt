@@ -6,4 +6,4 @@ RUN npm install
 
 COPY ./ ./
 
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT [ "node", "server.js" ]

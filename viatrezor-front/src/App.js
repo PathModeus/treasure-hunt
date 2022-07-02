@@ -17,11 +17,11 @@ import  AdminPage from './pages/adminPage'
 
 function App() {
   const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
-  const [team, setTeam] = useState(null);
+  const [teamInfo, setTeamInfo] = useState(null);
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/whoami/', {
+    fetch(`${process.env.REACT_APP_SERVER}/api/whoami/`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     if (session?.role?.player) {
-      fetch(`http://localhost:3001/api/team/${session.role.player}`, {
+      fetch(`${process.env.REACT_APP_SERVER}/api/team/${session.role.player}`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -47,7 +47,7 @@ function App() {
         },
         credentials: 'include',
       }).then(async res => {
-        setTeam(await res.json());
+        setTeamInfo(await res.json());
         setLoad(false);
       }).catch(e => console.log(e));
     }
@@ -59,8 +59,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role ? (session.role[0] === "players" ? <Home team={team} /> : <AdminPage />) : <Navigate to='/login' />} />
-              <Route path='login' element={<AuthPage />} />
+              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <AdminPage /> : <Home teamInfo={teamInfo} />} />
+              <Route path='login' element={<AuthPage setLoad={setLoad} />} />
               {session &&
                 <>
                   <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />

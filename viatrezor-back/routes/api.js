@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bdd = require('../models/db');
+const algo = require('../src/diverse/algo');
+const config = require('../config.json');
 
 // wss.on('connection', (client) => {
 //     //connection is up, let's add a simple simple event
@@ -31,12 +33,13 @@ const bdd = require('../models/db');
 // Quitte à faire un bouton pour mettre admin quelqu'un, voire juste via une commande SQL
 
 router.get('/init', (req, res) => {
+    console.log('Through /init')
     var user = req.session.user
 
-    bdd.players.bulkCreate([{id_vr: user.login}], {ignoreDuplicates: true}).catch((e) => {
+    bdd.players.bulkCreate([{ id_vr: user.login }], { ignoreDuplicates: true }).catch((e) => {
         console.log(e)
     })
-    return res.redirect('http://localhost:3000/login')
+    return res.redirect(`${config.WEBROOT}/login`)
 })
 
 // Fonctionnalités liées à la gestion d'équipe
@@ -44,13 +47,17 @@ router.get('/init', (req, res) => {
 // Création d'équipe
 
 router.post('/team/create', async (req, res) => {
+    console.log('Through /team/create')
     // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
         try {
-            team = await bdd.teams.create({team_name: req.body.team_name});
+            let team = await bdd.teams.create({ team_name: req.body.team_name });
+            await bdd.history.create({ team_name: team.team_name, activity_id: 1 })
+            let activity_id = await algo.next_chall(team.team_name);
+            bdd.teams.update({ ongoing_activity: activity_id }, { where: { team_name: team.team_name } })
             for (let id_vr of id_vr_list) {
-                bdd.players.upsert({id_vr: id_vr, team_id: team.team_id}, {where: { id_vr: id_vr }});
+                bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
             };
             return res.status(200).end();
         } catch (e) {
@@ -171,10 +178,12 @@ router.get('/team/admin/:activity', async (req, res) => {
 })
 // Vérification des droits de l'utilisateur
 
-router.get('/team/:id', async (req, res) => {
-    try{
-        team = (await bdd.teams.findAll({where: {team_id: req.params.id}}))[0];
-        res.json(team);
+router.get('/team/:team_name', async (req, res) => {
+    console.log('Through /team/:team_name')
+    try {
+        let team = await bdd.teams.findByPk(req.params.team_name);
+        let activity = await bdd.activities.findByPk(team.ongoing_activity);
+        res.json({ team, activity });
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -184,30 +193,58 @@ router.get('/team/:id', async (req, res) => {
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
 router.get('/whoami', async (req, res) => {
+    console.log('Through /whoami')
     let user = req.session.user
     try {
-        admin = (await bdd.admins.findAll({where: {id_vr: user.login}}))
-        player = (await bdd.players.findAll({where: {id_vr: user.login}}))
-        return res.json({...req.session.user, role: {
-            admin: admin[0] ? admin[0].asso_name : null, 
-            player: player ? player[0].team_id : null
-        }});
+        let admin = await bdd.admins.findByPk(user.login)
+        let player = await bdd.players.findByPk(user.login)
+        return res.json({
+            ...req.session.user, role: {
+                admin: admin ? admin.asso_name : null,
+                player: player ? player.team_name : null
+            }
+        });
     } catch (e) {
         console.log(e);
-        res.status(500).json({...req.session.user, role: {
-            admin: null, 
-            player: null
-        }});
+        res.status(500).json({
+            ...req.session.user, role: {
+                admin: null,
+                player: null
+            }
+        });
     }
 });
 
+
+// Redirection vers la page d'accueil
+
 router.get('/connect', (req, res, next) => {
-    res.redirect('http://localhost:3000')
+    console.log('Through /connect')
+    res.redirect(config.WEBROOT)
 })
+
+
+// Met à jour l'activité après avoir passé une épreuve
+
+router.post('/team/next', async (req, res, next) => {
+    try {
+        var team_name = req.body.team_name;
+        let team_info = await bdd.teams.findByPk(team_name);
+        let activity = team_info.ongoing_activity;
+        await bdd.history.create({ team_name: team_name, activity_id: activity });
+        let next_activity = await algo.next_chall(team_name)
+        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+    } catch (e) {
+        console.log(e)
+        res.status(500).end()
+    }
+})
+
 
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 
 router.get('/:nimp', (req, res, next) => {
+    console.log('Through /:nimp')
     res.json('Hello world')
 });
 

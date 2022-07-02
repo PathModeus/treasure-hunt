@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../styles/CreateTeam.css'
 
 function CreateTeam({ setLoad }) {
-    const [newTeam, setNewTeam] = useState({team_name: "", members: ""});
+    const [newTeam, setNewTeam] = useState({ team_name: "", members: "" });
     const [loading, setLoading] = useState(false);
 
     const Submit = () => {
@@ -10,7 +10,7 @@ function CreateTeam({ setLoad }) {
             alert("Veuillez bien renseigner le nom et les membres de l'équipe !")
         } else {
             setLoading(true)
-            fetch('http://localhost:3001/api/team/create', {
+            fetch(`${process.env.REACT_APP_SERVER}/api/team/create`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -29,10 +29,10 @@ function CreateTeam({ setLoad }) {
                 }
                 setLoading(false)
             })
-            .catch((e) => {
-                setLoading(false)
-                console.log(e)
-            })
+                .catch((e) => {
+                    setLoading(false)
+                    console.log(e)
+                })
         }
     }
 
@@ -42,13 +42,13 @@ function CreateTeam({ setLoad }) {
                 <h1 className='create-team-title'>Créer une équipe</h1>
                 <div className='create-team-name create-team-container'>
                     <label>Nom de l'équipe:</label>
-                    <input className='create-team-name-input' type='text' placeholder="Nom d'équipe" onChange={(e) => setNewTeam({...newTeam, team_name: e.target.value})} disabled={loading} />
+                    <input className='create-team-name-input' type='text' placeholder="Nom d'équipe" onChange={(e) => setNewTeam({ ...newTeam, team_name: e.target.value })} disabled={loading} />
                 </div>
                 <div className="create-team-members create-team-container">
                     <label>
                         Identifiants ViaRézo des membres de l'équipe séparés par des ";":
                     </label>
-                    <textarea className="create-team-members-input" placeholder="ID des membres" onChange={(e) => setNewTeam({...newTeam, members: e.target.value.replace(/\s/g, '')})} disabled={loading} />
+                    <textarea className="create-team-members-input" placeholder="ID des membres" onChange={(e) => setNewTeam({ ...newTeam, members: e.target.value.replace(/\s/g, '') })} disabled={loading} />
                 </div>
                 <button className="create-team-validate" onClick={Submit} disabled={loading}>Créer l'équipe</button>
             </div>
