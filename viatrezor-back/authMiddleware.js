@@ -13,7 +13,7 @@ function login(req, res) {
     req.session.state = randomstring.generate();
   };
   // Redirect user to auth to authorize client to read his data
-  return res.redirect('https://auth.viarezo.fr/oauth/authorize/?client_id='+config.CLIENT_ID+"&redirect_uri="+config.DOMAIN+"/auth&response_type=code&scope=default&state="+req.session.state);
+  return res.redirect('https://auth.viarezo.fr/oauth/authorize/?client_id=' + config.CLIENT_ID + "&redirect_uri=" + config.DOMAIN + "/api/auth&response_type=code&scope=default&state=" + req.session.state);
 }
 
 
@@ -22,13 +22,15 @@ function AuthCallback(req, res) {
   // Just check wheter the state is still the same, then store the code provided
   if ('state' in req.query && req.query.state === req.session.state) {
     // User has authorized client, client has to fetch token
-    request.post("https://auth.viarezo.fr/oauth/token", {form:{
-      grant_type:'authorization_code',
-      code: req.query.code,
-      redirect_uri: config.DOMAIN+"/auth",
-      client_id: config.CLIENT_ID,
-      client_secret: config.CLIENT_SECRET,
-    }}, (err, response, body)=>{
+    request.post("https://auth.viarezo.fr/oauth/token", {
+      form: {
+        grant_type: 'authorization_code',
+        code: req.query.code,
+        redirect_uri: config.DOMAIN + "/api/auth",
+        client_id: config.CLIENT_ID,
+        client_secret: config.CLIENT_SECRET,
+      }
+    }, (err, response, body) => {
       const data = JSON.parse(body);
       // Check if the response is an error
       if ('error' in data) {
@@ -37,19 +39,19 @@ function AuthCallback(req, res) {
       else {
         // First check wheter the token is still correct or not
         let now = Date.now();
-        if (now/1000 > data.expires_at) {
+        if (now / 1000 > data.expires_at) {
           return res.redirect(`${config.WEBROOT}/login`);
         }
         else {
           // Call auth API to get user data
           request.get({
             url: 'https://auth.viarezo.fr/api/user/show/me',
-            headers: {'Authorization':'Bearer '+data.access_token}
-          }, (err, response, body)=>{
+            headers: { 'Authorization': 'Bearer ' + data.access_token }
+          }, (err, response, body) => {
             const data = JSON.parse(body);
             // Store user in session
             req.session.user = data;
-            return res.redirect('api/init');
+            return res.redirect(`init`);
           });
         };
       };
