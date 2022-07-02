@@ -3,33 +3,33 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import AdvancementBar from './AdvancementBar';
 import { Session } from '../Param';
 
-function Home({teamInfo}) {
+function Home({ teamInfo }) {
   const [session,] = useContext(Session);
   const [content, setContent] = useState("");
 
   useEffect(() => {
     setContent(
-      session ? 
+      session ?
         (session.role && session.role.player !== 'No team' ?
           (teamInfo?.activity?.description ?
             teamInfo.activity.description
             :
-            "....."    
-          )      
+            "....."
+          )
           :
           "Parfait ! Vous avez réussi à vous connecter à l'authentificateur de ViaRézo ! Je n'ai pas le temps pour les présentations, rendez-vous au carré des Sciences dès que possible pour former une équipe. J'ai besoin de votre aide en urgence !"
         )
-      :  
-      "Bonjour, vous êtes là ? Connectez-vous afin que je puisse savoir qui vous êtes !"
+        :
+        "Bonjour, vous êtes là ? Connectez-vous afin que je puisse savoir qui vous êtes !"
     )
   }, [session, teamInfo])
 
   return (
     <div className='accueil-flex'>
-      {teamInfo?.team?.team_name && teamInfo.team.team_name !== 'No team' && 
+      {teamInfo?.team?.team_name && teamInfo.team.team_name !== 'No team' &&
         <div id="team-name">Équipe : {teamInfo.team.team_name}</div>
       }
-      {teamInfo?.activity?.name && 
+      {teamInfo?.activity?.name &&
         <div id="round-name">Prochaine épreuve : {teamInfo.activity.name}</div>
       }
       <TypeWriter content={content} speed={30} />
@@ -76,7 +76,7 @@ const TypeWriter = ({ content, speed }) => {
 
   return (
     <p className="type-writer">
-      {session && <>{session.firstName.toLowerCase().substring(0, 5)}@viarezo:~/ <br/></>}
+      {session && <>{session.firstName.toLowerCase().substring(0, 5)}@viarezo:~/ <br /></>}
       {displayedContent}
     </p>
   )

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bdd = require('../models/db');
+const algo = require('../src/diverse/algo');
 const config = require('../config.json');
 
 
@@ -39,7 +40,10 @@ router.post('/team/create', async (req, res) => {
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
         try {
-            team = await bdd.teams.create({ team_name: req.body.team_name });
+            let team = await bdd.teams.create({ team_name: req.body.team_name });
+            await bdd.history.create({ team_name: team.team_name, activity_id: 1 })
+            let activity_id = await algo.next_chall(team.team_name);
+            bdd.teams.update({ ongoing_activity: activity_id }, { where: { team_name: team.team_name } })
             for (let id_vr of id_vr_list) {
                 bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
             };
@@ -94,8 +98,8 @@ router.post('/team/stop', async (req, res) => {
 router.get('/team/:team_name', async (req, res) => {
     console.log('Through /team/:team_name')
     try {
-        team = await bdd.teams.findByPk(req.params.team_name);
-        activity = await bdd.activities.findByPk(team.ongoing_activity);
+        let team = await bdd.teams.findByPk(req.params.team_name);
+        let activity = await bdd.activities.findByPk(team.ongoing_activity);
         res.json({ team, activity });
     } catch (e) {
         console.log(e);
@@ -109,8 +113,8 @@ router.get('/whoami', async (req, res) => {
     console.log('Through /whoami')
     let user = req.session.user
     try {
-        admin = await bdd.admins.findByPk(user.login)
-        player = await bdd.players.findByPk(user.login)
+        let admin = await bdd.admins.findByPk(user.login)
+        let player = await bdd.players.findByPk(user.login)
         return res.json({
             ...req.session.user, role: {
                 admin: admin ? admin.asso_name : null,
@@ -128,10 +132,31 @@ router.get('/whoami', async (req, res) => {
     }
 });
 
+
+// Redirection vers la page d'accueil
+
 router.get('/connect', (req, res, next) => {
     console.log('Through /connect')
     res.redirect(config.WEBROOT)
 })
+
+
+// Met à jour l'activité après avoir passé une épreuve
+
+router.post('/team/next', async (req, res, next) => {
+    try {
+        var team_name = req.body.team_name;
+        let team_info = await bdd.teams.findByPk(team_name);
+        let activity = team_info.ongoing_activity;
+        await bdd.history.create({ team_name: team_name, activity_id: activity });
+        let next_activity = await algo.next_chall(team_name)
+        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+    } catch (e) {
+        console.log(e)
+        res.status(500).end()
+    }
+})
+
 
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 

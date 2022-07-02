@@ -33,6 +33,6 @@ app.get('/api/health', health);
 
 app.use('/api', auth.validate, api);
 
-app.use('/test', test)
+app.use('/test', auth.validate, test)
 
 module.exports = app;

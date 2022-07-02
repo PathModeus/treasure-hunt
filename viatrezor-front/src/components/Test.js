@@ -33,7 +33,7 @@ function Test() {
                                 event.preventDefault();
                                 TestRequest(setState, setResult)
                             }}>
-                                <button className='authenticate-button' type="submit">
+                                <button className='authenticate-button' onClick={() => window.location.assign('http://localhost:3001/test/next')}>
                                     Send Request
                                 </button>
                             </form>
