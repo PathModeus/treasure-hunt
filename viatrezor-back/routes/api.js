@@ -3,18 +3,7 @@ const router = express.Router();
 const bdd = require('../models/db');
 const algo = require('../src/diverse/algo');
 const config = require('../config.json');
-
-// wss.on('connection', (client) => {
-//     //connection is up, let's add a simple simple event
-//     wss.on('message', (message) => {
-//         // const parseMsg  = Json.parse(message);
-//         // clients.saveClient(parseMsg, client)
-//         //log the received message and send it back to the client
-//         console.log('received: %s', message); 
-//     });
-//     //send immediatly a feedback to the incoming connection    
-//     wss.send('Hi there, I am a WebSocket server');
-// });
+const wss = require("../server")
 
 
 // Exemples de routes
@@ -71,58 +60,21 @@ router.post('/team/create', async (req, res) => {
 
 // Ajout de points bonus
 
-
-// router.put('/team/next_activity/:ongoing_activity', (req,res) => {
-    
-//     let team_id = req.body.team_id
-//     let ongoing_activity =  req.params.activity
-//     let next_activity = req.body.next_activity
-//     try {
-//         team =  bdd.teams.findAll({where: {team_id: team_id}})
-//         bdd.teams.update({ongoing_activity: next_activity}, {where: {team_id: team_id}})
-//         bdd.activities.upsert({team_id: team_id, $ongoing_activity: 1}, {where: {team_id: team_id}})
-//         team.ongoing_activity =  next_activity;
-
-//         for (const [key, value] of Object.entries(wss.Clients)) {
-
-//             if (team.ongoing_activity == value[0])
-//             {
-//                 console.log("key")                    
-//                 value[1].send(JSON.stringify( team ));
-//             }
-    
-    
-//               }
-
-//     }
-//     catch (e) {
-//         console.log(e);
-//         res.status(500).end();
-//     }
-// })
-
-
 router.put('/team/bonus', async (req, res) => {
-    let wss = require("../server")
     let team_name = req.body.team_name
     let bonus_str = req.body.bonus
     let bonus = parseInt( bonus_str, 10)
     try {
-        team = (await bdd.teams.findAll({where: {team_name: team_name}}))[0]
-        console.log(team.dataValues.points)
-        bdd.teams.update({points: team.dataValues.points + bonus}, {where: {team_name: team_name}})
-        res.json('Bonus accordé !')
-        team.points =  team.dataValues.points + bonus;
+        let team = await bdd.teams.findByPk(team_name);
+        let activity = await bdd.activities.findByPk(team.ongoing_activity);
+        bdd.teams.update({ points: team.points + bonus}, {where: {team_name: team_name}});
 
-    for (const [key, value] of Object.entries(wss.Clients)) {
-        if (team.ongoing_activity == value[0])
-        {
-            console.log("key")                    
-        value[1].send(JSON.stringify( team ));
+        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name }});
+        for (let admin of admins) {
+            wss.Clients[admin.id_vr].send(JSON.stringify(team));
         }
 
-
-          }
+        res.json('Bonus accordé !')
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -132,45 +84,41 @@ router.put('/team/bonus', async (req, res) => {
 // Arrêt du timer et MAJ du temps
 
 router.put('/team/stop', async (req, res) => {
-    const wss = require('../server');
-
-    let team_id = req.body.team_id
+    let team_name = req.body.team_name
     let temps = Date.now()
     let date = new Date;
     date.setHours(date.getHours() +2 );
     try {
-        team = (await bdd.teams.findAll({where: {team_id: team_id}}))[0]
+        let team = await bdd.teams.findByPk(team_name);
+        let activity = await bdd.activities.findByPk(team.ongoing_activity);
         let time = team.time;
         if (!team.timer_status) {
-            bdd.teams.update({timer_last_on: date, timer_status: 1}, {where: {team_id: team_id}})
+            bdd.teams.update({timer_last_on: date, timer_status: 1}, {where: {team_name: team_name}})
         } else {
             var dif = ( temps - team.timer_last_on.getTime() +2*60*60*1000 ) / 1000;  // bug de timezone
             time = time + dif;
             console.log( team.timer_last_on.getHours(), team.timer_last_on.getMinutes())
-             bdd.teams.update({time: team.time+ dif, timer_last_on: date, timer_status: 0}, {where: {team_id: team_id}})
+            bdd.teams.update({time: team.time+ dif, timer_last_on: date, timer_status: 0}, {where: {team_name: team_name}})
         }
+
+        let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}});
+        for (let admin of admins) {
+            wss.Clients[admin.id_vr].send(JSON.stringify(team));
+        }
+
         res.json({time: time, date:date, status:!team.timer_status});
-        team = (await bdd.teams.findAll({where: {team_id: team_id}}))[0]
-    for (const [key, value] of Object.entries(wss.Clients)) {
-        
-        if (team.ongoing_activity == value[0])
-        {
-            value[1].send(JSON.stringify( team ));
-        }
-
-
-          }
     } catch (e) {
         console.log(e);
         res.status(500).end();
     }
 })
 
-// // Cette route récupère les équipes présentes sur un activité
+// Cette route récupère les équipes présentes sur un activité
 router.get('/team/admin/:activity', async (req, res) => {
     try{
-        team = (await bdd.teams.findAll({where: {ongoing_activity: req.params.activity}}));
-        res.json(team);
+        let activity = (await bdd.findAll({ where: {asso_name: req.params.activity}}))[0];
+        let teams = (await bdd.teams.findAll({where: {ongoing_activity: activity.id}}));
+        res.json(teams);
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -233,7 +181,12 @@ router.post('/team/next', async (req, res, next) => {
         let activity = team_info.ongoing_activity;
         await bdd.history.create({ team_name: team_name, activity_id: activity });
         let next_activity = await algo.next_chall(team_name)
-        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+        team_info = await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+
+        let players = bdd.players.findAll({ where: {team_name: team_name}});
+        for (let player of players) {
+            wss.Clients[player.id_vr].send(JSON.stringify(team_info))
+        }
     } catch (e) {
         console.log(e)
         res.status(500).end()

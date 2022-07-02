@@ -1,8 +1,7 @@
 const http = require('http');
 const app = require('./app');
 const WebSocket = require('ws');
-const session = require('express-session');
-let i = 0
+
 class Clients {
     constructor()
     {
@@ -74,13 +73,10 @@ ws.on('connection', (client) => {
 
         let obj_ws =  JSON.parse(message)
         console.log(obj_ws)
-        clients.saveClient( obj_ws.id,[obj_ws.activite, client])
+        clients.saveClient(obj_ws.id, client)
 
         console.log("Admin ID %s" , message);
     });
-    // //send immediatly a feedback to the incoming connection    
-    //  client.send('CHASSE_AU_TRESOR' + i);
-     i = i+1;
 });
 
 //test.js
