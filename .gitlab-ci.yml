@@ -6,8 +6,10 @@
   script:
     - if [ $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH ]; then
         TAG="latest";
+        echo 'REACT_APP_SERVER="https://chasseautresor.cs-campus.fr"' > viatrezor-front/.env;
       else
         TAG="dev";
+        echo 'REACT_APP_SERVER="https://chasseautresor.test.cs-campus.fr"' > viatrezor-front/.env;
       fi;
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"${REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "robot\$${REGISTRY_USERNAME}" "${REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
