@@ -88,13 +88,28 @@ sequelize.sync()
             },
             {
                 id: 2,
-                name: "Jeu Vidéo",
-                description: "Pour obtenir la prochaine barre de réseau il faudra que vous complétiez un Jeu Vidéo. Rendez-vous en Sd.201 pour affronter vos adversaires ! \nQue le meilleur gagne !"
+                name: "Borne d'arcade",
+                description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? VI ? 133 ?"
             },
             {
                 id: 3,
-                name: "Autre épreuve",
-                description: "Description de la deuxième épreuve"
+                name: "Tir à la corde",
+                description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au sous sol du plus vieux bâtiment... (Passez par l'entrée principale :) )"
+            },
+            {
+                id: 4,
+                name: "Kahoot",
+                description: "Dans un grand carré, au bout d'une diagonale, se logent quelques gradins devant des projections... Idéal pour une présentation ou un jeu télévisé !"
+            },
+            {
+                id: 5,
+                name: "Mölkky",
+                description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
+            },
+            {
+                id: 6,
+                name: "Blindtest",
+                description: "Un grand auteur, de beaux textes, de jolis fauteuils et une sacré scène... Tout cela réuni en un seul lieu ? On me dit que c'est pas trop loin d'un gymnase..."
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
