@@ -3,7 +3,7 @@ import { Session } from '../Param';
 import '../styles/Authenticate.css'
 
 
-function AuthPage({setLoad}) {
+function AuthPage({ setLoad }) {
     const [session, setSession] = useContext(Session);
 
     const logout = () => {

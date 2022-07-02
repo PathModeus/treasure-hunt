@@ -22,7 +22,7 @@ const config = require('../config.json');
 router.get('/init', (req, res) => {
     var user = req.session.user
 
-    bdd.players.bulkCreate([{id_vr: user.login}], {ignoreDuplicates: true}).catch((e) => {
+    bdd.players.bulkCreate([{ id_vr: user.login }], { ignoreDuplicates: true }).catch((e) => {
         console.log(e)
     })
     return res.redirect(`${config.WEBROOT}/login`)
@@ -37,9 +37,9 @@ router.post('/team/create', async (req, res) => {
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
         try {
-            team = await bdd.teams.create({team_name: req.body.team_name});
+            team = await bdd.teams.create({ team_name: req.body.team_name });
             for (let id_vr of id_vr_list) {
-                bdd.players.upsert({id_vr: id_vr, team_name: team.team_name}, {where: { id_vr: id_vr }});
+                bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
             };
             return res.status(200).end();
         } catch (e) {
@@ -58,7 +58,7 @@ router.post('/team/bonus', async (req, res) => {
     var bonus = req.body.bonus
     try {
         team = await bdd.teams.findByPk(team_name)
-        bdd.teams.update({points: team.points + bonus}, {where: {team_name: team_name}})
+        bdd.teams.update({ points: team.points + bonus }, { where: { team_name: team_name } })
         return res.json('Bonus accordé !')
     } catch (e) {
         console.log(e);
@@ -75,7 +75,7 @@ router.post('/team/stop', async (req, res) => {
     try {
         team = await bdd.teams.findByPk(team_name)
         if (team.timer_status) {
-            bdd.teams.update({time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}})
+            bdd.teams.update({ time: team.time + temps - team.timer_last_on, timer_last_on: temps, timer_status: 0 }, { where: { team_name: team_name } })
         } else {
             res.json('Timer déjà arrêté !')
         }
@@ -88,10 +88,10 @@ router.post('/team/stop', async (req, res) => {
 // Renvoie les informations de l'équipe concernée
 
 router.get('/team/:team_name', async (req, res) => {
-    try{
+    try {
         team = await bdd.teams.findByPk(req.params.team_name);
         activity = await bdd.activities.findByPk(team.ongoing_activity);
-        res.json({team, activity});
+        res.json({ team, activity });
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -105,16 +105,20 @@ router.get('/whoami', async (req, res) => {
     try {
         admin = await bdd.admins.findByPk(user.login)
         player = await bdd.players.findByPk(user.login)
-        return res.json({...req.session.user, role: {
-            admin: admin ? admin.asso_name : null, 
-            player: player ? player.team_name : null
-        }});
+        return res.json({
+            ...req.session.user, role: {
+                admin: admin ? admin.asso_name : null,
+                player: player ? player.team_name : null
+            }
+        });
     } catch (e) {
         console.log(e);
-        res.status(500).json({...req.session.user, role: {
-            admin: null, 
-            player: null
-        }});
+        res.status(500).json({
+            ...req.session.user, role: {
+                admin: null,
+                player: null
+            }
+        });
     }
 });
 
