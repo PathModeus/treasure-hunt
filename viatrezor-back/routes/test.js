@@ -14,16 +14,18 @@ const bdd = require('../models/db')
 // Tests
 
 // Test bdd
-router.get('/infos', (req, res, next) => {
-    bdd.query('SELECT * FROM individuals', (err, rows, fields) => {
-        if (err) throw err
+// router.get('/infos', (req, res, next) => {
+//     console.log('Through /test/infos')
+//     bdd.query('SELECT * FROM individuals', (err, rows, fields) => {
+//         if (err) throw err
 
-        res.json("Test de BDD: " + rows[0].id_vr + rows[1].id_vr + rows[2].id_vr)
-    })
-});
+//         res.json("Test de BDD: " + rows[0].id_vr + rows[1].id_vr + rows[2].id_vr)
+//     })
+// });
 
 //Test algo repartition
 router.get('/next', (req, res, next) => {
+    console.log('Through /test/next')
     res.json('Dirigez-vous maintenant vers l\'épreuve numéro ' + next_chall())
 })
 
