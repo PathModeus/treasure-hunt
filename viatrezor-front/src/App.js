@@ -21,7 +21,7 @@ function App() {
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/whoami/', {
+    fetch(`${process.env.REACT_APP_SERVER}/api/whoami/`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     if (session?.role?.player) {
-      fetch(`http://localhost:3001/api/team/${session.role.player}`, {
+      fetch(`${process.env.REACT_APP_SERVER}/api/team/${session.role.player}`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -60,7 +60,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Navbarvt />}>
               <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <Admin /> : <Home teamInfo={teamInfo} />} />
-              <Route path='login' element={<AuthPage  setLoad={setLoad}  />} />
+              <Route path='login' element={<AuthPage setLoad={setLoad} />} />
               {session &&
                 <>
                   <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />
@@ -69,7 +69,7 @@ function App() {
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
                   {session.role?.admin === "VR" &&
-                    <Route path='admin' element={<Admin superAdmin/>} />
+                    <Route path='admin' element={<Admin superAdmin />} />
                   }
                 </>
               }

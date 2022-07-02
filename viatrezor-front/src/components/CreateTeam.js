@@ -10,7 +10,7 @@ function CreateTeam({ setLoad }) {
             alert("Veuillez bien renseigner le nom et les membres de l'équipe !")
         } else {
             setLoading(true)
-            fetch('http://localhost:3001/api/team/create', {
+            fetch(`${process.env.REACT_APP_SERVER}/api/team/create`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

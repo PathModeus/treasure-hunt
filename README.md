@@ -25,8 +25,8 @@ The database is not currently hosted on Kubernetes but can be set up locally usi
 
 
 ## Attention, Pour lancer en local, suivez les instructions suivantes :
-* Remplacer dans Test.js et Authenticate.js l'url par localhost:3001 (s'il n'y a pas d'autre url c'est bon !)
-* Créer un fichier config.json en utilisant le template et mettre http://localhost:3001 en domain
+* Créer le .env en utilisant le template dans viatrezor-front
+* Créer un fichier config.json en utilisant le template
 * Lancer un docker MySQL avec les paramètres donnés dans back/src/diverse/bdd.js
 ```
 docker run -p 3306:3306 --env MYSQL_DATABASE=letresor --env MYSQL_USER=captain --env MYSQL_PASSWORD=sacrebleu --env MYSQL_ROOT_PASSWORD=poney -d mysql

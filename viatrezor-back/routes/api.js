@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bdd = require('../models/db');
 const algo = require('../src/diverse/algo');
+const config = require('../config.json');
 
 
 // Exemples de routes
@@ -20,12 +21,13 @@ const algo = require('../src/diverse/algo');
 // Quitte à faire un bouton pour mettre admin quelqu'un, voire juste via une commande SQL
 
 router.get('/init', (req, res) => {
+    console.log('Through /init')
     var user = req.session.user
 
     bdd.players.bulkCreate([{ id_vr: user.login }], { ignoreDuplicates: true }).catch((e) => {
         console.log(e)
     })
-    return res.redirect('http://localhost:3000/login')
+    return res.redirect(`${config.WEBROOT}/login`)
 })
 
 // Fonctionnalités liées à la gestion d'équipe
@@ -33,6 +35,7 @@ router.get('/init', (req, res) => {
 // Création d'équipe
 
 router.post('/team/create', async (req, res) => {
+    console.log('Through /team/create')
     // Il faut que le front envoie les champs membres et nom d'équipe d'un coup
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
@@ -57,6 +60,7 @@ router.post('/team/create', async (req, res) => {
 // Ajout de points bonus
 
 router.post('/team/bonus', async (req, res) => {
+    console.log('Through /team/bonus')
     var team_name = req.body.team_name
     var bonus = req.body.bonus
     try {
@@ -72,6 +76,7 @@ router.post('/team/bonus', async (req, res) => {
 // Arrêt du timer et MAJ du temps
 
 router.post('/team/stop', async (req, res) => {
+    console.log('Through /team/stop')
     var team_name = req.body.team_name
     var date = new Date()
     var temps = date.now()
@@ -91,9 +96,10 @@ router.post('/team/stop', async (req, res) => {
 // Renvoie les informations de l'équipe concernée
 
 router.get('/team/:team_name', async (req, res) => {
+    console.log('Through /team/:team_name')
     try {
-        team = await bdd.teams.findByPk(req.params.team_name);
-        activity = await bdd.activities.findByPk(team.ongoing_activity);
+        let team = await bdd.teams.findByPk(req.params.team_name);
+        let activity = await bdd.activities.findByPk(team.ongoing_activity);
         res.json({ team, activity });
     } catch (e) {
         console.log(e);
@@ -104,10 +110,11 @@ router.get('/team/:team_name', async (req, res) => {
 // Donne toutes les infos de l'auth sur l'utilisateur connecté (format --> https://auth.viarezo.fr/docs/authorization_code)
 
 router.get('/whoami', async (req, res) => {
+    console.log('Through /whoami')
     let user = req.session.user
     try {
-        admin = await bdd.admins.findByPk(user.login)
-        player = await bdd.players.findByPk(user.login)
+        let admin = await bdd.admins.findByPk(user.login)
+        let player = await bdd.players.findByPk(user.login)
         return res.json({
             ...req.session.user, role: {
                 admin: admin ? admin.asso_name : null,
@@ -129,7 +136,8 @@ router.get('/whoami', async (req, res) => {
 // Redirection vers la page d'accueil
 
 router.get('/connect', (req, res, next) => {
-    res.redirect('http://localhost:3000')
+    console.log('Through /connect')
+    res.redirect(config.WEBROOT)
 })
 
 
@@ -153,6 +161,7 @@ router.post('/team/next', async (req, res, next) => {
 // Cette route récupère n'importe quelle autre requête GET et renvoie un Hello World
 
 router.get('/:nimp', (req, res, next) => {
+    console.log('Through /:nimp')
     res.json('Hello world')
 });
 
