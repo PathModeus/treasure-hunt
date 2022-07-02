@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PlayPause from '../components/PlayPause';
 import { Table} from 'semantic-ui-react';
 
+
+
 function Leaderboard_team(props) {
 
     const [showPlayButton, setShowPlayButton] = useState(props.team.timer_status);
@@ -10,12 +12,15 @@ function Leaderboard_team(props) {
     let temps = Date.now()
     let date = new Date( props.team.timer_last_on);
     date.setHours(date.getHours() -2);
-    console.log(date);
     var diff = ( temps -date.getTime() ) / 1000;  // bug de timezone
     const  [times, setTimes ]  = useState(props.team.timer_status ? props.team.time + diff : props.team.time  );      
     const  [timer, setTimer ]  = useState("00:00:00");
-  
+
+   
+
 useEffect(() => {
+
+  // Creation de la websocket servant a mettre a jours les bonus et le timer
       let {  hours, minutes, seconds }  = getTime(times);
       setTimer(
         (hours > 9 ? hours : '0' + hours) + ':' +
