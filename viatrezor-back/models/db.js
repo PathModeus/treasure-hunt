@@ -14,38 +14,41 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 
 // Structure de la bdd
 const Activities = sequelize.define("activities", {
-    id: {type: Sequelize.INTEGER, primaryKey: true},
-    name: {type: Sequelize.STRING},
-    description: {type: Sequelize.TEXT}
+    id: { type: Sequelize.INTEGER, primaryKey: true },
+    name: { type: Sequelize.STRING },
+    description: { type: Sequelize.TEXT },
+    asso_description: { type: Sequelize.TEXT },
+    path_logo: { type: Sequelize.TEXT },
+    website_url: { type: Sequelize.TEXT }
 });
 
 const Teams = sequelize.define("teams", {
-    team_name: {type: Sequelize.STRING, allowNull: false, primaryKey: true},
-    ongoing_activity: {type: Sequelize.INTEGER, defaultValue: 1, allowNull: false, references: {model: Activities, key: 'id'}, onDelete: 'SET DEFAULT'},
-    timer_status: {type: Sequelize.BOOLEAN, defaultValue: false},
-    time: {type: Sequelize.INTEGER, defaultValue: 0},
-    timer_last_on: {type: Sequelize.DATE, allowNull: false, defaultValue: "2000-01-01T01:01:01"},
-    points: {type: Sequelize.INTEGER, allowNull: false, defaultValue: 0}
+    team_name: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
+    ongoing_activity: { type: Sequelize.INTEGER, defaultValue: 1, allowNull: false, references: { model: Activities, key: 'id' }, onDelete: 'SET DEFAULT' },
+    timer_status: { type: Sequelize.BOOLEAN, defaultValue: false },
+    time: { type: Sequelize.INTEGER, defaultValue: 0 },
+    timer_last_on: { type: Sequelize.DATE, allowNull: false, defaultValue: "2000-01-01T01:01:01" },
+    points: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }
 });
 
 const Players = sequelize.define("players", {
-    id_vr: {type: Sequelize.STRING, primaryKey: true},
-    team_name: {type: Sequelize.STRING, defaultValue: 'No team', references: {model: Teams, key: 'team_name'}, onDelete: 'SET DEFAULT'}  // onDelete: 'SET DEFAULT'
+    id_vr: { type: Sequelize.STRING, primaryKey: true },
+    team_name: { type: Sequelize.STRING, defaultValue: 'No team', references: { model: Teams, key: 'team_name' }, onDelete: 'SET DEFAULT' }  // onDelete: 'SET DEFAULT'
 });
 
 const Admins = sequelize.define("admins", {
-    id_vr: {type: Sequelize.STRING, primaryKey: true},
-    asso_name: {type: Sequelize.TEXT, allowNull: false}
+    id_vr: { type: Sequelize.STRING, primaryKey: true },
+    asso_name: { type: Sequelize.TEXT, allowNull: false }
 });
 
 const History = sequelize.define("history", {
-    team_name: {type: Sequelize.STRING, primaryKey: true, allowNull: false, references: {model: Teams, key: 'team_name'}, onDelete: 'CASCADE'},
-    activity_id: {type: Sequelize.INTEGER, primaryKey: true, allowNull: false, references: {model: Activities, key: 'id'}, onDelete: 'CASCADE'}
-},);
+    team_name: { type: Sequelize.STRING, primaryKey: true, allowNull: false, references: { model: Teams, key: 'team_name' }, onDelete: 'CASCADE' },
+    activity_id: { type: Sequelize.INTEGER, primaryKey: true, allowNull: false, references: { model: Activities, key: 'id' }, onDelete: 'CASCADE' }
+});
 
 
 // Synchronisation de la bdd
-/* l'argument force: true drop les tables de la bdd avant de les recréer pour éviter les doublons */ 
+/* l'argument force: true drop les tables de la bdd avant de les recréer pour éviter les doublons */
 sequelize.sync()
     .then(async () => {
         console.log("Synced db.");
@@ -54,12 +57,12 @@ sequelize.sync()
             Superadmins = Vrgens
             Admins = 2As des autres assos
             Reste = Joueurs
-        
+
             L'idée est que les VRgens puissent remplacer n'importe quel staffeur / prêter leur PC au cas où il y ait un problème pour un staffeur
             Une autre idée simple est de faire en sorte que tous les admins soient rentrés "à la main" lors de l'initialisation
             et que n'importe quelle autre personne se connectant soit considérée comme joueur (Least privilege by default)
             Cela pourrait également permettre à un 2A de venir aider une équipe qui serait en manque de joueurs ou de prêter son compte si un GPA ne l'a pas initialisé
-        
+
             Le tri des admins se fera via leur Asso.
             Etre à ViaRézo donne tous les droits.
             Etre ailleurs donne uniquement accès à l'épreuve de son club.
@@ -77,12 +80,12 @@ sequelize.sync()
             { id_vr: '2021rosenberju', asso_name: 'CStudio' },
             { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
             { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
-        ], {ignoreDuplicates: true}).then(() => {
+        ], { ignoreDuplicates: true }).then(() => {
             console.log("Admins have been saved")
         });
-        
+
         await Activities.bulkCreate([
-            {   
+            {
                 id: 1,
                 description: "Attendez un instant, je me connecte à la base de données pour récupérer votre première épreuve..."
             },
@@ -96,13 +99,13 @@ sequelize.sync()
                 name: "Autre épreuve",
                 description: "Description de la deuxième épreuve"
             }
-        ], {ignoreDuplicates: true}).then(() => {
+        ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
         });
 
         await Teams.bulkCreate([
-            {team_name: 'No team'}
-        ], {ignoreDuplicates: true}).then(() => {
+            { team_name: 'No team' }
+        ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");
         });
     })
