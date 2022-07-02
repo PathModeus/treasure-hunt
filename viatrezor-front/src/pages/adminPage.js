@@ -1,71 +1,63 @@
-import React, {useEffect , useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table, TableHeader } from 'semantic-ui-react';
 import Leaderboard_team from '../components/LearderBoard_team';
-import PlayPause from '../components/PlayPause';
 import useWebSocket from 'react-use-websocket';
 import { Session } from '../Param';
 
-const axios = require('axios');
-
-const socketUrl = 'ws://localhost:3001/';
-
-function createData(rang, nom, points, temps) {
-  return { rang, nom, points, temps };
-}
+const socketUrl = process.env.SOCKET_URL;
 
 function AdminPage() {
-    const [showPlayButton, setShowPlayButton] = useState(true);
-    //const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
-    const  [teams, setTeams ]  = useState([]);
-    const  [times, setTimes ]  = useState(0);
-    const [session, setSession] = useContext(Session);
+  const [showPlayButton, setShowPlayButton] = useState(true);
+  //const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+  const [teams, setTeams] = useState([]);
+  const [session, setSession] = useContext(Session);
 
-    const { lastMessage, sendMessage, readyState }= useWebSocket(socketUrl, 
-      {
-        onOpen: () =>sendMessage(JSON.stringify({activite: session.role.admin, id:session.login })),
-        //Will attempt to reconnect on all close events, such as server shutting down
-        shouldReconnect: (closeEvent) => true,
+  const { lastMessage, sendMessage, readyState } = useWebSocket(socketUrl,
+    {
+      onOpen: () => sendMessage(JSON.stringify({ activite: session.role.admin, id: session.login })),
+      //Will attempt to reconnect on all close events, such as server shutting down
+      shouldReconnect: (closeEvent) => true,
     });
 
-    useEffect(() => {
-        // ${asso_name}
-        fetch('http://localhost:3001/api/team/admin/VR', {
-          method: 'GET',
-          mode: 'cors',
-          headers: {
-              'Access-Control-Allow-Credentials': true,
-          },
-          credentials: 'include',
-      }).then(function(response) {
-        return response.json();
-      })
-      .then(function(res) {
+  useEffect(() => {
+    // ${asso_name}
+    fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/VR`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    }).then(function (response) {
+      return response.json();
+    })
+      .then(function (res) {
         setTeams(res)
       })
 
-      if (lastMessage !== null) {
-        console.log("message")
-        console.log( JSON.parse(lastMessage.data))
-        let up = JSON.parse(lastMessage.data )
-        console.log("teams")
-        console.log(teams)
+    if (lastMessage !== null) {
+      console.log("message")
+      console.log(JSON.parse(lastMessage.data))
+      let up = JSON.parse(lastMessage.data)
+      console.log("teams")
+      console.log(teams)
 
-        var team_update = teams.filter(function(value, index, arr){ 
-          return value.team_id != up.team_id ;
+      var team_update = teams.filter(function (value, index, arr) {
+        return value.team_name != up.team_name;
       });
       console.log(team_update)
-        team_update.push(up)
-        setTeams([])
-        console.log("teams after")
+      team_update.push(up)
+      setTeams([])
+      console.log("teams after")
 
-        console.log(team_update)
-      }
+      console.log(team_update)
+    }
   }, [lastMessage])
 
   useEffect(() => {
     console.log("heho")
     setTeams(teams)
-  },[teams])
+  }, [teams])
 
   return (
     <div className="Table">
@@ -88,13 +80,13 @@ function AdminPage() {
         </Table.Header>
         <Table.Body style={{ color: "white" }}>
           {teams.map((row, index) => (
-           <Leaderboard_team team ={row} index={index} />
-              ))}
-            </Table.Body>
-          </Table>
-      </div>
-        
-    );
+            <Leaderboard_team team={row} index={index} />
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
+
+  );
 };
 
 export default AdminPage;

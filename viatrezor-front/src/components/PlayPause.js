@@ -33,7 +33,7 @@ const PlayPause = React.memo(function PlayPause({ buttonToShow }) {
               d={t.interpolate(pauseInterpolator)}
               style={{
                 opacity: t,
-                marginLeft : "5px"
+                marginLeft: "5px"
               }}
             />
           </g>
