@@ -1,5 +1,4 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
 import '../styles/Leaderboard.css'
 
 function Teamlist(props) {
@@ -42,12 +41,6 @@ function StopButton(props) {
   return (
     <button class="team-line-pause team-line-element">Pause</button>
   )
-}
-
-function ValidateButton(props) {
-    return(
-        <button class="team-line-validate team-line-element">Valider l'activité</button>
-    )
 }
 
 export default Teamlist
