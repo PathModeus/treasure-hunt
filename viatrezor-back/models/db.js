@@ -1,9 +1,10 @@
 const Sequelize = require("sequelize");
+const config = require("../config.json")
 
 
 // Connection à la BDD
-const sequelize = new Sequelize('letresor', 'captain', 'sacrebleu', {
-    host: 'localhost',
+const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
+    host: config.HOST,
     dialect: 'mysql',
     define: {
         timestamps: false,
@@ -83,7 +84,7 @@ sequelize.sync()
         await Activities.bulkCreate([
             {   
                 id: 1,
-                description: "Attendez un instant, je me connecte à la base de donnée pour récupérer votre première épreuve..."
+                description: "Attendez un instant, je me connecte à la base de données pour récupérer votre première épreuve..."
             },
             {
                 id: 2,

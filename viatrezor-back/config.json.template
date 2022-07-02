@@ -1,5 +1,10 @@
 {
-    "client_secret": "",
-    "client_id": "",
-    "domain": ""
+    "WEBROOT": "http://localhost:3000",
+    "DOMAIN": "http://localhost:3001"
+    "CLIENT_SECRET": "",
+    "CLIENT_ID": "",
+    "HOST": "localhost",
+    "DB": "letresor",
+    "USER": "captain",
+    "PASSWORD": "sacrebleu"
 }
