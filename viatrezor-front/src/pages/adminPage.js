@@ -1,67 +1,66 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Table, TableHeader } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import Leaderboard_team from '../components/LearderBoard_team';
 import useWebSocket from 'react-use-websocket';
 import { Session } from '../Param';
 
-const socketUrl = process.env.SOCKET_URL;
+const socketUrl = process.env.REACT_APP_SOCKET_URL;
 
 function AdminPage() {
-  const [showPlayButton, setShowPlayButton] = useState(true);
-  //const [addPoint, setAddPoint ] = useState({team_name:"", bonus: 0})
+  const [session,] = useContext(Session);
   const [teams, setTeams] = useState([]);
-  const [session, setSession] = useContext(Session);
+  const [activity, setActivity] = useState(null);
 
-  const { lastMessage, sendMessage, readyState } = useWebSocket(socketUrl,
+  const { lastMessage, sendMessage } = useWebSocket(socketUrl,
     {
-      onOpen: () => sendMessage(JSON.stringify({ activite: session.role.admin, id: session.login })),
+      onOpen: () => sendMessage(JSON.stringify({ id: session.login })),
       //Will attempt to reconnect on all close events, such as server shutting down
       shouldReconnect: (closeEvent) => true,
-    });
+    }
+  );
 
   useEffect(() => {
-    // ${asso_name}
-    fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/VR`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/${session.role.admin}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
         'Access-Control-Allow-Credentials': true,
       },
       credentials: 'include',
-    }).then(function (response) {
-      return response.json();
+    }).then(async (res) => {
+      setTeams(await res.json());
     })
-      .then(function (res) {
-        setTeams(res)
-      })
-
-    if (lastMessage !== null) {
-      console.log("message")
-      console.log(JSON.parse(lastMessage.data))
-      let up = JSON.parse(lastMessage.data)
-      console.log("teams")
-      console.log(teams)
-
-      var team_update = teams.filter(function (value, index, arr) {
-        return value.team_name != up.team_name;
-      });
-      console.log(team_update)
-      team_update.push(up)
-      setTeams([])
-      console.log("teams after")
-
-      console.log(team_update)
-    }
-  }, [lastMessage])
+  }, [])
+  
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER}/api/activity/${session.role.admin}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    }).then(async (res) => {
+      setActivity(await res.json());
+    })
+  }, [])
 
   useEffect(() => {
-    console.log("heho")
-    setTeams(teams)
-  }, [teams])
+    if (lastMessage?.data && activity) {
+      let update = JSON.parse(lastMessage.data);
+      if(update.ongoing_activity !== activity.id) {
+        setTeams(teams.filter(team => team.team_name !== update.team_name));
+      } else {
+        let teams_update = teams.filter(team => team.team_name !== update.team_name);
+        teams_update.push(update);
+        setTeams(teams_update);
+      }
+    }
+  }, [lastMessage, activity])
+
 
   return (
     <div className="Table">
-      <h3></h3>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <Table.Header>
           <Table.Row style={{ color: "white" }}>
@@ -80,7 +79,7 @@ function AdminPage() {
         </Table.Header>
         <Table.Body style={{ color: "white" }}>
           {teams.map((row, index) => (
-            <Leaderboard_team team={row} index={index} />
+            <Leaderboard_team key={index} team={row} index={index} />
           ))}
         </Table.Body>
       </Table>

@@ -3,7 +3,6 @@ import PlayPause from '../components/PlayPause';
 import { Table } from 'semantic-ui-react';
 
 
-
 function Leaderboard_team(props) {
 
   const [showPlayButton, setShowPlayButton] = useState(props.team.timer_status);
@@ -50,7 +49,7 @@ function Leaderboard_team(props) {
     };
   }
   const NextActivity = () => {
-    fetch(`${process.env.REACT_APP_SERVER}/api/next`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/team/next`, {
       method: "PUT",
       mode: 'cors',
       headers: {

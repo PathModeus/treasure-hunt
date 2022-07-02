@@ -67,11 +67,14 @@ router.put('/team/bonus', async (req, res) => {
     try {
         let team = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
-        bdd.teams.update({ points: team.points + bonus}, {where: {team_name: team_name}});
+        await bdd.teams.update({ points: team.points + bonus}, {where: {team_name: team_name}});
+        team = await bdd.teams.findByPk(team_name);
 
         let admins = await bdd.admins.findAll({ where: { asso_name: activity.name }});
         for (let admin of admins) {
-            wss.Clients[admin.id_vr].send(JSON.stringify(team));
+            if (wss.Clients[admin.id_vr]) {
+                wss.Clients[admin.id_vr].send(JSON.stringify(team));
+            }
         }
 
         res.json('Bonus accordé !')
@@ -93,17 +96,20 @@ router.put('/team/stop', async (req, res) => {
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
         let time = team.time;
         if (!team.timer_status) {
-            bdd.teams.update({timer_last_on: date, timer_status: 1}, {where: {team_name: team_name}})
+            await bdd.teams.update({timer_last_on: date, timer_status: 1}, {where: {team_name: team_name}});
         } else {
             var dif = ( temps - team.timer_last_on.getTime() +2*60*60*1000 ) / 1000;  // bug de timezone
             time = time + dif;
             console.log( team.timer_last_on.getHours(), team.timer_last_on.getMinutes())
-            bdd.teams.update({time: team.time+ dif, timer_last_on: date, timer_status: 0}, {where: {team_name: team_name}})
+            await bdd.teams.update({time: team.time+ dif, timer_last_on: date, timer_status: 0}, {where: {team_name: team_name}});
         }
 
+        team = await bdd.teams.findByPk(team_name);
         let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}});
         for (let admin of admins) {
-            wss.Clients[admin.id_vr].send(JSON.stringify(team));
+            if (wss.Clients[admin.id_vr]) {
+                wss.Clients[admin.id_vr].send(JSON.stringify(team));
+            }
         }
 
         res.json({time: time, date:date, status:!team.timer_status});
@@ -116,9 +122,13 @@ router.put('/team/stop', async (req, res) => {
 // Cette route récupère les équipes présentes sur un activité
 router.get('/team/admin/:activity', async (req, res) => {
     try{
-        let activity = (await bdd.findAll({ where: {asso_name: req.params.activity}}))[0];
-        let teams = (await bdd.teams.findAll({where: {ongoing_activity: activity.id}}));
-        res.json(teams);
+        let activity = (await bdd.activities.findAll({ where: {name: req.params.activity}}));
+        if (activity.length != 0) {
+            let teams = (await bdd.teams.findAll({where: {ongoing_activity: activity[0].id}}));
+            res.json(teams);
+        } else {
+            res.json([]);
+        }
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -132,6 +142,21 @@ router.get('/team/:team_name', async (req, res) => {
         let team = await bdd.teams.findByPk(req.params.team_name);
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
         res.json({ team, activity });
+    } catch (e) {
+        console.log(e);
+        res.status(500).end();
+    }
+})
+
+router.get('/activity/:asso_name', async (req, res) => {
+    console.log('Through /activity/:asso_name')
+    try {
+        let activity = await bdd.activities.findAll({ where: {name: req.params.asso_name}});
+        if (activity.length) {
+            res.json(activity[0]);
+        } else {
+            res.status(500).end();
+        }
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -174,18 +199,27 @@ router.get('/connect', (req, res, next) => {
 
 // Met à jour l'activité après avoir passé une épreuve
 
-router.post('/team/next', async (req, res, next) => {
+router.put('/team/next', async (req, res, next) => {
     try {
         var team_name = req.body.team_name;
         let team_info = await bdd.teams.findByPk(team_name);
-        let activity = team_info.ongoing_activity;
-        await bdd.history.create({ team_name: team_name, activity_id: activity });
+        let activity = await bdd.activities.findByPk(team_info.ongoing_activity);
+        await bdd.history.create({ team_name: team_name, activity_id: activity.id });
         let next_activity = await algo.next_chall(team_name)
-        team_info = await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
 
-        let players = bdd.players.findAll({ where: {team_name: team_name}});
+        team_info = await bdd.teams.findByPk(team_name);
+        let players = await bdd.players.findAll({ where: {team_name: team_name}});
+        let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}})
         for (let player of players) {
-            wss.Clients[player.id_vr].send(JSON.stringify(team_info))
+            if (wss.Clients[player.id_vr]) {
+                wss.Clients[player.id_vr].send(JSON.stringify(team_info))
+            }
+        }
+        for (let admin of admins) {
+            if (wss.Clients[admin.id_vr]) {
+                wss.Clients[admin.id_vr].send(JSON.stringify(team_info))
+            }
         }
     } catch (e) {
         console.log(e)
