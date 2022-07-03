@@ -98,19 +98,14 @@ router.put('/team/bonus', async (req, res) => {
 router.put('/team/stop', async (req, res) => {
     let team_name = req.body.team_name
     let temps = Date.now()
-    let date = new Date;
-    date.setHours(date.getHours() +2 );
     try {
         let team = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
-        let time = team.time;
         if (!team.timer_status) {
-            await bdd.teams.update({timer_last_on: date, timer_status: 1}, {where: {team_name: team_name}});
+            await bdd.teams.update({timer_last_on: temps, timer_status: 1}, {where: {team_name: team_name}});
         } else {
-            var dif = ( temps - team.timer_last_on.getTime() +2*60*60*1000 ) / 1000;  // bug de timezone
-            time = time + dif;
-            console.log( team.timer_last_on.getHours(), team.timer_last_on.getMinutes())
-            await bdd.teams.update({time: team.time+ dif, timer_last_on: date, timer_status: 0}, {where: {team_name: team_name}});
+            var dif = ( temps - team.timer_last_on ) / 1000;
+            await bdd.teams.update({time: team.time+dif, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}});
         }
 
         team = await bdd.teams.findByPk(team_name);
@@ -121,7 +116,7 @@ router.put('/team/stop', async (req, res) => {
             }
         }
 
-        res.json({time: time, date:date, status:!team.timer_status});
+        res.json({time: team.time, date:temps, status:!team.timer_status});
     } catch (e) {
         console.log(e);
         res.status(500).end();

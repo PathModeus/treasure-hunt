@@ -3,57 +3,32 @@ import PlayPause from '../components/PlayPause';
 import { Table } from 'semantic-ui-react';
 
 
+const getTime = (e) => {
+  const seconds = Math.floor(e % 60);
+  const minutes = Math.floor((e / 60) % 60);
+  const hours = Math.floor((e / 60 / 60) % 24);
+  return {
+    e, hours, minutes, seconds
+  };
+}
+
+
 function Leaderboard_team(props) {
-
-  const [showPlayButton, setShowPlayButton] = useState(props.team.timer_status);
-  const [addPoint, setAddPoint] = useState({ team_name: props.team_name, bonus: "" })
-  const [Points, setPoints] = useState(props.team.points)
-  let temps = Date.now()
-  let date = new Date(props.team.timer_last_on);
-  date.setHours(date.getHours() - 2);
-  var diff = (temps - date.getTime()) / 1000;  // bug de timezone
+  const [bonus, setBonus] = useState(0);
+  let diff = Date.now() - new Date(props.team.timer_last_on);
   const [times, setTimes] = useState(props.team.timer_status ? props.team.time + diff : props.team.time);
-  const [timer, setTimer] = useState("00:00:00");
+  let { hours, minutes, seconds } = getTime(times);
+  const [timer, setTimer] = useState(
+    (hours > 9 ? hours : '0' + hours) + ':' +
+    (minutes > 9 ? minutes : '0' + minutes) + ':' +
+    (seconds > 9 ? seconds : '0' + seconds)
+  );
 
-
-
-  useEffect(() => {
-
-    // Creation de la websocket servant a mettre a jours les bonus et le timer
-    let { hours, minutes, seconds } = getTime(times);
-    setTimer(
-      (hours > 9 ? hours : '0' + hours) + ':' +
-      (minutes > 9 ? minutes : '0' + minutes) + ':'
-      + (seconds > 9 ? seconds : '0' + seconds)
-    )
-
-    const interval = setInterval(() => {
-      if (showPlayButton) {
-        setTimes(times + 1)
-      }
-
-
-    }, 1000);
-    return () => clearInterval(interval);
-
-  }, [times, showPlayButton]);
-
-
-  const getTime = (e) => {
-
-    const seconds = Math.floor(e % 60);
-    const minutes = Math.floor((e / 60) % 60);
-    const hours = Math.floor((e / 60 / 60) % 24);
-    return {
-      e, hours, minutes, seconds
-    };
-  }
   const NextActivity = () => {
     fetch(`${process.env.REACT_APP_SERVER}/api/team/next`, {
       method: "PUT",
       mode: 'cors',
       headers: {
-        //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
         'Access-Control-Allow-Credentials': true,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -72,7 +47,6 @@ function Leaderboard_team(props) {
       method: "PUT",
       mode: 'cors',
       headers: {
-        //'Access-Control-Allow-Origin': 'http://localhost:3000/api',
         'Access-Control-Allow-Credentials': true,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -87,41 +61,67 @@ function Leaderboard_team(props) {
   }
 
   const Submit = () => {
-
     fetch(`${process.env.REACT_APP_SERVER}/api/team/bonus`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
-        // 'Access-Control-Allow-Origin': 'http://localhost:3000/api',
         'Access-Control-Allow-Credentials': true,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify(addPoint)
-    }).catch(e => console.log(e))
-    setPoints(Points + parseInt(addPoint.bonus))
-    setAddPoint({ team_name: "", bonus: "" })
+      body: JSON.stringify({team_name: props.team.team_name, bonus})
+    }).catch(e => console.log(e));
+    setBonus(0);
   }
 
-  return (
 
+  useEffect(() => {
+    if (props.team.timer_status) {
+      let { hours, minutes, seconds } = getTime(times);
+      setTimer(
+        (hours > 9 ? hours : '0' + hours) + ':' +
+        (minutes > 9 ? minutes : '0' + minutes) + ':' +
+        (seconds > 9 ? seconds : '0' + seconds)
+      )
+
+      const interval = setInterval(() => {
+        if (props.team.timer_status) {
+          setTimes(times + 1)
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    } else {
+      setBonus(0);
+      let diff = Date.now() - new Date(props.team.timer_last_on);
+      let time = props.team.timer_status ? props.team.time + diff : props.team.time;
+      setTimes(time);
+      let { hours, minutes, seconds } = getTime(time);
+      setTimer(
+        (hours > 9 ? hours : '0' + hours) + ':' +
+        (minutes > 9 ? minutes : '0' + minutes) + ':' +
+        (seconds > 9 ? seconds : '0' + seconds)
+      );
+    }
+  }, [times, props.team]);
+
+  
+  return (
     <Table.Row
+      id={props.index}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
       <Table.Cell align="left">{props.index + 1}</Table.Cell>
       <Table.Cell align="left">{props.team.team_name}</Table.Cell>
-      <Table.Cell align="left">{Points}</Table.Cell>
+      <Table.Cell align="left">{props.team.points}</Table.Cell>
       <Table.Cell align="left">{timer}</Table.Cell>
       <Table.Cell align="left">
         <div className="Pause">
           <button
             onClick={() => {
               Pause()
-              setShowPlayButton(!showPlayButton);
-
-            }
-            }
+            }}
             style={{
               border: "none",
               backgroundColor: "#ff8d8d",
@@ -134,33 +134,27 @@ function Leaderboard_team(props) {
             }}
           >
             <PlayPause
-              buttonToShow={showPlayButton ? "pause" : "play"}
+              buttonToShow={props.team.timer_status ? "pause" : "play"}
             />
           </button>
         </div>
       </Table.Cell>
-      <Table.Cell align="left">
+      <Table.Cell align="left" style={{display: "flex", flexDirection: "column"}}>
         <input
           className="add-point-input"
           placeholder="points de l'activité"
-          type="int"
-          value={addPoint.bonus}
+          type="number"
+          value={bonus}
           onChange={(e) => {
-            setAddPoint({
-              team_name: props.team.team_name,
-              bonus: parseInt(e.target.value, 10)
-            })
-          }
-          }
+            setBonus(parseInt(e.target.value, 10))
+          }}
           style={{
             width: 200,
             borderRadius: "5px",
           }}
-        ></input>
-        <div heigth='20px'></div>
+        />
         <button
           className="validate-activity"
-          type="submit"
           onClick={Submit}
           style={{
             display: "right",
@@ -186,7 +180,6 @@ function Leaderboard_team(props) {
       <Table.Cell align="left">
         <button
           className="validate-activity"
-          type="submit"
           onClick={NextActivity}
           style={{
             border: "none",

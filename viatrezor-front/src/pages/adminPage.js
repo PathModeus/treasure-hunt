@@ -19,7 +19,7 @@ function AdminPage() {
     }
   );
 
-  const fetchTeams = () => {
+  useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/${session.role.admin}`, {
       method: 'GET',
       mode: 'cors',
@@ -30,9 +30,7 @@ function AdminPage() {
     }).then(async (res) => {
       setTeams(await res.json());
     })
-  }
-
-  useEffect(fetchTeams, [])
+  }, [])
   
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER}/api/activity/${session.role.admin}`, {
@@ -51,10 +49,10 @@ function AdminPage() {
     if (lastMessage?.data && activity) {
       let update = JSON.parse(lastMessage.data);
       if(update.ongoing_activity !== activity.id) {
-        fetchTeams();
+        setTeams(teams.filter(team => team.team_name !== update.team_name))
       } else {
         let index = teams.findIndex(team => team.team_name === update.team_name)
-        let teams_update = teams;
+        let teams_update = teams.map(team => team);
         teams_update[index] = update;
         setTeams(teams_update);
       }
