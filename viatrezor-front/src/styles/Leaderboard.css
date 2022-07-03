@@ -36,6 +36,6 @@
 
 .team-line-element {
     width: 10%;
-    text-align: center;
+    text-align: start;
     min-width: 100px;
 }

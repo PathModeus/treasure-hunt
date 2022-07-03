@@ -9,7 +9,6 @@ import NotFound from './components/NotFound'
 import Test from './components/Test'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import './App.css'
-import { teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
@@ -65,7 +64,7 @@ function App() {
               <Route path='login' element={<AuthPage setLoad={setLoad} />} />
               {session &&
                 <>
-                  <Route path='leaderboard' element={<Leaderboard teamsList={teamList} />} />
+                  <Route path='leaderboard' element={<Leaderboard />} />
                   <Route path='contact' element={<Contact listeAsso={listeAsso} />} />
                   <Route path='create-team' element={<CreateTeam setLoad={setLoad} />} />
                   <Route path='test' element={<Test />} />
