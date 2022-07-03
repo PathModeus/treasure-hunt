@@ -97,14 +97,14 @@ router.put('/team/bonus', async (req, res) => {
 
 router.put('/team/stop', async (req, res) => {
     let team_name = req.body.team_name
-    let temps = Date.now()
+    let temps = new Date()
     try {
         let team = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
         if (!team.timer_status) {
             await bdd.teams.update({timer_last_on: temps, timer_status: 1}, {where: {team_name: team_name}});
         } else {
-            var dif = ( temps - team.timer_last_on ) / 1000;
+            var dif = ( temps.getTime() - team.timer_last_on.getTime() ) / 1000;
             await bdd.teams.update({time: team.time+dif, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}});
         }
 

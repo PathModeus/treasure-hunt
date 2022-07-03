@@ -14,8 +14,9 @@ const getTime = (e) => {
 
 
 function Leaderboard_team(props) {
+  const [team, setTeam] = useState(props.team.team_name);
   const [bonus, setBonus] = useState(0);
-  let diff = Date.now() - new Date(props.team.timer_last_on);
+  let diff = ((new Date()).getTime() - (new Date(props.team.timer_last_on)).getTime())/1000;
   const [times, setTimes] = useState(props.team.timer_status ? props.team.time + diff : props.team.time);
   let { hours, minutes, seconds } = getTime(times);
   const [timer, setTimer] = useState(
@@ -77,35 +78,32 @@ function Leaderboard_team(props) {
 
 
   useEffect(() => {
-    if (props.team.timer_status) {
-      let { hours, minutes, seconds } = getTime(times);
-      setTimer(
-        (hours > 9 ? hours : '0' + hours) + ':' +
-        (minutes > 9 ? minutes : '0' + minutes) + ':' +
-        (seconds > 9 ? seconds : '0' + seconds)
-      )
+    let { hours, minutes, seconds } = getTime(times);
+    setTimer(
+      (hours > 9 ? hours : '0' + hours) + ':' +
+      (minutes > 9 ? minutes : '0' + minutes) + ':' +
+      (seconds > 9 ? seconds : '0' + seconds)
+    )
 
-      const interval = setInterval(() => {
-        if (props.team.timer_status) {
-          setTimes(times + 1)
-        }
-      }, 1000);
+    const interval = setInterval(() => {
+      if (props.team.timer_status) {
+        setTimes(times + 1)
+      }
+    }, 1000);
 
-      return () => clearInterval(interval);
+    return () => clearInterval(interval);
+  }, [times, props.team.timer_status]);
+
+  useEffect(() => {
+    setBonus(0);
+    if (props.team.team_name !== team) {
+      let diff = ((new Date()).getTime() - (new Date(props.team.timer_last_on)).getTime())/1000;
+      setTimes(props.team.timer_status ? props.team.time + diff : props.team.time);
+      setTeam(props.team.team_name)
     } else {
-      setBonus(0);
-      let diff = Date.now() - new Date(props.team.timer_last_on);
-      let time = props.team.timer_status ? props.team.time + diff : props.team.time;
-      setTimes(time);
-      let { hours, minutes, seconds } = getTime(time);
-      setTimer(
-        (hours > 9 ? hours : '0' + hours) + ':' +
-        (minutes > 9 ? minutes : '0' + minutes) + ':' +
-        (seconds > 9 ? seconds : '0' + seconds)
-      );
+      setTimes(props.team.time);
     }
-  }, [times, props.team]);
-
+  }, [props.team])
   
   return (
     <Table.Row
