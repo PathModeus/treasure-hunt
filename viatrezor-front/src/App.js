@@ -13,12 +13,14 @@ import { teamList } from './assets/teamTest'
 import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
-import { Admin } from './components/Admin'
+import  AdminPage from './pages/adminPage'
+
 
 function App() {
   const [session, setSession] = useState(localStorage.getItem('session') ? JSON.parse(localStorage.getItem('session')) : null);
   const [teamInfo, setTeamInfo] = useState(null);
   const [load, setLoad] = useState(false);
+
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER}/api/whoami/`, {
@@ -59,7 +61,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <Admin /> : <Home teamInfo={teamInfo} />} />
+              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <AdminPage /> : <Home teamInfo={teamInfo} setLoad={setLoad}/>} />
               <Route path='login' element={<AuthPage setLoad={setLoad} />} />
               {session &&
                 <>
@@ -68,9 +70,7 @@ function App() {
                   <Route path='create-team' element={<CreateTeam setLoad={setLoad} />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
-                  {session.role?.admin === "VR" &&
-                    <Route path='admin' element={<Admin superAdmin />} />
-                  }
+                  <Route path='admin' element={< AdminPage />} />
                 </>
               }
             </Route>

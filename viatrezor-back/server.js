@@ -1,5 +1,20 @@
 const http = require('http');
 const app = require('./app');
+const WebSocket = require('ws');
+
+class Clients {
+    constructor()
+    {
+        this.clientList = {}
+        this.saveClient = this.saveClient.bind(this);    
+    }
+   saveClient(username, client)
+   {
+    this.clientList[username] = client;
+   } 
+}
+const clients = new Clients();
+
 
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -45,3 +60,26 @@ server.on('listening', () => {
 });
 
 server.listen(port);
+
+const ws = new WebSocket.Server({ server });
+
+ws.on('connection', (client) => {
+
+    //connection is up, let's add a simple simple event
+    client.on('message', (message) => {
+
+        console.log("Admin ID %s" , message);
+
+
+        let obj_ws =  JSON.parse(message)
+        console.log(obj_ws)
+        clients.saveClient(obj_ws.id, client)
+
+        console.log("Admin ID %s" , message);
+    });
+});
+
+//test.js
+
+module.exports.Clients = clients.clientList ;
+module.exports.ws = ws ;

@@ -1,6 +1,7 @@
+import React from 'react';
 import '../styles/Leaderboard.css'
 
-function Leaderboard(props) {
+function Teamlist(props) {
   const listTeams = props.teamsList.map((team) => <TeamLine team={team} />)
   return (
     <div className='leaderboard'>
@@ -38,14 +39,8 @@ function TeamLine(props) {
 
 function StopButton(props) {
   return (
-    <button className="team-line-pause team-line-element">Pause</button>
+    <button class="team-line-pause team-line-element">Pause</button>
   )
 }
 
-function ValidateButton(props) {
-  return (
-    <button class="team-line-validate team-line-element">Valider l'activité</button>
-  )
-}
-
-export default Leaderboard
+export default Teamlist
