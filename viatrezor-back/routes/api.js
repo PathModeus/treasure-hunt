@@ -205,12 +205,12 @@ router.put('/team/next', async (req, res, next) => {
         let team_info = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team_info.ongoing_activity);
         await bdd.history.create({ team_name: team_name, activity_id: activity.id });
-        let next_activity = await algo.next_chall(team_name)
-        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } })
+        let next_activity = await algo.next_chall(team_name);
+        await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } });
 
         team_info = await bdd.teams.findByPk(team_name);
         let players = await bdd.players.findAll({ where: {team_name: team_name}});
-        let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}})
+        let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}});
         for (let player of players) {
             if (wss.Clients[player.id_vr]) {
                 wss.Clients[player.id_vr].send(JSON.stringify(team_info))

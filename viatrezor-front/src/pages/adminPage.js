@@ -19,23 +19,20 @@ function AdminPage() {
     }
   );
 
-  useEffect(() => {
-    if (lastMessage?.data && activity) {
-      let update = JSON.parse(lastMessage.data);
-      if(update.ongoing_activity !== activity.id) {
-        fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/${session.role.admin}`, {
-          method: 'GET',
-          mode: 'cors',
-          headers: {
-            'Access-Control-Allow-Credentials': true,
-          },
-          credentials: 'include',
-        }).then(async (res) => {
-          setTeams(await res.json());
-        })
-      }
-    }
-  }, [lastMessage, activity])
+  const fetchTeams = () => {
+    fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/${session.role.admin}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    }).then(async (res) => {
+      setTeams(await res.json());
+    })
+  }
+
+  useEffect(fetchTeams, [])
   
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER}/api/activity/${session.role.admin}`, {
@@ -53,7 +50,9 @@ function AdminPage() {
   useEffect(() => {
     if (lastMessage?.data && activity) {
       let update = JSON.parse(lastMessage.data);
-      if(update.ongoing_activity == activity.id) {
+      if(update.ongoing_activity !== activity.id) {
+        fetchTeams();
+      } else {
         let index = teams.findIndex(team => team.team_name === update.team_name)
         let teams_update = teams;
         teams_update[index] = update;
