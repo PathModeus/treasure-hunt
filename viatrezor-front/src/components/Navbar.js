@@ -36,9 +36,7 @@ function Navbarvt() {
                     {session?.role?.admin &&
                       <>
                         <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
-                        {session.role.admin === "VR" &&
-                          <Nav.Link as={Link} to="/admin">Interface administrateur</Nav.Link>
-                        }
+                        <Nav.Link as={Link} to="/admin">Interface administrateur</Nav.Link>
                       </>
                     }
                   </>

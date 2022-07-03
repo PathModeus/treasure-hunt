@@ -67,6 +67,21 @@ router.post('/team/create', async (req, res) => {
     }
 })
 
+
+router.get('/team/all', async (req, res) => {
+    try {
+        let teams = await bdd.teams.findAll()
+        if (teams.length) {
+            return res.json(teams)
+        } else {
+            return res.json([])
+        }
+    } catch(e) {
+        console.log(e);
+        res.status(500).end();
+    }
+})
+
 // Ajout de points bonus
 
 router.put('/team/bonus', async (req, res) => {
