@@ -68,7 +68,7 @@ function App() {
                   <Route path='create-team' element={<CreateTeam setLoad={setLoad} />} />
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
-                  <Route path='admin' element={< AdminPage teamsList={teamList}/>} />
+                  <Route path='admin' element={< AdminPage />} />
                 </>
               }
             </Route>
