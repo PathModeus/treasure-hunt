@@ -14,7 +14,6 @@ import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
 import  AdminPage from './pages/adminPage'
-import useWebSocket from 'react-use-websocket';
 
 
 function App() {
@@ -22,13 +21,6 @@ function App() {
   const [teamInfo, setTeamInfo] = useState(null);
   const [load, setLoad] = useState(false);
 
-  const { lastMessage, sendMessage } = useWebSocket(process.env.REACT_APP_SOCKET_URL,
-    {
-      onOpen: () => sendMessage(JSON.stringify({ id: session.login })),
-      //Will attempt to reconnect on all close events, such as server shutting down
-      shouldReconnect: (closeEvent) => true,
-    }
-  );
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER}/api/whoami/`, {
@@ -61,7 +53,7 @@ function App() {
         setLoad(false);
       }).catch(e => console.log(e));
     }
-  }, [session, load, lastMessage])
+  }, [session, load])
 
   return (
     <div className='background' >
@@ -69,7 +61,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <AdminPage /> : <Home teamInfo={teamInfo} />} />
+              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <AdminPage /> : <Home teamInfo={teamInfo} setLoad={setLoad}/>} />
               <Route path='login' element={<AuthPage setLoad={setLoad} />} />
               {session &&
                 <>

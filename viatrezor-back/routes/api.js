@@ -44,9 +44,18 @@ router.post('/team/create', async (req, res) => {
             let team = await bdd.teams.create({ team_name: req.body.team_name });
             await bdd.history.create({ team_name: team.team_name, activity_id: 1 })
             let activity_id = await algo.next_chall(team.team_name);
-            bdd.teams.update({ ongoing_activity: activity_id }, { where: { team_name: team.team_name } })
+            await bdd.teams.update({ ongoing_activity: activity_id }, { where: { team_name: team.team_name } })
+            team = await bdd.teams.findByPk(req.body.team_name);
+
             for (let id_vr of id_vr_list) {
-                bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
+                await bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
+            };
+
+            let players = await bdd.players.findAll({ where: {team_name: team.team_name}});
+            for (let player of players) {
+                if (wss.Clients[player.id_vr]) {
+                    wss.Clients[player.id_vr].send(JSON.stringify(team))
+                }
             };
             return res.status(200).end();
         } catch (e) {
@@ -215,12 +224,12 @@ router.put('/team/next', async (req, res, next) => {
             if (wss.Clients[player.id_vr]) {
                 wss.Clients[player.id_vr].send(JSON.stringify(team_info))
             }
-        }
+        };
         for (let admin of admins) {
             if (wss.Clients[admin.id_vr]) {
                 wss.Clients[admin.id_vr].send(JSON.stringify(team_info))
             }
-        }
+        };
     } catch (e) {
         console.log(e)
         res.status(500).end()
