@@ -13,7 +13,7 @@ async function next_chall(team_name) {
     var next_activity = 'final_enigma';
     for (let activity of activities_list) {
         activity_load_filtered = activity_load.filter(item => item.ongoing_activity == activity.id)
-        activities_done_filtered = activities_done.filter(item => (item.activity_id == activity.id && item.team_name == team_name))
+        activities_done_filtered = activities_done.filter(item => (item.activity_id == activity.id))
         let load = activity_load_filtered.length ? activity_load_filtered[0].count : 0;
         if (!activities_done_filtered.length && load <= min_temp) {
             min_temp = load;

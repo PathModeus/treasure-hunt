@@ -14,7 +14,7 @@
 
 .type-writer::after {
     content: "|";
-    animation: blink 0.5s infinite alternate-reverse ;
+    animation: blink 0.5s infinite alternate-reverse;
 }
 
 .type-writer {

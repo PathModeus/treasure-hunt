@@ -8,6 +8,7 @@ const health = require('./healthChecker');
 const test = require('./routes/test');
 const config = require('./config.json');
 
+
 const app = express();
 app.use(express.json());
 app.use(cors({

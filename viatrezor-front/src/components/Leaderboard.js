@@ -1,7 +1,22 @@
+import { useEffect, useState } from 'react';
 import '../styles/Leaderboard.css'
 
-function Leaderboard(props) {
-  const listTeams = props.teamsList.map((team) => <TeamLine team={team} />)
+function Leaderboard() {
+  const [listTeams, setListTeams] = useState([]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER}/api/team/all`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Credentials': true,
+      },
+      credentials: 'include',
+    }).then(async res => {
+      setListTeams(await res.json());
+    }).catch(e => console.log(e));
+  }, [])
+
   return (
     <div className='leaderboard'>
       <div classname='leaderboard-head'>
@@ -10,7 +25,7 @@ function Leaderboard(props) {
         </div>
       </div>
       <div className='leaderboard-body-wrap'>
-        <div className='leaderboard-body'>{listTeams}</div>
+        <div className='leaderboard-body'>{listTeams.map((team, index) => <TeamLine key={index} team={team} />)}</div>
       </div>
     </div>
   )
@@ -28,18 +43,12 @@ function convertTime(time) {
 function TeamLine(props) {
   return (
     <div className='team-line'>
-      <div className='team-line-name team-line-element'>{props.team.name}</div>
+      <div className='team-line-name team-line-element'>{props.team.team_name}</div>
       <div className='team-line-time team-line-element'>{convertTime(props.team.time)}</div>
-      <div className='team-line-score team-line-element'>{props.team.score}pts</div>
-      <StopButton name={props.team} />
+      <div className='team-line-score team-line-element'>{props.team.points}pts</div>
     </div>
   )
 }
 
-function StopButton(props) {
-  return (
-    <button className="team-line-pause team-line-element">Pause</button>
-  )
-}
 
 export default Leaderboard

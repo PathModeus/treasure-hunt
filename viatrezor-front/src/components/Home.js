@@ -2,10 +2,26 @@ import '../styles/Home.css'
 import { useState, useEffect, useContext, useRef } from 'react';
 import AdvancementBar from './AdvancementBar';
 import { Session } from '../Param';
+import useWebSocket from 'react-use-websocket';
 
-function Home({ teamInfo }) {
+
+function Home({ teamInfo, setLoad }) {
   const [session,] = useContext(Session);
   const [content, setContent] = useState("");
+
+  const { lastMessage, sendMessage } = useWebSocket(process.env.REACT_APP_SOCKET_URL,
+    {
+      onOpen: () => sendMessage(JSON.stringify({ id: session.login })),
+      //Will attempt to reconnect on all close events, such as server shutting down
+      shouldReconnect: (closeEvent) => true,
+    }
+  );
+
+  useEffect(() => {
+    if (lastMessage?.data) {
+      setLoad(true);
+    }
+  })
 
   useEffect(() => {
     setContent(

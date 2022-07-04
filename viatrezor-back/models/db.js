@@ -46,7 +46,7 @@ const History = sequelize.define("history", {
 
 // Synchronisation de la bdd
 /* l'argument force: true drop les tables de la bdd avant de les recréer pour éviter les doublons */
-sequelize.sync()
+sequelize.sync({ force: true })
     .then(async () => {
         console.log("Synced db.");
         // Initialisation de la bdd
@@ -65,18 +65,23 @@ sequelize.sync()
             Etre ailleurs donne uniquement accès à l'épreuve de son club.
         */
         await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: 'VR' },
-            { id_vr: '2021brayto', asso_name: 'VR' },
-            { id_vr: '2021perede', asso_name: 'VR' },
-            { id_vr: '2021elyaagobi', asso_name: 'VR' },
-            { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: 'VR' },
-            { id_vr: '2021kalflechju', asso_name: 'VR' },
-            { id_vr: '2021bireem', asso_name: 'CS Design' },
-            { id_vr: '2021meignanco', asso_name: 'Pics' },
-            { id_vr: '2021rosenberju', asso_name: 'CStudio' },
-            { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
-            { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
+            { id_vr: '2021berliouxqu', asso_name: "Kahoot" },
+            // { id_vr: '2021brayto', asso_name: 'VR' },
+            // { id_vr: '2021perede', asso_name: 'VR' },
+            { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
+            // { id_vr: '2021augierme', asso_name: 'VR' },
+            { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
+            { id_vr: '2021labellefl', asso_name: 'Mölkky' },
+            { id_vr: '2021delasapa', asso_name: 'Tir à la corde' },
+            { id_vr: '2021moussetla', asso_name: "Borne d'arcade" },
+            { id_vr: '2021audusseel', asso_name: "Blindtest" },
+            { id_vr: '2021romandfra', asso_name: 'Tir à la corde' },
+            { id_vr: '2021piedallucl', asso_name: 'Mölkky' }
+            // { id_vr: '2021bireem', asso_name: 'CS Design' },
+            // { id_vr: '2021meignanco', asso_name: 'Pics' },
+            // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
+            // { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
+            // { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Admins have been saved")
         });
@@ -88,13 +93,28 @@ sequelize.sync()
             },
             {
                 id: 2,
-                name: "Jeu Vidéo",
-                description: "Pour obtenir la prochaine barre de réseau il faudra que vous complétiez un Jeu Vidéo. Rendez-vous en Sd.201 pour affronter vos adversaires ! \nQue le meilleur gagne !"
+                name: "Borne d'arcade",
+                description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? VI ? 133 ?"
             },
             {
                 id: 3,
-                name: "Autre épreuve",
-                description: "Description de la deuxième épreuve"
+                name: "Tir à la corde",
+                description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au sous sol du plus vieux bâtiment... (Passez par l'entrée principale :) )"
+            },
+            {
+                id: 4,
+                name: "Kahoot",
+                description: "Dans un grand carré, au bout d'une diagonale, se logent quelques gradins devant des projections... Idéal pour une présentation ou un jeu télévisé !"
+            },
+            {
+                id: 5,
+                name: "Mölkky",
+                description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
+            },
+            {
+                id: 6,
+                name: "Blindtest",
+                description: "Un grand auteur, de beaux textes, de jolis fauteuils et une sacré scène... Tout cela réuni en un seul lieu ? On me dit que c'est pas trop loin d'un gymnase..."
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
