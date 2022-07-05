@@ -7,7 +7,7 @@
     - if [ $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH ]; then
       TAG="latest";
       echo 'REACT_APP_SERVER="https://chasseautresor.cs-campus.fr"' > viatrezor-front/.env;
-      echo 'REACT_APP_SOCKET_URL=ws://chasseautresor.cs-campus.fr"' >> viatrezor-front/.env;
+      echo 'REACT_APP_SOCKET_URL="ws://chasseautresor.cs-campus.fr"' >> viatrezor-front/.env;
       else
       TAG="dev";
       echo 'REACT_APP_SERVER="https://chasseautresor.test.cs-campus.fr"' > viatrezor-front/.env;
