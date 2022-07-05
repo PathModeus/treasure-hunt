@@ -11,7 +11,7 @@
       else
       TAG="dev";
       echo 'REACT_APP_SERVER="https://chasseautresor.test.cs-campus.fr"' > viatrezor-front/.env;
-      echo 'REACT_APP_SOCKET_URL=ws://chasseautresor.test.cs-campus.fr"' >> viatrezor-front/.env;
+      echo 'REACT_APP_SOCKET_URL="ws://chasseautresor.test.cs-campus.fr"' >> viatrezor-front/.env;
       fi;
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"${REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "robot\$${REGISTRY_USERNAME}" "${REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
