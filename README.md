@@ -33,7 +33,7 @@ The database runs within a pod on Kubernetes, in order to access the database he
   - `ssh 138.195.139.68` for staging
 
 - 2. become root: `sudo su`
-- 3. set current namespace to **chasseautresor**:
+- 3. set current namespace to **chasseautresor** :
 
   - `kcn chasseautresor`
 
@@ -45,7 +45,7 @@ The database runs within a pod on Kubernetes, in order to access the database he
 
   - `kubectl exec -it mysql-0 -- mysql -u chasseautresor -p`
 
-## Attention, Pour lancer en local, suivez les instructions suivantes:
+## Attention, Pour lancer en local, suivez les instructions suivantes :
 
 - Créer le .env en utilisant le template dans viatrezor-front
 - Créer un fichier config.json en utilisant le template (demander à un admin auth)
