@@ -71,7 +71,7 @@ sequelize.sync({ force: true })
             { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
             // { id_vr: '2021augierme', asso_name: 'VR' },
             { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
-            { id_vr: '2020touizrath', asso_name: "Borne d'arcade" },          
+            { id_vr: '2020touizrath', asso_name: "Tir à la corde" },          
             { id_vr: '2021chaumontay', asso_name: "Borne d'arcade" },
             { id_vr: '2021labellefl', asso_name: 'Mölkky' },
             { id_vr: '2021delasapa', asso_name: 'Tir à la corde' },
@@ -123,7 +123,10 @@ sequelize.sync({ force: true })
         });
 
         await Teams.bulkCreate([
-            { team_name: 'No team' }
+            { team_name: 'No team', ongoing_activity: 3 },
+            { team_name: 'VR' , ongoing_activity: 3 },
+            { team_name: 'test1' , ongoing_activity: 3 },
+            { team_name:  'test2', ongoing_activity: 3 },
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");
         });
