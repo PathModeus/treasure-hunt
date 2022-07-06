@@ -22,7 +22,7 @@ function Navbarvt() {
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel">Chasse au Rézo</Offcanvas.Title>
+              <Offcanvas.Title id="offcanvasNavbarLabel">Chasse au trésor ViaRézo</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">

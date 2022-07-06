@@ -1,7 +1,7 @@
 import '../styles/Banner.css'
 
 function Banner() {
-  const title = 'Chasse au Rézo'
+  const title = 'Chasse au trésor ViaRézo'
   return (
     <div className='vt-banner'>
       <h1 className='vt-title'>{title}</h1>

@@ -51,7 +51,7 @@ router.post('/team/create', async (req, res) => {
                 await bdd.players.upsert({ id_vr: id_vr, team_name: team.team_name }, { where: { id_vr: id_vr } });
             };
 
-            let players = await bdd.players.findAll({ where: {team_name: team.team_name}});
+            let players = await bdd.players.findAll({ where: { team_name: team.team_name } });
             for (let player of players) {
                 if (wss.Clients[player.id_vr]) {
                     wss.Clients[player.id_vr].send(JSON.stringify(team))
@@ -76,7 +76,7 @@ router.get('/team/all', async (req, res) => {
         } else {
             return res.json([])
         }
-    } catch(e) {
+    } catch (e) {
         console.log(e);
         res.status(500).end();
     }
@@ -87,14 +87,14 @@ router.get('/team/all', async (req, res) => {
 router.put('/team/bonus', async (req, res) => {
     let team_name = req.body.team_name
     let bonus_str = req.body.bonus
-    let bonus = parseInt( bonus_str, 10)
+    let bonus = parseInt(bonus_str, 10)
     try {
         let team = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
-        await bdd.teams.update({ points: team.points + bonus}, {where: {team_name: team_name}});
+        await bdd.teams.update({ points: team.points + bonus }, { where: { team_name: team_name } });
         team = await bdd.teams.findByPk(team_name);
 
-        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name }});
+        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name } });
         for (let admin of admins) {
             if (wss.Clients[admin.id_vr]) {
                 wss.Clients[admin.id_vr].send(JSON.stringify(team));
@@ -117,21 +117,21 @@ router.put('/team/stop', async (req, res) => {
         let team = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team.ongoing_activity);
         if (!team.timer_status) {
-            await bdd.teams.update({timer_last_on: temps, timer_status: 1}, {where: {team_name: team_name}});
+            await bdd.teams.update({ timer_last_on: temps, timer_status: 1 }, { where: { team_name: team_name } });
         } else {
-            var dif = ( temps.getTime() - team.timer_last_on.getTime() ) / 1000;
-            await bdd.teams.update({time: team.time+dif, timer_last_on: temps, timer_status: 0}, {where: {team_name: team_name}});
+            var dif = (temps.getTime() - team.timer_last_on.getTime()) / 1000;
+            await bdd.teams.update({ time: team.time + dif, timer_last_on: temps, timer_status: 0 }, { where: { team_name: team_name } });
         }
 
         team = await bdd.teams.findByPk(team_name);
-        let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}});
+        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name } });
         for (let admin of admins) {
             if (wss.Clients[admin.id_vr]) {
                 wss.Clients[admin.id_vr].send(JSON.stringify(team));
             }
         }
 
-        res.json({time: team.time, date:temps, status:!team.timer_status});
+        res.json({ time: team.time, date: temps, status: !team.timer_status });
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -140,10 +140,10 @@ router.put('/team/stop', async (req, res) => {
 
 // Cette route récupère les équipes présentes sur un activité
 router.get('/team/admin/:activity', async (req, res) => {
-    try{
-        let activity = (await bdd.activities.findAll({ where: {name: req.params.activity}}));
+    try {
+        let activity = (await bdd.activities.findAll({ where: { name: req.params.activity } }));
         if (activity.length != 0) {
-            let teams = (await bdd.teams.findAll({where: {ongoing_activity: activity[0].id}}));
+            let teams = (await bdd.teams.findAll({ where: { ongoing_activity: activity[0].id } }));
             res.json(teams);
         } else {
             res.json([]);
@@ -170,7 +170,7 @@ router.get('/team/:team_name', async (req, res) => {
 router.get('/activity/:asso_name', async (req, res) => {
     console.log('Through /activity/:asso_name')
     try {
-        let activity = await bdd.activities.findAll({ where: {name: req.params.asso_name}});
+        let activity = await bdd.activities.findAll({ where: { name: req.params.asso_name } });
         if (activity.length) {
             res.json(activity[0]);
         } else {
@@ -228,8 +228,8 @@ router.put('/team/next', async (req, res, next) => {
         await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } });
 
         team_info = await bdd.teams.findByPk(team_name);
-        let players = await bdd.players.findAll({ where: {team_name: team_name}});
-        let admins = await bdd.admins.findAll({ where: {asso_name: activity.name}});
+        let players = await bdd.players.findAll({ where: { team_name: team_name } });
+        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name } });
         for (let player of players) {
             if (wss.Clients[player.id_vr]) {
                 wss.Clients[player.id_vr].send(JSON.stringify(team_info))

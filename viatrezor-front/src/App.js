@@ -12,7 +12,7 @@ import './App.css'
 import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
-import  AdminPage from './pages/adminPage'
+import AdminPage from './pages/adminPage'
 
 
 function App() {
@@ -60,7 +60,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Navbarvt />}>
-              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <AdminPage /> : <Home teamInfo={teamInfo} setLoad={setLoad}/>} />
+              <Route index element={session?.role?.admin && session.role.admin !== "VR" ? <AdminPage /> : <Home teamInfo={teamInfo} setLoad={setLoad} />} />
               <Route path='login' element={<AuthPage setLoad={setLoad} />} />
               {session &&
                 <>
