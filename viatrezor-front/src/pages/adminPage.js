@@ -20,6 +20,7 @@ function AdminPage() {
   );
 
   useEffect(() => {
+    console.log(session)
     fetch(`${process.env.REACT_APP_SERVER}/api/team/admin/${session.role.admin}`, {
       method: 'GET',
       mode: 'cors',
@@ -72,7 +73,7 @@ function AdminPage() {
             <Table.HeaderCell align="center">
               Pause/Resume time
             </Table.HeaderCell>
-            <Table.HeaderCell align="center">Ajout des points</Table.HeaderCell>
+            <Table.HeaderCell align="center">Ajout des pointssss</Table.HeaderCell>
             <Table.HeaderCell align="center">
               Valider l'activité
             </Table.HeaderCell>
@@ -90,3 +91,19 @@ function AdminPage() {
 };
 
 export default AdminPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

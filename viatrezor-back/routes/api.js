@@ -140,6 +140,7 @@ router.put('/team/stop', async (req, res) => {
 
 // Cette route récupère les équipes présentes sur un activité
 router.get('/team/admin/:activity', async (req, res) => {
+    console.log('Through /admin')
     try{
         let activity = (await bdd.activities.findAll({ where: {name: req.params.activity}}));
         if (activity.length != 0) {
