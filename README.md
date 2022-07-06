@@ -72,3 +72,4 @@ Il est possible qu'il faille lancer un *npm install* après un changement de bra
 - Faire en sorte que le menu se referme dès qu'on clique dessus
 - Update les barres de réseau quand on passe une épreuve (websockets)
 - Changer la CI et l'env pour mettre REACT_APP_SOCKETURL
+- Revert les modif pour drop la bdd à chaque redémarrage du back
