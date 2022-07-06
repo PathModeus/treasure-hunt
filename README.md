@@ -57,18 +57,21 @@ Il est possible qu'il faille lancer un *npm install* après un changement de bra
 ## Points d'amélioration :
 
 - Améliorer le front, le rendre joli
+- Vérifier que les pages sont responsives
 - Documenter le code
-- Ajouter une page où on peut voir toutes les équipes et leur activité en cours (notamment pour que les VRgens puissent être vraiment superadmins)
-- Ajouter les champs description, logopath, etc à la table activités, pour que l'on puisse juste ajouter des activités dans la bdd et ue ce soit pris en compte
-- Avoir la liste des joueurs inscrits
-- Faire que les websockets actualisent le front partout
-- npm audit fix --force
-- Remove filter on team_name dans l'algo next_chall
-- Effacer la session auth quand on clique sur se déconnecter
-- Rajouter une websocket pour la création d'équipe
-- HANDLE LA FIN DU JEU
-- Mettre les noms des assos comme clés primaires de la table activité
-- Faire en sorte que les Vr gens puissent avoir accès à toutes les épreuves
-- Faire en sorte que le menu se referme dès qu'on clique dessus
-- Update les barres de réseau quand on passe une épreuve (websockets)
-- Changer la CI et l'env pour mettre REACT_APP_SOCKETURL
+- Proprifier le code --> Restructurer
+- Ajouter une page où on peut voir toutes les équipes et leur activité en cours (notamment pour que les VRgens puissent être vraiment superadmins) --> Hamza
+- Ajouter les champs description, logopath, etc à la table activités, pour que l'on puisse juste ajouter des activités dans la bdd et que ce soit pris en compte
+- Avoir la liste des joueurs inscrits --> Hamza
+- Faire que les websockets actualisent le front partout (Tests à faire pour déterminer où ca ne fonctionne pas et pinger Hamza si on en trouve)
+- npm audit fix --force (A voir après la rentrée)
+- Remove filter on team_name dans l'algo next_chall --> noxov
+- Effacer la session auth quand on clique sur se déconnecter --> noxov
+- Rajouter une websocket pour que tous les admins fetch les nouvelles équipes qui arrivent sur leur activité (dont après la création d'équipe) --> Hamza
+- HANDLE LA FIN DU JEU --> noxov
+- Faire fonctionner les timers --> Aymeric
+- Mettre les noms des assos comme clés primaires de la table activité et faire les modifs qui vont avec (Réfléchir au nouveau schéma) --> Antoine
+- Faire en sorte que les Vr gens puissent avoir accès à toutes les épreuves (toutes les interfaces admin réunies)
+- Faire en sorte que le menu se referme dès qu'on clique dessus --> Antoine
+- Update les barres de réseau quand on passe une épreuve (websockets) --> Hamza & Aymeric
+- Trouver un moyen d'accéler l'inscription des équipes (côté joueur) --> Antoine
