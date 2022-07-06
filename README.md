@@ -5,7 +5,7 @@ If you have any questions, please contact Noxov, Byejablek or Path!
 
 ## ATTENTION: A FAIRE AVANT UN EVENEMENT
 
-* S'assurer que la bdd a bien été réinitialisée juste avant l'événement.
+- S'assurer que la bdd a bien été réinitialisée juste avant l'événement.
 
 ## Structure
 
@@ -25,36 +25,61 @@ The back-end is written using the Javascript framework ExpressJs.
 
 ## Database
 
-The database can be set up locally using a simple MySQL Docker.
+The database runs within a pod on Kubernetes, in order to access the database here's the recipe:
 
+- 1. ssh to the cluster:
 
-## Attention, Pour lancer en local, suivez les instructions suivantes :
+  - `ssh 138.195.140.221` for production
+  - `ssh 138.195.139.68` for staging
 
-* Créer le .env en utilisant le template dans viatrezor-front
-* Créer un fichier config.json en utilisant le template (demander à un admin auth)
-* Lancer un docker MySQL avec les paramètres donnés dans back/src/diverse/bdd.js
-```
+- 2. become root: `sudo su`
+- 3. set current namespace to **chasseautresor**:
+
+  - `kcn chasseautresor`
+
+- 4. get the mysql password:
+
+  - `kubectl get secret chasseautresor-mysql -o jsonpath="{.data.mysql-password}" | base64 -d`
+
+- 5. connect to the database with the precedent password:
+
+  - `kubectl exec -it mysql-0 -- mysql -u chasseautresor -p`
+
+## Attention, Pour lancer en local, suivez les instructions suivantes:
+
+- Créer le .env en utilisant le template dans viatrezor-front
+- Créer un fichier config.json en utilisant le template (demander à un admin auth)
+- Lancer un docker MySQL avec les paramètres donnés dans back/src/diverse/bdd.js
+
+```bash
 docker run -p 3306:3306 --env MYSQL_DATABASE=letresor --env MYSQL_USER=captain --env MYSQL_PASSWORD=sacrebleu --env MYSQL_ROOT_PASSWORD=poney -d mysql
 ```
-* S'y connecter
-```
+
+- S'y connecter
+
+```bash
 docker exec -it <id/nom du docker> bash
 ```
-* Entrer dans MySQL en tant que root
-```
+
+- Entrer dans MySQL en tant que root
+
+```bash
 mysql -p
 ```
-* Lancer la commande suivante
-```
+
+- Lancer la commande suivante
+
+```bash
 ALTER USER 'captain'@'%' IDENTIFIED WITH mysql_native_password BY 'sacrebleu';
 ```
-* Quitter le Docker
-* Lancer le back
-* Lancer le front
 
-Il est possible qu'il faille lancer un *npm install* après un changement de branche.
+- Quitter le Docker
+- Lancer le back
+- Lancer le front
 
-## Points d'amélioration :
+Il est possible qu'il faille lancer un _npm install_ après un changement de branche.
+
+## Points d'amélioration:
 
 - Améliorer le front, le rendre joli
 - Vérifier que les pages sont responsives
