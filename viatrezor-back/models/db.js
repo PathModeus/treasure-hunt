@@ -71,6 +71,8 @@ sequelize.sync({ force: true })
             { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
             // { id_vr: '2021augierme', asso_name: 'VR' },
             { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
+            { id_vr: '2020touizrath', asso_name: "Borne d'arcade" },          
+            { id_vr: '2021chaumontay', asso_name: "Borne d'arcade" },
             { id_vr: '2021labellefl', asso_name: 'Mölkky' },
             { id_vr: '2021delasapa', asso_name: 'Tir à la corde' },
             { id_vr: '2021moussetla', asso_name: "Borne d'arcade" },
