@@ -16,7 +16,7 @@ const getTime = (e) => {
 function Leaderboard_team(props) {
   const [team, setTeam] = useState(props.team.team_name);
   const [bonus, setBonus] = useState(0);
-  let diff = ((new Date()).getTime() - (new Date(props.team.timer_last_on)).getTime())/1000;
+  let diff = ((new Date()).getTime() - (new Date(props.team.timer_last_on)).getTime()) / 1000;
   const [times, setTimes] = useState(props.team.timer_status ? props.team.time + diff : props.team.time);
   let { hours, minutes, seconds } = getTime(times);
   const [timer, setTimer] = useState(
@@ -71,7 +71,7 @@ function Leaderboard_team(props) {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({team_name: props.team.team_name, bonus})
+      body: JSON.stringify({ team_name: props.team.team_name, bonus })
     }).catch(e => console.log(e));
     setBonus(0);
   }
@@ -97,14 +97,14 @@ function Leaderboard_team(props) {
   useEffect(() => {
     setBonus(0);
     if (props.team.team_name !== team) {
-      let diff = ((new Date()).getTime() - (new Date(props.team.timer_last_on)).getTime())/1000;
+      let diff = ((new Date()).getTime() - (new Date(props.team.timer_last_on)).getTime()) / 1000;
       setTimes(props.team.timer_status ? props.team.time + diff : props.team.time);
       setTeam(props.team.team_name)
     } else {
       setTimes(props.team.time);
     }
   }, [props.team])
-  
+
   return (
     <Table.Row
       id={props.index}
@@ -137,7 +137,7 @@ function Leaderboard_team(props) {
           </button>
         </div>
       </Table.Cell>
-      <Table.Cell align="left" style={{display: "flex", flexDirection: "column"}}>
+      <Table.Cell align="left" style={{ display: "flex", flexDirection: "column" }}>
         <input
           className="add-point-input"
           placeholder="points de l'activité"
@@ -203,4 +203,3 @@ function Leaderboard_team(props) {
 };
 
 export default Leaderboard_team;
-
