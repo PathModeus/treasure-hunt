@@ -42,9 +42,9 @@ router.post('/team/create', async (req, res) => {
         let id_vr_list = req.body.members.split(";");
         try {
             let team = await bdd.teams.create({ team_name: req.body.team_name });
-            await bdd.history.create({ team_name: team.team_name, activity_id: 1 })
-            let activity_id = await algo.next_chall(team.team_name);
-            await bdd.teams.update({ ongoing_activity: activity_id }, { where: { team_name: team.team_name } })
+            await bdd.history.create({ team_name: team.team_name, activity_name: "En attente d'activité" })
+            let activity_name = await algo.next_chall(team.team_name);
+            await bdd.teams.update({ ongoing_activity: activity_name }, { where: { team_name: team.team_name } })
             team = await bdd.teams.findByPk(req.body.team_name);
 
             for (let id_vr of id_vr_list) {
@@ -141,13 +141,9 @@ router.put('/team/stop', async (req, res) => {
 // Cette route récupère les équipes présentes sur un activité
 router.get('/team/admin/:activity', async (req, res) => {
     try {
-        let activity = (await bdd.activities.findAll({ where: { name: req.params.activity } }));
-        if (activity.length != 0) {
-            let teams = (await bdd.teams.findAll({ where: { ongoing_activity: activity[0].id } }));
-            res.json(teams);
-        } else {
-            res.json([]);
-        }
+        let activity = await bdd.activities.findByPk(req.params.activity);
+        let teams = await bdd.teams.findAll({ where: { ongoing_activity: activity.name } });
+        res.json(teams);
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -170,12 +166,8 @@ router.get('/team/:team_name', async (req, res) => {
 router.get('/activity/:asso_name', async (req, res) => {
     console.log('Through /activity/:asso_name')
     try {
-        let activity = await bdd.activities.findAll({ where: { name: req.params.asso_name } });
-        if (activity.length) {
-            res.json(activity[0]);
-        } else {
-            res.status(500).end();
-        }
+        let activity = await bdd.activities.findByPk(req.params.asso_name);
+        res.json(activity);
     } catch (e) {
         console.log(e);
         res.status(500).end();
@@ -223,7 +215,7 @@ router.put('/team/next', async (req, res, next) => {
         var team_name = req.body.team_name;
         let team_info = await bdd.teams.findByPk(team_name);
         let activity = await bdd.activities.findByPk(team_info.ongoing_activity);
-        await bdd.history.create({ team_name: team_name, activity_id: activity.id });
+        await bdd.history.create({ team_name: team_name, activity_name: activity.name });
         let next_activity = await algo.next_chall(team_name);
         await bdd.teams.update({ ongoing_activity: next_activity }, { where: { team_name: team_name } });
 
