@@ -20,7 +20,7 @@ const Activities = sequelize.define("activities", {
 
 const Teams = sequelize.define("teams", {
     team_name: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
-    ongoing_activity: { type: Sequelize.INTEGER, defaultValue: "En attente d'activité", allowNull: false, references: { model: Activities, key: 'name' }, onDelete: 'SET DEFAULT' },
+    ongoing_activity: { type: Sequelize.STRING, defaultValue: "En attente d'activité", allowNull: false, references: { model: Activities, key: 'name' }, onDelete: 'SET DEFAULT' },
     timer_status: { type: Sequelize.BOOLEAN, defaultValue: false },
     time: { type: Sequelize.INTEGER, defaultValue: 0 },
     timer_last_on: { type: Sequelize.DATE, allowNull: false, defaultValue: "2000-01-01T01:01:01" },
@@ -34,12 +34,12 @@ const Players = sequelize.define("players", {
 
 const Admins = sequelize.define("admins", {
     id_vr: { type: Sequelize.STRING, primaryKey: true },
-    asso_name: { type: Sequelize.TEXT, allowNull: false, references: { model: Activities, key: 'name' }, onDelete: 'CASCADE' },
+    asso_name: { type: Sequelize.STRING, allowNull: false, references: { model: Activities, key: 'name' }, onDelete: 'CASCADE' },
 });
 
 const History = sequelize.define("history", {
     team_name: { type: Sequelize.STRING, primaryKey: true, allowNull: false, references: { model: Teams, key: 'team_name' }, onDelete: 'CASCADE' },
-    activity_name: { type: Sequelize.INTEGER, primaryKey: true, allowNull: false, references: { model: Activities, key: 'name' }, onDelete: 'CASCADE' }
+    activity_name: { type: Sequelize.STRING, primaryKey: true, allowNull: false, references: { model: Activities, key: 'name' }, onDelete: 'CASCADE' }
 });
 
 
@@ -63,28 +63,6 @@ sequelize.sync()
             Etre à ViaRézo donne tous les droits.
             Etre ailleurs donne uniquement accès à l'épreuve de son club.
         */
-        await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: "Kahoot" },
-            // { id_vr: '2021brayto', asso_name: 'VR' },
-            // { id_vr: '2021perede', asso_name: 'VR' },
-            { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
-            // { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
-            { id_vr: '2021labellefl', asso_name: 'Mölkky' },
-            { id_vr: '2021delasapa', asso_name: 'Tir à la corde' },
-            { id_vr: '2021moussetla', asso_name: "Borne d'arcade" },
-            { id_vr: '2021audusseel', asso_name: "Blindtest" },
-            { id_vr: '2021romandfra', asso_name: 'Tir à la corde' },
-            { id_vr: '2021piedallucl', asso_name: 'Mölkky' }
-            // { id_vr: '2021bireem', asso_name: 'CS Design' },
-            // { id_vr: '2021meignanco', asso_name: 'Pics' },
-            // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
-            // { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
-            // { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
-        ], { ignoreDuplicates: true }).then(() => {
-            console.log("Admins have been saved")
-        });
-
         await Activities.bulkCreate([
             {
                 name: "En attente d'activité",
@@ -112,6 +90,28 @@ sequelize.sync()
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
+        });
+
+        await Admins.bulkCreate([
+            { id_vr: '2021berliouxqu', asso_name: "Kahoot" },
+            // { id_vr: '2021brayto', asso_name: 'VR' },
+            // { id_vr: '2021perede', asso_name: 'VR' },
+            { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
+            // { id_vr: '2021augierme', asso_name: 'VR' },
+            { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
+            { id_vr: '2021labellefl', asso_name: 'Mölkky' },
+            { id_vr: '2021delasapa', asso_name: 'Tir à la corde' },
+            { id_vr: '2021moussetla', asso_name: "Borne d'arcade" },
+            { id_vr: '2021audusseel', asso_name: "Blindtest" },
+            { id_vr: '2021romandfra', asso_name: 'Tir à la corde' },
+            { id_vr: '2021piedallucl', asso_name: 'Mölkky' }
+            // { id_vr: '2021bireem', asso_name: 'CS Design' },
+            // { id_vr: '2021meignanco', asso_name: 'Pics' },
+            // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
+            // { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
+            // { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
+        ], { ignoreDuplicates: true }).then(() => {
+            console.log("Admins have been saved")
         });
 
         await Teams.bulkCreate([

@@ -48,7 +48,7 @@ function AdminPage() {
   useEffect(() => {
     if (lastMessage?.data && activity) {
       let update = JSON.parse(lastMessage.data);
-      if (update.ongoing_activity !== activity.id) {
+      if (update.ongoing_activity !== activity.name) {
         setTeams(teams.filter(team => team.team_name !== update.team_name))
       } else {
         let index = teams.findIndex(team => team.team_name === update.team_name)
