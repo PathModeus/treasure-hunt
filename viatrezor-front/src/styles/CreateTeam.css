@@ -42,6 +42,8 @@ label {
 #team-page-container {
     width: 100%;
     flex: 1;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 #teams-list-container {
