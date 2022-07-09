@@ -5,6 +5,7 @@ function CreateTeam({ setLoad }) {
     const [newTeam, setNewTeam] = useState({ team_name: "", members: "" });
     const [loading, setLoading] = useState(false);
 
+    // Envoie une requête pour initialiser une nouvelle équipe
     const Submit = () => {
         if (!newTeam.team_name.length || !newTeam.members.length) {
             alert("Veuillez bien renseigner le nom et les membres de l'équipe !")
@@ -57,4 +58,4 @@ function CreateTeam({ setLoad }) {
     )
 }
 
-export default CreateTeam
+export default CreateTeam;

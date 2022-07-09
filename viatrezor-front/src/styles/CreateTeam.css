@@ -8,7 +8,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 10%;
+    position: absolute; 
+    z-index: 1; 
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.9;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .create-team-title {
@@ -29,4 +37,80 @@
 
 label {
     color: aliceblue;
+}
+
+#team-page-container {
+    width: 100%;
+    flex: 1;
+}
+
+#teams-list-container {
+    width: 100%;
+    height: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-evenly;
+}
+
+.team-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 12rem;
+    height: 12rem;
+    border-width: 1px;
+    border-color: black;
+    border: solid;
+    border-radius: 0.5rem;
+    margin: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+.team-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.players-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: 1rem;
+}
+
+.button-team {
+    border-radius: 0.5rem;
+}
+
+#new-team-button {
+    width: 12rem;
+    height: 12rem;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+    margin: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+.create-team-members {
+    margin-top: 2rem;
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+
+.button-flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.create-team-validate {
+    width: 7rem;
 }
