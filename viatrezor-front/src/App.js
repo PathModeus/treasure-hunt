@@ -22,7 +22,7 @@ function App() {
 
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER}/api/whoami/`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/player/whoami/`, {
       method: 'GET',
       mode: 'cors',
       headers: {

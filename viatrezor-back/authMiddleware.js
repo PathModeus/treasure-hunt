@@ -3,7 +3,6 @@ const request = require('request');
 const config = require('./config.json');
 
 
-
 // Redirect to OAuth gateway
 function login(req, res) {
   if ('user' in req.session) {
@@ -52,9 +51,7 @@ function AuthCallback(req, res) {
             const data = JSON.parse(body);
             // Store user in session
             req.session.user = data;
-            req.session.save(function() {             
-              return res.redirect('init');
-            });
+            return res.redirect(`player/init`);
           });
         };
       };
@@ -70,7 +67,7 @@ function AuthCallback(req, res) {
 
 // Validate authentication from front
 function validate(req, res, next) {
-  // Check whether user is connected
+  // Check wether user is connected
   if (!('user' in req.session)) {
     res.status(401).end('not connected');
   } else {
@@ -84,11 +81,10 @@ function logout(req, res) {
   try {
     delete req.session.user;
     delete req.session.state;
-    return res.status(200).end();
   } catch (e) {
     console.log(e)
-    return res.status(500).end();
   }
+  res.end();
 }
 
 
