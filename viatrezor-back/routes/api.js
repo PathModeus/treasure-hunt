@@ -56,6 +56,8 @@ router.post('/team/create', async (req, res) => {
                 if (wss.Clients[player.id_vr]) {
                     wss.Clients[player.id_vr].send(JSON.stringify(team))
                 }
+            let temps = new Date();
+            await bdd.teams.update({ timer_last_on: temps, timer_status: 1 }, { where: { team_name: team_name } });
             };
             return res.status(200).end();
         } catch (e) {
