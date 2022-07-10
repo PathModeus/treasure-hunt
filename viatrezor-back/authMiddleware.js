@@ -3,6 +3,7 @@ const request = require('request');
 const config = require('./config.json');
 
 
+
 // Redirect to OAuth gateway
 function login(req, res) {
   if ('user' in req.session) {
@@ -67,7 +68,7 @@ function AuthCallback(req, res) {
 
 // Validate authentication from front
 function validate(req, res, next) {
-  // Check wether user is connected
+  // Check whether user is connected
   if (!('user' in req.session)) {
     res.status(401).end('not connected');
   } else {
