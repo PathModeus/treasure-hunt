@@ -51,7 +51,9 @@ function AuthCallback(req, res) {
             const data = JSON.parse(body);
             // Store user in session
             req.session.user = data;
-            return res.redirect(`init`);
+            req.session.save(function() {             
+              return res.redirect('init');
+            });
           });
         };
       };
@@ -81,10 +83,11 @@ function logout(req, res) {
   try {
     delete req.session.user;
     delete req.session.state;
+    return res.status(200).end();
   } catch (e) {
     console.log(e)
+    return res.status(500).end();
   }
-  res.end();
 }
 
 
