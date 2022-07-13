@@ -45,7 +45,7 @@ const History = sequelize.define("history", {
 
 // Synchronisation de la bdd
 /* l'argument force: true drop les tables de la bdd avant de les recréer pour éviter les doublons */
-sequelize.sync({force: true})
+sequelize.sync()
     .then(async () => {
         console.log("Synced db.");
         // Initialisation de la bdd
