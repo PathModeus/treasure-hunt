@@ -90,8 +90,6 @@ Il est possible qu'il faille lancer un _npm install_ après un changement de bra
 - Avoir la liste des joueurs inscrits --> Hamza
 - Faire que les websockets actualisent le front partout (Tests à faire pour déterminer où ca ne fonctionne pas et pinger Hamza si on en trouve)
 - npm audit fix --force (A voir après la rentrée)
-- Remove filter on team_name dans l'algo next_chall --> noxov
-- Effacer la session auth quand on clique sur se déconnecter --> noxov
 - Rajouter une websocket pour que tous les admins fetch les nouvelles équipes qui arrivent sur leur activité (dont après la création d'équipe) --> Hamza
 - HANDLE LA FIN DU JEU --> noxov
 - Faire fonctionner les timers --> Aymeric
