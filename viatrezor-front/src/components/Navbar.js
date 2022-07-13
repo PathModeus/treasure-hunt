@@ -11,7 +11,7 @@ function Navbarvt() {
 
   return (
     <div className='Navbarvt'>
-      <Navbar style={{ minHeight: '70px' }} className="NavBG" bg="dark" variant="dark" expand={false}>
+      <Navbar style={{ minHeight: '70px' }} className="NavBG" bg="dark" variant="dark" expand={false} collapseOnSelect>
         <Container fluid>
           <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
           <span style={{ color: 'white', fontSize: '20px', fontWeight: '400' }}>Chasse au Rézo</span>
@@ -27,16 +27,16 @@ function Navbarvt() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
 
-                <Nav.Link as={Link} to="/">Accueil</Nav.Link>
-                <Nav.Link as={Link} to="/login">S'authentifier</Nav.Link>
+                <Nav.Link as={Link} to="/" href="/">Accueil</Nav.Link>
+                <Nav.Link as={Link} to="/login" href="/login">S'authentifier</Nav.Link>
                 {session &&
                   <>
-                    <Nav.Link as={Link} to="/leaderboard">Classement</Nav.Link>
-                    <Nav.Link as={Link} to="/contact">Qui sommes nous?</Nav.Link>
+                    <Nav.Link as={Link} to="/leaderboard" href="/leaderboard">Classement</Nav.Link>
+                    <Nav.Link as={Link} to="/contact" href="/contact">Qui sommes nous?</Nav.Link>
                     {session?.role?.admin &&
                       <>
-                        <Nav.Link as={Link} to="/create-team">Créer une équipe</Nav.Link>
-                        <Nav.Link as={Link} to="/admin">Interface administrateur</Nav.Link>
+                        <Nav.Link as={Link} to="/create-team" href="/create-team">Créer une équipe</Nav.Link>
+                        <Nav.Link as={Link} to="/admin" href="/admin">Interface administrateur</Nav.Link>
                       </>
                     }
                   </>
