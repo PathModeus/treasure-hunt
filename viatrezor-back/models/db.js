@@ -104,7 +104,8 @@ sequelize.sync()
             { id_vr: '2021moussetla', asso_name: "Borne d'arcade" },
             { id_vr: '2021audusseel', asso_name: "Blindtest" },
             { id_vr: '2021romandfra', asso_name: 'Tir à la corde' },
-            { id_vr: '2021piedallucl', asso_name: 'Mölkky' }
+            { id_vr: '2021piedallucl', asso_name: 'Mölkky' },
+            { id_vr: '2021kalflechju', asso_name: 'Mölkky' }
             // { id_vr: '2021bireem', asso_name: 'CS Design' },
             // { id_vr: '2021meignanco', asso_name: 'Pics' },
             // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
