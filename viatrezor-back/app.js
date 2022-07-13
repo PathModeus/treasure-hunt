@@ -10,6 +10,7 @@ const test = require('./routes/test');
 const config = require('./config.json');
 const bdd = require('./models/db')
 
+// On stocke les sessions dans la bdd pour que les pods puissent conserver les sessions malgré qu'ils soient détruits
 const sequelizeSessionStore = new SessionStore({
     db: bdd.sequelize,
 });
@@ -24,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'ShhhhThisIsARealSecretThatNoOneShouldEverKnow',
-	store: sequelizeSessionStore,
+    store: sequelizeSessionStore,
     resave: false,
     proxy: true, // Especially if unsing nginx/apache
     saveUninitialized: true,
