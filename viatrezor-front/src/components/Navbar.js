@@ -14,7 +14,7 @@ function Navbarvt() {
       <Navbar style={{ minHeight: '70px' }} className="NavBG" bg="dark" variant="dark" expand={false}>
         <Container fluid>
           <Navbar.Brand as={Link} to="/">Menu</Navbar.Brand>
-          <span style={{ color: 'white', fontSize: '20px', fontWeight: '400' }}>Chasse au Rézo</span>
+          <span style={{ color: 'white', fontSize: '20px', fontWeight: '400' }}>Chasse au trésor ViaRézo</span>
           <Navbar.Toggle aria-controls="Menu" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"

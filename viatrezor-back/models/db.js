@@ -69,11 +69,11 @@ sequelize.sync()
                 description: "Attendez un instant, je me connecte à la base de données pour récupérer votre première épreuve..."
             },
             {
-                name: "Borne d'arcade",
+                name: "Arcade",
                 description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? VI ? 133 ?"
             },
             {
-                name: "Tir à la corde",
+                name: "Corde",
                 description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au sous sol du plus vieux bâtiment... (Passez par l'entrée principale :) )"
             },
             {
@@ -81,30 +81,31 @@ sequelize.sync()
                 description: "Dans un grand carré, au bout d'une diagonale, se logent quelques gradins devant des projections... Idéal pour une présentation ou un jeu télévisé !"
             },
             {
-                name: "Mölkky",
+                name: "Molkky",
                 description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
             },
             {
                 name: "Blindtest",
                 description: "Un grand auteur, de beaux textes, de jolis fauteuils et une sacré scène... Tout cela réuni en un seul lieu ? On me dit que c'est pas trop loin d'un gymnase..."
+            },
+            {
+                name: "Fin du jeu",
+                description: "Félicitations, vous avez réussi toutes les épreuves ! Rendez-vous le plus vite possible au stand départ pour arrêter le chrono !"
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
         });
 
         await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: "Kahoot" },
+            { id_vr: '2021berliouxqu', asso_name: "Fin du jeu" },   // Ces admins pourront mettre fin au chrono
             // { id_vr: '2021brayto', asso_name: 'VR' },
             // { id_vr: '2021perede', asso_name: 'VR' },
             { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
             // { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
-            { id_vr: '2021labellefl', asso_name: 'Mölkky' },
-            { id_vr: '2021delasapa', asso_name: 'Tir à la corde' },
-            { id_vr: '2021moussetla', asso_name: "Borne d'arcade" },
-            { id_vr: '2021audusseel', asso_name: "Blindtest" },
-            { id_vr: '2021romandfra', asso_name: 'Tir à la corde' },
-            { id_vr: '2021piedallucl', asso_name: 'Mölkky' }
+            { id_vr: '2021gaudronan', asso_name: "Arcade" },
+            { id_vr: '2021labellefl', asso_name: 'Molkky' },
+            { id_vr: '2021delasapa', asso_name: 'Corde' },
+            { id_vr: '2021kalflechju', asso_name: 'Arcade' },
             // { id_vr: '2021bireem', asso_name: 'CS Design' },
             // { id_vr: '2021meignanco', asso_name: 'Pics' },
             // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
