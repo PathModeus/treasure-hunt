@@ -17,6 +17,9 @@ function AuthPage({ setLoad }) {
             },
             credentials: 'include',
         })
+            .then(() => {
+                window.location.assign(`https://auth.viarezo.fr/logout?redirect_logout=${encodeURIComponent(window.location.href)}`);
+            });
     }
 
     useEffect(() => {
