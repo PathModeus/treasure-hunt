@@ -92,7 +92,7 @@ const TypeWriter = ({ content, speed }) => {
 
   return (
     <p className="type-writer">
-      {session && <>{session.firstName.toLowerCase().substring(0, 5)}@viarezo:~/ <br /></>}
+      {session && <>{session.firstName.toLowerCase()}@viarezo:~/ <br /></>}
       {displayedContent}
     </p>
   )
