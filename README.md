@@ -91,10 +91,12 @@ Il est possible qu'il faille lancer un _npm install_ après un changement de bra
 - Faire que les websockets actualisent le front partout (Tests à faire pour déterminer où ca ne fonctionne pas et pinger Hamza si on en trouve)
 - npm audit fix --force (A voir après la rentrée)
 - Rajouter une websocket pour que tous les admins fetch les nouvelles équipes qui arrivent sur leur activité (dont après la création d'équipe) --> Hamza
-- HANDLE LA FIN DU JEU --> noxov
-- Faire fonctionner les timers --> Aymeric
 - Mettre les noms des assos comme clés primaires de la table activité et faire les modifs qui vont avec (Réfléchir au nouveau schéma) --> Antoine
 - Faire en sorte que les Vr gens puissent avoir accès à toutes les épreuves (toutes les interfaces admin réunies)
 - Faire en sorte que le menu se referme dès qu'on clique dessus --> Antoine
 - Update les barres de réseau quand on passe une épreuve (websockets) --> Hamza & Aymeric
 - Trouver un moyen d'accéler l'inscription des équipes (côté joueur) --> Antoine
+- Ajouter des websockets pour le classement
+- Centrer les éléments du leaderboard
+- Changer le résultat de la page login après connexion
+- Faire que s'authentifier devienne déconnexion dans la navbar après connexion
