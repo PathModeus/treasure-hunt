@@ -21,11 +21,11 @@ function CreateTeam({ setLoad }) {
                 credentials: 'include',
                 body: JSON.stringify(newTeam),
             }).then((res) => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     alert("L'équipe a été créée avec succès !")
                     setLoad(true)
                 } else {
-                    alert("Une erreur c'est produite, vérifiez d'avoir bien renseigné tous les joueurs de l'équipe !")
+                    alert("Une erreur s'est produite, vérifiez d'avoir bien renseigné tous les joueurs de l'équipe !")
                 }
                 setLoading(false)
             })

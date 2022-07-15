@@ -41,7 +41,8 @@ router.post('/team/create', async (req, res) => {
     if (req.body.members.includes(";")) {
         let id_vr_list = req.body.members.split(";");
         try {
-            let team = await bdd.teams.create({ team_name: req.body.team_name });
+            let temps = new Date();
+            let team = await bdd.teams.create({ team_name: req.body.team_name, timer_last_on: temps, timer_status: 1  });
             await bdd.history.create({ team_name: team.team_name, activity_name: "En attente d'activité" })
             let activity_name = await algo.next_chall(team.team_name);
             await bdd.teams.update({ ongoing_activity: activity_name }, { where: { team_name: team.team_name } })
