@@ -110,6 +110,7 @@ sequelize.sync()
             { id_vr: '2021berliouxqu', asso_name: "Kahoot" },
             // { id_vr: '2021brayto', asso_name: 'VR' },
             // { id_vr: '2021perede', asso_name: 'VR' },
+            { id_vr: '2020touizrath', asso_name: 'Blindtest' },
             { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
             // { id_vr: '2021augierme', asso_name: 'VR' },
             { id_vr: '2021gaudronan', asso_name: "Borne d'arcade" },
@@ -129,7 +130,14 @@ sequelize.sync()
         });
 
         await Teams.bulkCreate([
-            { team_name: 'No team' }
+            { team_name: 'No team' },
+            { team_name: 'test1', ongoing_activity: 'Blindtest' },
+            { team_name: 'test2', ongoing_activity: 'Blindtest' },
+            { team_name: 'test3', ongoing_activity: 'Blindtest' },
+            { team_name: 'test4', ongoing_activity: 'Blindtest' },
+            { team_name: 'test12', ongoing_activity: 'Kahoot' },
+            { team_name: 'test13', ongoing_activity: 'Kahoot' },
+            { team_name: 'test14', ongoing_activity: 'Kahoot' },
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");
         });
