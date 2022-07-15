@@ -1,7 +1,7 @@
 FROM node
 USER node
 WORKDIR /home/node
-COPY package.json package-lock.json ./
+COPY --chown=node:node package.json package-lock.json ./
 
 RUN npm install
 
