@@ -2,12 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const SessionStore = require('express-session-sequelize')(session.Store);
 const auth = require('./authMiddleware');
 const api = require('./routes/api');
 const health = require('./healthChecker');
 const test = require('./routes/test');
 const config = require('./config.json');
+const bdd = require('./models/db')
 
+// On stocke les sessions dans la bdd pour que les pods puissent conserver les sessions malgré qu'ils soient détruits
+const sequelizeSessionStore = new SessionStore({
+    db: bdd.sequelize,
+});
 
 const app = express();
 app.use(express.json());
@@ -19,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'ShhhhThisIsARealSecretThatNoOneShouldEverKnow',
+    store: sequelizeSessionStore,
     resave: false,
     proxy: true, // Especially if unsing nginx/apache
     saveUninitialized: true,
