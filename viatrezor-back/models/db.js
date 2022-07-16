@@ -70,11 +70,11 @@ sequelize.sync()
             },
             {
                 name: "Arcade",
-                description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? VI ? 133 ?"
+                description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? EE ? 004 ? Derrière le refectoire ?"
             },
             {
                 name: "Corde",
-                description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au sous sol du plus vieux bâtiment... (Passez par l'entrée principale :) )"
+                description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
             },
             {
                 name: "Kahoot",
@@ -82,7 +82,7 @@ sequelize.sync()
             },
             {
                 name: "Molkky",
-                description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
+                description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au dessus du Musée..."
             },
             {
                 name: "Blindtest",
@@ -100,12 +100,13 @@ sequelize.sync()
             { id_vr: '2021berliouxqu', asso_name: "Fin du jeu" },   // Ces admins pourront mettre fin au chrono
             // { id_vr: '2021brayto', asso_name: 'VR' },
             // { id_vr: '2021perede', asso_name: 'VR' },
-            { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },
+            { id_vr: '2021elyaagobi', asso_name: 'Corde' },
             // { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: "Arcade" },
+            { id_vr: '2021gaudronan', asso_name: "Kahoot" },
             { id_vr: '2021labellefl', asso_name: 'Molkky' },
-            { id_vr: '2021delasapa', asso_name: 'Corde' },
-            { id_vr: '2021kalflechju', asso_name: 'Arcade' },
+            { id_vr: '2021kalflechju', asso_name: 'Blindtest' },
+            { id_vr: "2021cheneauan", asso_name: "Arcade" },
+            { id_vr: "2021zahreddija", asso_name: "Kahoot" }
             // { id_vr: '2021bireem', asso_name: 'CS Design' },
             // { id_vr: '2021meignanco', asso_name: 'Pics' },
             // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
