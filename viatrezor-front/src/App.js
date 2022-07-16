@@ -13,6 +13,7 @@ import { listeAsso } from "./Param"
 import { useEffect, useState } from 'react'
 import { Session } from './Param'
 import AdminPage from './pages/adminPage'
+import AllTeamPage from './pages/allTeamPage'
 
 
 function App() {
@@ -70,6 +71,8 @@ function App() {
                   <Route path='test' element={<Test />} />
                   <Route element={<NotFound />} />
                   <Route path='admin' element={< AdminPage />} />
+                  <Route path='allTeams' element={<AllTeamPage />} />
+
                 </>
               }
             </Route>

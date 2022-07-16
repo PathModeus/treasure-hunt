@@ -91,6 +91,10 @@ sequelize.sync()
             {
                 name: "Fin du jeu",
                 description: "Félicitations, vous avez réussi toutes les épreuves ! Rendez-vous le plus vite possible au stand départ pour arrêter le chrono !"
+            },
+            {
+                name: "VR",
+                description: "Super admins"
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
@@ -111,12 +115,20 @@ sequelize.sync()
             // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
             // { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
             // { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
+            { id_vr: '2020touizrath', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
+
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Admins have been saved")
         });
 
         await Teams.bulkCreate([
-            { team_name: 'No team' }
+            { team_name: 'team1', ongoing_activity: 'VR' },
+            { team_name: 'team2', ongoing_activity: 'VR' },
+            { team_name: 'team3', ongoing_activity: 'VR' },
+            { team_name: 'team5', ongoing_activity: 'Blindtest' },
+            { team_name: 'team6', ongoing_activity: 'Blindtest' },
+            { team_name: 'team7', ongoing_activity: 'Corde' }
+
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");
         });
