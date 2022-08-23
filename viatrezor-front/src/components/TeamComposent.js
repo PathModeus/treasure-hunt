@@ -137,13 +137,13 @@ function Team_composent(props) {
           Rejoindre
         </button>
       </Table.Cell>
-      { props.session?.role?.admin && props.session.role.admin == "VR" ? 
-      <><Table.Cell align="left">{timer}</Table.Cell><Table.Cell align="left">
+      {props.session?.role?.admin && props.session.role.admin == "VR" ?
+        <><Table.Cell align="left">{timer}</Table.Cell><Table.Cell align="left">
           <div className="Pause">
             <button
               onClick={() => {
                 Pause();
-              } }
+              }}
               style={{
                 border: "none",
                 backgroundColor: "#ff8d8d",
@@ -167,7 +167,7 @@ function Team_composent(props) {
               value={bonus}
               onChange={(e) => {
                 setBonus(parseInt(e.target.value, 10));
-              } }
+              }}
               style={{
                 width: 200,
                 borderRadius: "5px",
@@ -217,7 +217,7 @@ function Team_composent(props) {
             >
               Activité suivante
             </button>
-          </Table.Cell></> : null 
+          </Table.Cell></> : null
       }
     </Table.Row>
   )

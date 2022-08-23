@@ -52,7 +52,7 @@ function AuthCallback(req, res) {
             const data = JSON.parse(body);
             // Store user in session
             req.session.user = data;
-            req.session.save(function() {             
+            req.session.save(function () {
               return res.redirect('init');
             });
           });

@@ -101,7 +101,7 @@ sequelize.sync()
         });
 
         await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: "Fin du jeu" },   // Ces admins pourront mettre fin au chrono
+            { id_vr: '2021berliouxqu', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
             // { id_vr: '2021brayto', asso_name: 'VR' },
             // { id_vr: '2021perede', asso_name: 'VR' },
             { id_vr: '2021elyaagobi', asso_name: 'Blindtest' },

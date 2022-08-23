@@ -49,10 +49,10 @@ function AllTeamPage() {
     if (lastMessage?.data && activity) {
       let update = JSON.parse(lastMessage.data);
 
-        let index = teams.findIndex(team => team.team_name === update.team_name)
-        let teams_update = teams.map(team => team);
-        teams_update[index] = update;
-        setTeams(teams_update);
+      let index = teams.findIndex(team => team.team_name === update.team_name)
+      let teams_update = teams.map(team => team);
+      teams_update[index] = update;
+      setTeams(teams_update);
     }
   }, [lastMessage, activity])
 
@@ -68,17 +68,17 @@ function AllTeamPage() {
             <Table.HeaderCell align="center">
               Rejoindre l'équipe
             </Table.HeaderCell>
-            { session?.role?.admin && session.role.admin == "VR" ? 
-             <><Table.HeaderCell align="center">Temps</Table.HeaderCell>
-             <Table.HeaderCell align="center">
-                    Pause/Resume time
-            </Table.HeaderCell>
-            <Table.HeaderCell align="center">Ajout des points</Table.HeaderCell>
-            <Table.HeaderCell align="center">
-                    Valider l'activité
-            </Table.HeaderCell></> : null
+            {session?.role?.admin && session.role.admin == "VR" ?
+              <><Table.HeaderCell align="center">Temps</Table.HeaderCell>
+                <Table.HeaderCell align="center">
+                  Pause/Resume time
+                </Table.HeaderCell>
+                <Table.HeaderCell align="center">Ajout des points</Table.HeaderCell>
+                <Table.HeaderCell align="center">
+                  Valider l'activité
+                </Table.HeaderCell></> : null
             }
-           
+
 
           </Table.Row>
         </Table.Header>
