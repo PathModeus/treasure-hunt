@@ -10,6 +10,7 @@ function AllTeamPage() {
   const [session,] = useContext(Session);
   const [teams, setTeams] = useState([]);
   const [activity, setActivity] = useState(null);
+  console.log(socketUrl)
 
   const { lastMessage, sendMessage } = useWebSocket(socketUrl,
     {
