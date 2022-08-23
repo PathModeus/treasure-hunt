@@ -59,7 +59,7 @@ server.on('listening', () => {
 
 server.listen(port);
 
-const ws = new WebSocket.Server({ server });
+const ws = new WebSocket.Server({ server, path: '/api/ws' });
 
 ws.on('connection', (client) => {
 
