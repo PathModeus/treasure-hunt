@@ -59,9 +59,9 @@ server.on('listening', () => {
 
 server.listen(port);
 
-const websocket = new WebSocket.Server({ server });
+const ws = new WebSocket.Server({ server });
 
-websocket.on('connection', (client) => {
+ws.on('connection', (client) => {
 
     //connection is up, let's add a simple simple event
     client.on('message', (message) => {
@@ -78,4 +78,4 @@ websocket.on('connection', (client) => {
 });
 
 module.exports.Clients = clients.clientList;
-module.exports.websocket = websocket;
+module.exports.ws = ws;
