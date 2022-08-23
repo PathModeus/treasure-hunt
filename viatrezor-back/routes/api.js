@@ -4,6 +4,7 @@ const bdd = require('../models/db');
 const algo = require('../src/diverse/algo');
 const config = require('../config.json');
 const wss = require("../server")
+const { Op } = require("sequelize");
 
 
 // Exemples de routes
@@ -42,7 +43,7 @@ router.post('/team/create', async (req, res) => {
         let id_vr_list = req.body.members.split(";");
         try {
             let temps = new Date();
-            let team = await bdd.teams.create({ team_name: req.body.team_name, timer_last_on: temps, timer_status: 1  });
+            let team = await bdd.teams.create({ team_name: req.body.team_name, timer_last_on: temps, timer_status: 1 });
             await bdd.history.create({ team_name: team.team_name, activity_name: "En attente d'activité" })
             let activity_name = await algo.next_chall(team.team_name);
             await bdd.teams.update({ ongoing_activity: activity_name }, { where: { team_name: team.team_name } })
@@ -95,7 +96,14 @@ router.put('/team/bonus', async (req, res) => {
         await bdd.teams.update({ points: team.points + bonus }, { where: { team_name: team_name } });
         team = await bdd.teams.findByPk(team_name);
 
-        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name } });
+        let admins = await bdd.admins.findAll({
+            where: {
+                [Op.or]: [
+                    { asso_name: activity.name },
+                    { asso_name: "VR" }
+                ]
+            }
+        });
         for (let admin of admins) {
             if (wss.Clients[admin.id_vr]) {
                 wss.Clients[admin.id_vr].send(JSON.stringify(team));
@@ -125,8 +133,17 @@ router.put('/team/stop', async (req, res) => {
         }
 
         team = await bdd.teams.findByPk(team_name);
-        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name } });
+        let admins = await bdd.admins.findAll({
+            where: {
+                [Op.or]: [
+                    { asso_name: activity.name },
+                    { asso_name: "VR" }
+                ]
+            }
+        });
+
         for (let admin of admins) {
+
             if (wss.Clients[admin.id_vr]) {
                 wss.Clients[admin.id_vr].send(JSON.stringify(team));
             }
@@ -222,7 +239,14 @@ router.put('/team/next', async (req, res, next) => {
 
         team_info = await bdd.teams.findByPk(team_name);
         let players = await bdd.players.findAll({ where: { team_name: team_name } });
-        let admins = await bdd.admins.findAll({ where: { asso_name: activity.name } });
+        let admins = await bdd.admins.findAll({
+            where: {
+                [Op.or]: [
+                    { asso_name: activity.name },
+                    { asso_name: "VR" }
+                ]
+            }
+        });
         for (let player of players) {
             if (wss.Clients[player.id_vr]) {
                 wss.Clients[player.id_vr].send(JSON.stringify(team_info))
