@@ -47,7 +47,7 @@ const assoCSDesign = {
 const assoLinkCS = {
     name: 'LinkCS',
     pathLogo: logoLinkCS,
-    texteAsso: "",
+    texteAsso: "LinkCS est l’association étudiante qui s’occupe du réseau social des étudiant⸱e⸱s qui porte le même nom. Ce site permet de se retrouver dans les grandes promos de  CS – et de ne jamais louper un anniversaire grâce au récapitulatif sur la page d’accueil 🎂 - et donne la possibilité à chacun⸱e d’indiquer ses contacts ainsi que ses associations. Les associations peuvent d’ailleurs écrire des posts pour promouvoir leurs différents évènements. En plus de développer de nouvelles fonctionnalités sur le site, notre équipe personnalise régulièrement le thème du site selon les grands évènements associatifs à venir (quatre fois par mois environ) : il y a toujours des choses à faire ! Nous accueillons à bras ouvert tous⸱tes les intéressé⸱e⸱s pour découvrir comment fonctionne ce site, peu importe son niveau initial en développement web 😁",
     website: 'https://linkcs.fr'
 }
 
