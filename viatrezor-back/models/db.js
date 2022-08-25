@@ -111,7 +111,7 @@ sequelize.sync()
             { id_vr: '2021kalflechju', asso_name: 'Blindtest' },
             { id_vr: "2021cheneauan", asso_name: "Arcade" },
             { id_vr: "2021zahreddija", asso_name: "Kahoot" },
-            { id_vr: "2021goddema", asso_name: "Molkky" }
+            { id_vr: "2021goddema", asso_name: "Molkky" },
             // { id_vr: '2021bireem', asso_name: 'CS Design' },
             // { id_vr: '2021meignanco', asso_name: 'Pics' },
             // { id_vr: '2021rosenberju', asso_name: 'CStudio' },

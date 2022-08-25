@@ -1,10 +1,10 @@
-import logoVR from './assets/logos/viarezo.jpg'
+import logoVR from './assets/logos/logo.png'
 import logoCStudio from './assets/logos/LogoCSTUDIO.png'
 import logoClubTech from './assets/logos/ClubTech.png'
-import logoAlgorithmics from './assets/logos/Algorithmics.png'
+import logoAlgorithmics from './assets/logos/AlgorithmiCS.png'
 import logoCSDesign from './assets/logos/CSDesign.png'
 import logoLinkCS from './assets/logos/linkcs.png'
-import logoPics from './assets/logo/pics.jpeg'
+import logoPics from './assets/logos/pics.png'
 import { createContext } from 'react'
 
 const Session = createContext(null);
