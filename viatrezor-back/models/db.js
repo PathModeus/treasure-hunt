@@ -69,32 +69,36 @@ sequelize.sync()
                 description: "Attendez un instant, je me connecte à la base de données pour récupérer votre première épreuve..."
             },
             {
-                name: "Arcade",
-                description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? EE ? 004 ? Derrière le refectoire ?"
+                name: "ViaRézo",
+                description: "Il faut aller en MF.OO1"
             },
             {
-                name: "Corde",
-                description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
+                name: "AlgorithmiCS",
+                description: "Il faut aller en EC.OO1"
             },
             {
-                name: "Kahoot",
-                description: "Dans un grand carré, au bout d'une diagonale, se logent quelques gradins devant des projections... Idéal pour une présentation ou un jeu télévisé !"
+                name: "LinkCS",
+                description: "Il faut aller en amphi langue"
             },
             {
-                name: "Molkky",
-                description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au dessus du Musée..."
+                name: "CS Design",
+                description: "Il faut aller en VI.132"
             },
             {
-                name: "Blindtest",
-                description: "Un grand auteur, de beaux textes, de jolis fauteuils et une sacré scène... Tout cela réuni en un seul lieu ? On me dit que c'est pas trop loin d'un gymnase..."
+                name: "Pics",
+                description: "Il faut aller en terrasse studio"
+            },
+            {
+                name: "CStudio",
+                description: "Il faut aller en sd.102"
+            },
+            {
+                name: "Club Tech",
+                description: "Il faut aller devant la fabrique"
             },
             {
                 name: "Fin du jeu",
                 description: "Félicitations, vous avez réussi toutes les épreuves ! Rendez-vous le plus vite possible au stand départ pour arrêter le chrono !"
-            },
-            {
-                name: "VR",
-                description: "Super admins"
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
