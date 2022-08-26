@@ -106,21 +106,21 @@ sequelize.sync()
 
         await Admins.bulkCreate([
             { id_vr: '2021berliouxqu', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
-            // { id_vr: '2021brayto', asso_name: 'VR' },
-            // { id_vr: '2021perede', asso_name: 'VR' },
-            { id_vr: '2021elyaagobi', asso_name: 'Corde' },
-            // { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: "Kahoot" },
-            { id_vr: '2021labellefl', asso_name: 'Molkky' },
-            { id_vr: '2021kalflechju', asso_name: 'Blindtest' },
-            { id_vr: "2021cheneauan", asso_name: "Arcade" },
-            { id_vr: "2021zahreddija", asso_name: "Kahoot" },
-            { id_vr: "2021goddema", asso_name: "Molkky" },
-            // { id_vr: '2021bireem', asso_name: 'CS Design' },
-            // { id_vr: '2021meignanco', asso_name: 'Pics' },
-            // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
-            // { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
-            // { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
+            { id_vr: '2021brayto', asso_name: 'VR' },
+            { id_vr: '2021perede', asso_name: 'VR' },
+            { id_vr: '2021elyaagobi', asso_name: 'VR' },
+            { id_vr: '2021augierme', asso_name: 'VR' },
+            { id_vr: '2021gaudronan', asso_name: "VR" },
+            { id_vr: '2021labellefl', asso_name: 'VR' },
+            { id_vr: '2021kalflechju', asso_name: 'LinkCS' },
+            { id_vr: "2021cheneauan", asso_name: "VR" },
+            { id_vr: "2021zahreddija", asso_name: "VR" },
+            { id_vr: "2021goddema", asso_name: "VR" },
+            { id_vr: '2021bireem', asso_name: 'CS Design' },
+            { id_vr: '2021meignanco', asso_name: 'Pics' },
+            { id_vr: '2021rosenberju', asso_name: 'CStudio' },
+            { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
+            { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
             { id_vr: '2020touizrath', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
 
         ], { ignoreDuplicates: true }).then(() => {
@@ -128,12 +128,13 @@ sequelize.sync()
         });
 
         await Teams.bulkCreate([
-            { team_name: 'team1', ongoing_activity: 'VR' },
-            { team_name: 'team2', ongoing_activity: 'VR' },
-            { team_name: 'team3', ongoing_activity: 'VR' },
-            { team_name: 'team5', ongoing_activity: 'Blindtest' },
-            { team_name: 'team6', ongoing_activity: 'Blindtest' },
-            { team_name: 'team7', ongoing_activity: 'Corde' }
+            { team_name: 'exemple1', ongoing_activity: 'VR' },
+            { team_name: 'exemple2', ongoing_activity: 'LinkCS' },
+            { team_name: 'exemple3', ongoing_activity: 'CS Design' },
+            { team_name: 'exemple4', ongoing_activity: 'Pics' },
+            { team_name: 'exemple5', ongoing_activity: 'AlgorithmiCS' },
+            { team_name: 'exemple6', ongoing_activity: 'Club Tech' },
+            { team_name: 'exemple7', ongoing_activity: 'CStudio' }
 
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");
