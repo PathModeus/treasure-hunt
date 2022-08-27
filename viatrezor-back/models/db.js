@@ -60,7 +60,7 @@ sequelize.sync()
             Cela pourrait également permettre à un 2A de venir aider une équipe qui serait en manque de joueurs ou de prêter son compte si un GPA ne l'a pas initialisé
 
             Le tri des admins se fera via leur Asso.
-            Etre à ViaRézo donne tous les droits.
+            Etre à ViaRezo donne tous les droits.
             Etre ailleurs donne uniquement accès à l'épreuve de son club.
         */
         await Activities.bulkCreate([
@@ -69,7 +69,7 @@ sequelize.sync()
                 description: "Attendez un instant, je me connecte à la base de données pour récupérer votre première épreuve..."
             },
             {
-                name: "ViaRézo",
+                name: "ViaRezo",
                 description: "Au milieu du labyrinthe de matière au rez-de-chaussée d'Eiffel... // Il faut aller en MF.OO1"
             },
             {
@@ -105,20 +105,21 @@ sequelize.sync()
         });
 
         await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: "ViaRézo" },   // Ces admins pourront mettre fin au chrono
-            { id_vr: '2021brayto', asso_name: 'ViaRézo' },
-            { id_vr: '2021perede', asso_name: 'ViaRézo' },
-            { id_vr: '2021elyaagobi', asso_name: 'ViaRézo' },
-            { id_vr: '2021augierme', asso_name: 'ViaRézo' },
-            { id_vr: '2021gaudronan', asso_name: "ViaRézo" },
-            { id_vr: '2021labellefl', asso_name: 'ViaRézo' },
+            { id_vr: '2021berliouxqu', asso_name: "ViaRezo" },   // Ces admins pourront mettre fin au chrono
+            { id_vr: '2021brayto', asso_name: 'ViaRezo' },
+            { id_vr: '2021perede', asso_name: 'ViaRezo' },
+            { id_vr: '2021elyaagobi', asso_name: 'ViaRezo' },
+            { id_vr: '2021augierme', asso_name: 'ViaRezo' },
+            { id_vr: '2021gaudronan', asso_name: "ViaRezo" },
+            { id_vr: '2021labellefl', asso_name: 'ViaRezo' },
             { id_vr: '2021kalflechju', asso_name: 'LinkCS' },
-            { id_vr: "2021cheneauan", asso_name: "ViaRézo" },
-            { id_vr: "2021zahreddija", asso_name: "ViaRézo" },
-            { id_vr: "2021goddema", asso_name: "ViaRézo" },
-            { id_vr: '2020touizrath', asso_name: "ViaRézo" },
+            { id_vr: "2021cheneauan", asso_name: "ViaRezo" },
+            { id_vr: "2021zahreddija", asso_name: "ViaRezo" },
+            { id_vr: "2021goddema", asso_name: "ViaRezo" },
+            { id_vr: '2020touizrath', asso_name: "ViaRezo" },
             { id_vr: '2021antieres', asso_name: 'LinkCS' },
-            { id_vr: '2021dewildelo', asso_name: 'ViaRézo' },
+            { id_vr: '2021dewildelo', asso_name: 'ViaRezo' },
+            { id_vr: '2021migliassth', asso_name: 'ViaRezo' },
             { id_vr: '2021bireem', asso_name: 'CS Design' },
             { id_vr: '2021rosenberju', asso_name: 'CStudio' },
             { id_vr: '2021chouraqube', asso_name: 'CStudio' },
@@ -134,7 +135,7 @@ sequelize.sync()
         });
 
         await Teams.bulkCreate([
-            { team_name: 'exemple1', ongoing_activity: 'ViaRézo' },
+            { team_name: 'exemple1', ongoing_activity: 'ViaRezo' },
             { team_name: 'exemple2', ongoing_activity: 'LinkCS' },
             { team_name: 'exemple3', ongoing_activity: 'CS Design' },
             { team_name: 'exemple4', ongoing_activity: 'Pics' },
