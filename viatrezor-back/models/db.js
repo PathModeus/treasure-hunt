@@ -126,6 +126,7 @@ sequelize.sync()
             { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
             { id_vr: '2021anseaumelo', asso_name: 'Club Tech' },
             { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
+            { id_vr: '2021lotfiay', asso_name: 'AlgorithmiCS' },
             { id_vr: '2021davidcl2', asso_name: "Pics" },
             { id_vr: '2021rozeca', asso_name: "Pics" },
             { id_vr: '2021lupili', asso_name: "Pics" }
