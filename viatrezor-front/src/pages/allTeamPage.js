@@ -69,7 +69,7 @@ function AllTeamPage() {
             <Table.HeaderCell align="center">
               Rejoindre l'équipe
             </Table.HeaderCell>
-            {session?.role?.admin && session.role.admin == "VR" ?
+            {session?.role?.admin && session.role.admin == "ViaRézo" ?
               <><Table.HeaderCell align="center">Temps</Table.HeaderCell>
                 <Table.HeaderCell align="center">
                   Pause/Resume time

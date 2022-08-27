@@ -70,31 +70,31 @@ sequelize.sync()
             },
             {
                 name: "ViaRézo",
-                description: "Il faut aller en MF.OO1"
+                description: "Au milieu du labyrinthe de matière au rez-de-chaussée d'Eiffel... // Il faut aller en MF.OO1"
             },
             {
                 name: "AlgorithmiCS",
-                description: "Il faut aller en EC.OO1"
+                description: "Dans un endroit égal à la masse fois la vitesse de la lumière au carré, au rez-de-chaussée du bloc C"
             },
             {
                 name: "LinkCS",
-                description: "Il faut aller en amphi langue"
+                description: "L'amphi le plus haut d'Eiffel..."
             },
             {
                 name: "CS Design",
-                description: "Il faut aller en VI.132"
+                description: "Au premier étage de Vivant ..."
             },
             {
                 name: "Pics",
-                description: "Il faut aller en terrasse studio"
+                description: "Endroit où la meilleure asso du campus vous a fait cotiser // Il faut aller en terrasse studio"
             },
             {
                 name: "CStudio",
-                description: "Il faut aller en sd.102"
+                description: "Good job finding the sd.102... unless you know about maps.centralesupelec.fr !"
             },
             {
                 name: "Club Tech",
-                description: "Il faut aller devant la fabrique"
+                description: "J'ai le prochain lieu en Bouygues, c'est là où on confectionne, là où on fait... Ouvrez l'oeil pour les imprimantes 3D...  // Il faut aller devant la fabrique"
             },
             {
                 name: "Fin du jeu",
@@ -105,30 +105,36 @@ sequelize.sync()
         });
 
         await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
-            { id_vr: '2021brayto', asso_name: 'VR' },
-            { id_vr: '2021perede', asso_name: 'VR' },
-            { id_vr: '2021elyaagobi', asso_name: 'VR' },
-            { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: "VR" },
-            { id_vr: '2021labellefl', asso_name: 'VR' },
+            { id_vr: '2021berliouxqu', asso_name: "ViaRézo" },   // Ces admins pourront mettre fin au chrono
+            { id_vr: '2021brayto', asso_name: 'ViaRézo' },
+            { id_vr: '2021perede', asso_name: 'ViaRézo' },
+            { id_vr: '2021elyaagobi', asso_name: 'ViaRézo' },
+            { id_vr: '2021augierme', asso_name: 'ViaRézo' },
+            { id_vr: '2021gaudronan', asso_name: "ViaRézo" },
+            { id_vr: '2021labellefl', asso_name: 'ViaRézo' },
             { id_vr: '2021kalflechju', asso_name: 'LinkCS' },
-            { id_vr: "2021cheneauan", asso_name: "VR" },
-            { id_vr: "2021zahreddija", asso_name: "VR" },
-            { id_vr: "2021goddema", asso_name: "VR" },
+            { id_vr: "2021cheneauan", asso_name: "ViaRézo" },
+            { id_vr: "2021zahreddija", asso_name: "ViaRézo" },
+            { id_vr: "2021goddema", asso_name: "ViaRézo" },
+            { id_vr: '2020touizrath', asso_name: "ViaRézo" },
+            { id_vr: '2021antieres', asso_name: 'LinkCS' },
+            { id_vr: '2021dewildelo', asso_name: 'ViaRézo' },
             { id_vr: '2021bireem', asso_name: 'CS Design' },
-            { id_vr: '2021meignanco', asso_name: 'Pics' },
             { id_vr: '2021rosenberju', asso_name: 'CStudio' },
+            { id_vr: '2021chouraqube', asso_name: 'CStudio' },
             { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
+            { id_vr: '2021anseaumelo', asso_name: 'Club Tech' },
             { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
-            { id_vr: '2020touizrath', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
+            { id_vr: '2021davidcl2', asso_name: "Pics" },
+            { id_vr: '2021rozeca', asso_name: "Pics" },
+            { id_vr: '2021lupili', asso_name: "Pics" }
 
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Admins have been saved")
         });
 
         await Teams.bulkCreate([
-            { team_name: 'exemple1', ongoing_activity: 'VR' },
+            { team_name: 'exemple1', ongoing_activity: 'ViaRézo' },
             { team_name: 'exemple2', ongoing_activity: 'LinkCS' },
             { team_name: 'exemple3', ongoing_activity: 'CS Design' },
             { team_name: 'exemple4', ongoing_activity: 'Pics' },
