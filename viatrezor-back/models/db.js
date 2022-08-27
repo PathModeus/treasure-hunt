@@ -60,7 +60,7 @@ sequelize.sync()
             Cela pourrait également permettre à un 2A de venir aider une équipe qui serait en manque de joueurs ou de prêter son compte si un GPA ne l'a pas initialisé
 
             Le tri des admins se fera via leur Asso.
-            Etre à ViaRézo donne tous les droits.
+            Etre à ViaRezo donne tous les droits.
             Etre ailleurs donne uniquement accès à l'épreuve de son club.
         */
         await Activities.bulkCreate([
@@ -69,67 +69,79 @@ sequelize.sync()
                 description: "Attendez un instant, je me connecte à la base de données pour récupérer votre première épreuve..."
             },
             {
-                name: "Arcade",
-                description: "Où suis-je ? Je suis perdu ! Venez m'aider ! Attendez je vois quelque chose... peut être un indice ? EE ? 004 ? Derrière le refectoire ?"
+                name: "ViaRezo",
+                description: "Au milieu du labyrinthe de matière au rez-de-chaussée d'Eiffel... // Il faut aller en MF.OO1"
             },
             {
-                name: "Corde",
-                description: "Ahhhh toutes ces émotions m'ont donné envie d'un peu d'air frais ! Et si on allait passer un peu de bon temps proches de la nature, près des bois, un espace vert et dégagé pas trop loin des bâtiments non plus mais un peu caché derriere l'un d'entre eux..."
+                name: "AlgorithmiCS",
+                description: "Dans un endroit égal à la masse fois la vitesse de la lumière au carré, au rez-de-chaussée du bloc C"
             },
             {
-                name: "Kahoot",
-                description: "Dans un grand carré, au bout d'une diagonale, se logent quelques gradins devant des projections... Idéal pour une présentation ou un jeu télévisé !"
+                name: "LinkCS",
+                description: "L'amphi le plus haut d'Eiffel..."
             },
             {
-                name: "Molkky",
-                description: "Dans la vie il ne suffit pas d'avoir un esprit sain, il faut aussi un corps sain ! Nous vous attendons au dessus du Musée..."
+                name: "CS Design",
+                description: "Au premier étage de Vivant ..."
             },
             {
-                name: "Blindtest",
-                description: "Un grand auteur, de beaux textes, de jolis fauteuils et une sacré scène... Tout cela réuni en un seul lieu ? On me dit que c'est pas trop loin d'un gymnase..."
+                name: "Pics",
+                description: "Endroit où la meilleure asso du campus vous a fait cotiser // Il faut aller en terrasse studio"
+            },
+            {
+                name: "CStudio",
+                description: "Good job finding the sd.102... unless you know about maps.centralesupelec.fr !"
+            },
+            {
+                name: "Club Tech",
+                description: "J'ai le prochain lieu en Bouygues, c'est là où on confectionne, là où on fait... Ouvrez l'oeil pour les imprimantes 3D...  // Il faut aller devant la fabrique"
             },
             {
                 name: "Fin du jeu",
                 description: "Félicitations, vous avez réussi toutes les épreuves ! Rendez-vous le plus vite possible au stand départ pour arrêter le chrono !"
-            },
-            {
-                name: "VR",
-                description: "Super admins"
             }
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Activities created");
         });
 
         await Admins.bulkCreate([
-            { id_vr: '2021berliouxqu', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
-            // { id_vr: '2021brayto', asso_name: 'VR' },
-            // { id_vr: '2021perede', asso_name: 'VR' },
-            { id_vr: '2021elyaagobi', asso_name: 'Corde' },
-            // { id_vr: '2021augierme', asso_name: 'VR' },
-            { id_vr: '2021gaudronan', asso_name: "Kahoot" },
-            { id_vr: '2021labellefl', asso_name: 'Molkky' },
-            { id_vr: '2021kalflechju', asso_name: 'Blindtest' },
-            { id_vr: "2021cheneauan", asso_name: "Arcade" },
-            { id_vr: "2021zahreddija", asso_name: "Kahoot" },
-            { id_vr: "2021goddema", asso_name: "Molkky" }
-            // { id_vr: '2021bireem', asso_name: 'CS Design' },
-            // { id_vr: '2021meignanco', asso_name: 'Pics' },
-            // { id_vr: '2021rosenberju', asso_name: 'CStudio' },
-            // { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
-            // { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
-            { id_vr: '2020touizrath', asso_name: "VR" },   // Ces admins pourront mettre fin au chrono
+            { id_vr: '2021berliouxqu', asso_name: "ViaRezo" },   // Ces admins pourront mettre fin au chrono
+            { id_vr: '2021brayto', asso_name: 'ViaRezo' },
+            { id_vr: '2021perede', asso_name: 'ViaRezo' },
+            { id_vr: '2021elyaagobi', asso_name: 'ViaRezo' },
+            { id_vr: '2021augierme', asso_name: 'ViaRezo' },
+            { id_vr: '2021gaudronan', asso_name: "ViaRezo" },
+            { id_vr: '2021labellefl', asso_name: 'ViaRezo' },
+            { id_vr: '2021kalflechju', asso_name: 'LinkCS' },
+            { id_vr: "2021cheneauan", asso_name: "ViaRezo" },
+            { id_vr: "2021zahreddija", asso_name: "ViaRezo" },
+            { id_vr: "2021goddema", asso_name: "ViaRezo" },
+            { id_vr: '2020touizrath', asso_name: "ViaRezo" },
+            { id_vr: '2021antieres', asso_name: 'LinkCS' },
+            { id_vr: '2021dewildelo', asso_name: 'ViaRezo' },
+            { id_vr: '2021migliassth', asso_name: 'ViaRezo' },
+            { id_vr: '2021bireem', asso_name: 'CS Design' },
+            { id_vr: '2021rosenberju', asso_name: 'CStudio' },
+            { id_vr: '2021chouraqube', asso_name: 'CStudio' },
+            { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
+            { id_vr: '2021anseaumelo', asso_name: 'Club Tech' },
+            { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
+            { id_vr: '2021davidcl2', asso_name: "Pics" },
+            { id_vr: '2021rozeca', asso_name: "Pics" },
+            { id_vr: '2021lupili', asso_name: "Pics" }
 
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Admins have been saved")
         });
 
         await Teams.bulkCreate([
-            { team_name: 'team1', ongoing_activity: 'VR' },
-            { team_name: 'team2', ongoing_activity: 'VR' },
-            { team_name: 'team3', ongoing_activity: 'VR' },
-            { team_name: 'team5', ongoing_activity: 'Blindtest' },
-            { team_name: 'team6', ongoing_activity: 'Blindtest' },
-            { team_name: 'team7', ongoing_activity: 'Corde' }
+            { team_name: 'exemple1', ongoing_activity: 'ViaRezo' },
+            { team_name: 'exemple2', ongoing_activity: 'LinkCS' },
+            { team_name: 'exemple3', ongoing_activity: 'CS Design' },
+            { team_name: 'exemple4', ongoing_activity: 'Pics' },
+            { team_name: 'exemple5', ongoing_activity: 'AlgorithmiCS' },
+            { team_name: 'exemple6', ongoing_activity: 'Club Tech' },
+            { team_name: 'exemple7', ongoing_activity: 'CStudio' }
 
         ], { ignoreDuplicates: true }).then(() => {
             console.log("Default team has been created");

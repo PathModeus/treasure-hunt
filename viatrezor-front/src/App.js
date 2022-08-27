@@ -69,7 +69,7 @@ function App() {
                   <Route path='contact' element={<Contact listeAsso={listeAsso} />} />
                   <Route path='create-team' element={<CreateTeam setLoad={setLoad} />} />
                   <Route path='test' element={<Test />} />
-                  <Route element={<NotFound />} />
+                  <Route path="*" element={<NotFound />} />
                   <Route path='admin' element={< AdminPage />} />
                   <Route path='allTeams' element={<AllTeamPage />} />
 
