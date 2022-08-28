@@ -137,7 +137,7 @@ function Team_composent(props) {
           Rejoindre
         </button>
       </Table.Cell>
-      {props.session?.role?.admin && props.session.role.admin == "VR" ?
+      {props.session?.role?.admin && props.session.role.admin == "ViaRezo" ?
         <><Table.Cell align="left">{timer}</Table.Cell><Table.Cell align="left">
           <div className="Pause">
             <button
