@@ -56,7 +56,7 @@ function AllTeamPage() {
       setTeams(teams_update);
     }
   }, [lastMessage, activity])
-
+  console.log(session.role.admin)
   return (
     <div className="Table">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
