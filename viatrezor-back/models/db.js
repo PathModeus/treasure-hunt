@@ -70,7 +70,7 @@ sequelize.sync()
             },
             {
                 name: "ViaRezo",
-                description: "Au milieu du labyrinthe de matière au rez-de-chaussée d'Eiffel... // Il faut aller en MF.OO1"
+                description: "Au milieu du labyrinthe de matière au rez-de-chaussée d'Eiffel..."
             },
             {
                 name: "AlgorithmiCS",
@@ -78,7 +78,7 @@ sequelize.sync()
             },
             {
                 name: "LinkCS",
-                description: "L'amphi le plus haut d'Eiffel..."
+                description: "Le centre de langues est là où se situe l'amphi le plus haut d'Eiffel"
             },
             {
                 name: "CS Design",
@@ -86,15 +86,15 @@ sequelize.sync()
             },
             {
                 name: "Pics",
-                description: "Endroit où la meilleure asso du campus vous a fait cotiser // Il faut aller en terrasse studio"
+                description: "Endroit où la meilleure asso du campus vous a fait cotiser :)"
             },
             {
                 name: "CStudio",
-                description: "Good job finding the sd.102... unless you know about maps.centralesupelec.fr !"
+                description: "Good luck finding the sd.102... unless you know about maps.centralesupelec.fr !"
             },
             {
                 name: "Club Tech",
-                description: "J'ai le prochain lieu en Bouygues, c'est là où on confectionne, là où on fait... Ouvrez l'oeil pour les imprimantes 3D...  // Il faut aller devant la fabrique"
+                description: "J'ai le prochain lieu au rez-de-chaussée de Bouygues, c'est là où on confectionne, là où on fait... Ouvrez l'oeil pour les imprimantes 3D..."
             },
             {
                 name: "Fin du jeu",
@@ -118,13 +118,17 @@ sequelize.sync()
             { id_vr: "2021goddema", asso_name: "ViaRezo" },
             { id_vr: '2020touizrath', asso_name: "ViaRezo" },
             { id_vr: '2021antieres', asso_name: 'LinkCS' },
+            { id_vr: '2021lecaillke', asso_name: 'LinkCS' },
             { id_vr: '2021dewildelo', asso_name: 'ViaRezo' },
             { id_vr: '2021migliassth', asso_name: 'ViaRezo' },
+            { id_vr: '2021ducrestco', asso_name: 'ViaRezo' },
             { id_vr: '2021bireem', asso_name: 'CS Design' },
+            { id_vr: '2021soupizetth', asso_name: 'CS Design' },
             { id_vr: '2021rosenberju', asso_name: 'CStudio' },
             { id_vr: '2021chouraqube', asso_name: 'CStudio' },
             { id_vr: '2021adjivonce', asso_name: 'Club Tech' },
             { id_vr: '2021anseaumelo', asso_name: 'Club Tech' },
+            { id_vr: '2021hazebroufe', asso_name: 'Club Tech' },
             { id_vr: '2021achghafan', asso_name: 'AlgorithmiCS' },
             { id_vr: '2021lotfiay', asso_name: 'AlgorithmiCS' },
             { id_vr: '2021davidcl2', asso_name: "Pics" },
