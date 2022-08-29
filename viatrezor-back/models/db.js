@@ -78,7 +78,7 @@ sequelize.sync()
             },
             {
                 name: "LinkCS",
-                description: "Le centre de langues est là où se situe l'amphi le plus haut d'Eiffel"
+                description: "Dans les salles commençant par LC, rendez-vous dans l'amphi le plus haut d'Eiffel"
             },
             {
                 name: "CS Design",
@@ -94,7 +94,7 @@ sequelize.sync()
             },
             {
                 name: "Club Tech",
-                description: "J'ai le prochain lieu au rez-de-chaussée de Bouygues, c'est là où on confectionne, là où on fait... Ouvrez l'oeil pour les imprimantes 3D..."
+                description: "J'ai le prochain lieu. C'est au rez-de-chaussée de Bouygues, c'est là où on confectionne, là où on fait... Ouvrez l'oeil pour les imprimantes 3D..."
             },
             {
                 name: "Fin du jeu",
